@@ -103,7 +103,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className={styles.nav}>
         <div className={styles.logo}>
-          A<span>$</span> Async Returns
+          <span>$</span> Async Returns
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <button className={styles.loginBtn}>Login</button>
