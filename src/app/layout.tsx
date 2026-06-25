@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CodeKick - Get paid for waiting",
+  title: "Async Returns - Get paid for waiting",
   description: "India's first developer monetization platform for AI coding wait states.",
 };
 

@@ -48,7 +48,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   
   const monthlyEarnings = Math.round((waitStates * 30 * 249) / 1000);
-  const referralLink = "codekick.in/r/dev1337";
+  const referralLink = "asyncreturns.com/r/dev1337";
 
   // Easing function for cinematic number counter
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className={styles.nav}>
         <div className={styles.logo}>
-          K<span>₹</span> CodeKick
+          A<span>$</span> Async Returns
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <button className={styles.loginBtn}>Login</button>
@@ -118,8 +118,8 @@ export default function Home() {
         {/* Wallet Hero */}
         <section className={styles.walletHero}>
           <div className={styles.balanceLabel}>Total Value Earned</div>
-          <div className={styles.balance} data-text={`₹${balance.toFixed(2)}`}>
-            ₹{balance.toFixed(2)}
+          <div className={styles.balance} data-text={`$${balance.toFixed(2)}`}>
+            ${balance.toFixed(2)}
           </div>
           <p className={styles.subtitle}>
             Monetize your wait state. The attention marketplace for Indian devs.
@@ -143,17 +143,17 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ₹1000 Milestone Tracker */}
+        {/* $1000 Milestone Tracker */}
         <TiltCard className={`${styles.trackerSection} ${styles.glassCard}`}>
           <div className={styles.trackerHeader}>
-            <span style={{ color: 'var(--text-secondary)' }}>Next UPI Cash Out</span>
-            <span style={{ color: 'var(--neon-green)' }}>₹1000.00</span>
+            <span style={{ color: 'var(--text-secondary)' }}>Next Cash Out</span>
+            <span style={{ color: 'var(--neon-green)' }}>$1000.00</span>
           </div>
           <div className={styles.progressContainer}>
             <div className={styles.progressBar} style={{ width: `${progressPercentage}%` }}></div>
           </div>
           <div className={styles.trackerFooter}>
-            You are <span>₹{(1000 - balance).toFixed(2)}</span> away from unlocking instant transfer.
+            You are <span>${(1000 - balance).toFixed(2)}</span> away from unlocking instant transfer.
           </div>
         </TiltCard>
 
@@ -164,7 +164,7 @@ export default function Home() {
             <TiltCard className={`${styles.flowStep} ${styles.glassCard}`}>
               <div className={styles.stepNumber}>1</div>
               <h3>Authenticate</h3>
-              <p>Run <code style={{ color: 'var(--text-primary)' }}>npx codekick login</code>. We securely link your CLI and IDEs to your wallet.</p>
+              <p>Run <code style={{ color: 'var(--text-primary)' }}>npx asyncreturns login</code>. We securely link your CLI and IDEs to your wallet.</p>
             </TiltCard>
             <TiltCard className={`${styles.flowStep} ${styles.glassCard}`}>
               <div className={styles.stepNumber}>2</div>
@@ -174,7 +174,7 @@ export default function Home() {
             <TiltCard className={`${styles.flowStep} ${styles.glassCard}`}>
               <div className={styles.stepNumber}>3</div>
               <h3>Withdraw</h3>
-              <p>Hit ₹1,000 and instantly route the cash to your bank account via Razorpay UPI.</p>
+              <p>Hit $1,000 and instantly route the cash to your bank account via Stripe/PayPal.</p>
             </TiltCard>
           </div>
         </section>
@@ -198,7 +198,7 @@ export default function Home() {
           </div>
 
           <div className={styles.calcResult}>
-            ₹{monthlyEarnings.toLocaleString('en-IN')}
+            ${monthlyEarnings.toLocaleString('en-US')}
           </div>
           <p className={styles.calcDesc}>Estimated passive income per month.</p>
         </TiltCard>
@@ -219,7 +219,7 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        © 2026 CodeKick. Monetize the wait state. <br />
+        © 2026 Async Returns. Monetize the wait state. <br />
         <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
           <a href="#">Terms</a>
           <a href="#">Privacy</a>
