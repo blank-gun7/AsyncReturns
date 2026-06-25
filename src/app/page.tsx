@@ -52,6 +52,9 @@ export default function Home() {
   const [activeIde, setActiveIde] = useState('vscode');
   const [adVisible, setAdVisible] = useState(false);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
+  const [spinnerFrame, setSpinnerFrame] = useState(0);
+
+  const SPINNER_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
   const B2B_ADS = [
     { text: "Vercel — Ship. Optimize. Scale.", icon: "▲", color: "#fff" },
@@ -70,7 +73,15 @@ export default function Home() {
         return true;
       });
     }, 3500);
-    return () => clearInterval(adInterval);
+
+    const spinnerInterval = setInterval(() => {
+      setSpinnerFrame((prev) => (prev + 1) % SPINNER_FRAMES.length);
+    }, 80);
+
+    return () => {
+      clearInterval(adInterval);
+      clearInterval(spinnerInterval);
+    };
   }, []);
   
   const monthlyEarnings = Math.round((waitStates * 30 * 249) / 1000);
@@ -238,7 +249,7 @@ export default function Home() {
                             <div style={{ color: '#61AFEF', marginTop: '4px' }}>The model.py file defines a random forest classifier...</div>
                           </>
                         ) : (
-                          <div style={{ color: '#E5C07B' }}><span className={styles.spinner}>⠋</span> Reading repository context...</div>
+                          <div style={{ color: '#E5C07B' }}><span>{SPINNER_FRAMES[spinnerFrame]}</span> Reading repository context...</div>
                         )}
                       </div>
                     </div>
@@ -264,7 +275,7 @@ export default function Home() {
                     <div style={{ color: '#98C379', marginTop: '0.5rem' }}>dev@acme ~ % <span className={styles.blinkingCursor}></span></div>
                   </>
                 ) : (
-                  <div style={{ color: '#E5C07B' }}><span className={styles.spinner}>⠋</span> Creating an optimized production build...</div>
+                  <div style={{ color: '#E5C07B' }}><span>{SPINNER_FRAMES[spinnerFrame]}</span> Creating an optimized production build...</div>
                 )}
               </div>
             )}
