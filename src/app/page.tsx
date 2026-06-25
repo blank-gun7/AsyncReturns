@@ -46,6 +46,7 @@ export default function Home() {
   const [waitStates, setWaitStates] = useState(200);
   const [mousePos, setMousePos] = useState({ x: '50vw', y: '50vh' });
   const [copied, setCopied] = useState(false);
+  const [copiedCommand, setCopiedCommand] = useState(false);
   
   const monthlyEarnings = Math.round((waitStates * 30 * 249) / 1000);
   const referralLink = "asyncreturns.com/r/dev1337";
@@ -90,6 +91,12 @@ export default function Home() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleCopyCommand = () => {
+    navigator.clipboard.writeText('npx asyncreturns login');
+    setCopiedCommand(true);
+    setTimeout(() => setCopiedCommand(false), 2000);
+  };
+
   const progressPercentage = Math.min((balance / 1000) * 100, 100);
 
   return (
@@ -124,9 +131,22 @@ export default function Home() {
           <p className={styles.subtitle}>
             Monetize your wait state. The attention marketplace for Indian devs.
           </p>
-          <button className={styles.primaryBtn}>
-            Connect Your Terminal
-          </button>
+          <div className={styles.heroCodeBlock}>
+            <div className={styles.heroCodeHeader}>
+              <span>Terminal</span>
+            </div>
+            <div className={styles.heroCodeBody}>
+              <span className={styles.heroCodePrompt}>$</span>
+              <span className={styles.heroCodeCommand}>npx asyncreturns login</span>
+              <button className={styles.heroCodeCopy} onClick={handleCopyCommand} aria-label="Copy code">
+                {copiedCommand ? (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                )}
+              </button>
+            </div>
+          </div>
 
           {/* Live Clients Hook */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
