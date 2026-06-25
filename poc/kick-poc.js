@@ -5,7 +5,7 @@ const AD_TEXT = "🔷 [Ad] Postman — Test APIs faster with AI ▸ https://post
 
 // 2. The Solution to the "Blink" Problem
 // This footer persists after the AI finishes generating, so the advertiser ALWAYS gets view time
-const FOOTER_TEXT = "\x1b[90m⚡ Powered by Async Returns | Earn $ while you code: https://asyncreturns.com\x1b[0m";
+const FOOTER_TEXT = "\x1b[90m⚡ Powered by Async Returns | Earn ₹ while you code: https://asyncreturns.com\x1b[0m";
 
 console.log("\x1b[32m[Async Returns Wrapper Active]\x1b[0m Injecting ads into standard output...");
 console.log("--------------------------------------------------");

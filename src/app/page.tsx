@@ -103,7 +103,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className={styles.nav}>
         <div className={styles.logo}>
-          <span>$</span> Async Returns
+          <span>₹</span> Async Returns
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <button className={styles.loginBtn}>Login</button>
@@ -118,8 +118,8 @@ export default function Home() {
         {/* Wallet Hero */}
         <section className={styles.walletHero}>
           <div className={styles.balanceLabel}>Total Value Earned</div>
-          <div className={styles.balance} data-text={`$${balance.toFixed(2)}`}>
-            ${balance.toFixed(2)}
+          <div className={styles.balance} data-text={`₹${balance.toFixed(2)}`}>
+            ₹{balance.toFixed(2)}
           </div>
           <p className={styles.subtitle}>
             Monetize your wait state. The attention marketplace for Indian devs.
@@ -143,17 +143,17 @@ export default function Home() {
           </div>
         </section>
 
-        {/* $1000 Milestone Tracker */}
+        {/* ₹1000 Milestone Tracker */}
         <TiltCard className={`${styles.trackerSection} ${styles.glassCard}`}>
           <div className={styles.trackerHeader}>
-            <span style={{ color: 'var(--text-secondary)' }}>Next Cash Out</span>
-            <span style={{ color: 'var(--neon-green)' }}>$1000.00</span>
+            <span style={{ color: 'var(--text-secondary)' }}>Next UPI Cash Out</span>
+            <span style={{ color: 'var(--neon-green)' }}>₹1000.00</span>
           </div>
           <div className={styles.progressContainer}>
             <div className={styles.progressBar} style={{ width: `${progressPercentage}%` }}></div>
           </div>
           <div className={styles.trackerFooter}>
-            You are <span>${(1000 - balance).toFixed(2)}</span> away from unlocking instant transfer.
+            You are <span>₹{(1000 - balance).toFixed(2)}</span> away from unlocking instant transfer.
           </div>
         </TiltCard>
 
@@ -174,7 +174,7 @@ export default function Home() {
             <TiltCard className={`${styles.flowStep} ${styles.glassCard}`}>
               <div className={styles.stepNumber}>3</div>
               <h3>Withdraw</h3>
-              <p>Hit $1,000 and instantly route the cash to your bank account via Stripe/PayPal.</p>
+              <p>Hit ₹1,000 and instantly route the cash to your bank account via Razorpay UPI.</p>
             </TiltCard>
           </div>
         </section>
@@ -198,7 +198,7 @@ export default function Home() {
           </div>
 
           <div className={styles.calcResult}>
-            ${monthlyEarnings.toLocaleString('en-US')}
+            ₹{monthlyEarnings.toLocaleString('en-IN')}
           </div>
           <p className={styles.calcDesc}>Estimated passive income per month.</p>
         </TiltCard>
