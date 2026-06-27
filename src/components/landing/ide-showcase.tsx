@@ -3,21 +3,14 @@
 import { useState } from "react";
 import styles from "@/app/(marketing)/page.module.css";
 
-const B2B_ADS = [
-  { text: "Vercel — Ship. Optimize. Scale.", icon: "▲", color: "#fff" },
-  { text: "Supabase — The open source Firebase alt", icon: "🟢", color: "#3ECF8E" },
-  { text: "Postman — Test APIs faster with AI", icon: "🔷", color: "#FF6C37" },
-  { text: "Stripe — Financial Infrastructure", icon: "🟣", color: "#635BFF" },
-];
 
 interface IdeShowcaseProps {
   adVisible: boolean;
   currentAd: { text: string; icon: string; color: string };
-  spinnerFrame: number;
-  spinnerFrames: string[];
+  spinnerFrame: string;
 }
 
-export function IdeShowcase({ adVisible, currentAd, spinnerFrame, spinnerFrames }: IdeShowcaseProps) {
+export function IdeShowcase({ adVisible, currentAd, spinnerFrame }: IdeShowcaseProps) {
   const [activeIde, setActiveIde] = useState<'vscode' | 'terminal' | 'cursor'>('vscode');
 
   return (
@@ -104,7 +97,7 @@ export function IdeShowcase({ adVisible, currentAd, spinnerFrame, spinnerFrames 
                         <div style={{ color: '#61AFEF', marginTop: '4px' }}>The model.py file defines a random forest classifier...</div>
                       </>
                     ) : (
-                      <div style={{ color: '#E5C07B' }}><span>{spinnerFrames[spinnerFrame]}</span> Reading repository context...</div>
+                      <div style={{ color: '#E5C07B' }}><span>{spinnerFrame}</span> Reading repository context...</div>
                     )}
                   </div>
                 </div>
@@ -129,7 +122,7 @@ export function IdeShowcase({ adVisible, currentAd, spinnerFrame, spinnerFrames 
                 <div style={{ color: '#98C379', marginTop: '0.5rem' }}>dev@acme ~ % <span className={styles.blinkingCursor}></span></div>
               </>
             ) : (
-              <div style={{ color: '#E5C07B' }}><span>{spinnerFrames[spinnerFrame]}</span> Creating an optimized production build...</div>
+              <div style={{ color: '#E5C07B' }}><span>{spinnerFrame}</span> Creating an optimized production build...</div>
             )}
           </div>
         )}
