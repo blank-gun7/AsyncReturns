@@ -8,8 +8,9 @@ export function formatInr(amount: number): string {
   return `₹${amount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
-export function formatUsd(amount: number): string {
-  return `$${amount.toFixed(2)}`;
+export function formatUsd(amount: number | { toNumber(): number }): string {
+  const n = typeof amount === "number" ? amount : amount.toNumber();
+  return `$${n.toFixed(2)}`;
 }
 
 export function formatCurrency(amountUsd: number, region: string): string {

@@ -41,5 +41,5 @@ export const requestPayoutSchema = z.object({
 
 export const updatePaymentMethodSchema = z.object({
   payment_method: z.enum(["UPI", "PAYPAL", "WISE", "NONE"]),
-  payment_details: z.record(z.string()).optional(),
+  payment_details: z.record(z.string(), z.string()).optional(),
 });

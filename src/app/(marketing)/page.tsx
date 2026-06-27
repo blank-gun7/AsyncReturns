@@ -4,10 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import styles from "./page.module.css";
 
 // Reusable Tilt Card Component
-const TiltCard = ({ children, className = "" }) => {
-  const cardRef = useRef(null);
+const TiltCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left; 
@@ -93,9 +93,9 @@ export default function Home() {
     const duration = 2500; 
     const startTime = performance.now();
 
-    const easeOut = (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    const easeOut = (t: number) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 
-    const animate = (currentTime) => {
+    const animate = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       
@@ -114,7 +114,7 @@ export default function Home() {
 
   // Track global mouse position for spotlight
   useEffect(() => {
-    const handleGlobalMouseMove = (e) => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
       setMousePos({ x: `${e.clientX}px`, y: `${e.clientY}px` });
     };
     window.addEventListener('mousemove', handleGlobalMouseMove);
