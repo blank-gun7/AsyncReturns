@@ -1,0 +1,139 @@
+.dashboardContainer {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboardMain {
+  flex: 1;
+  padding: 2rem 3rem;
+  max-width: 1200px;
+}
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  letter-spacing: -1px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.statValue {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.statValueGreen {
+  composes: statValue;
+  color: var(--neon-green);
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.dataTable th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dataTable td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.dataTable tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badgeActive {
+  composes: badge;
+  background: rgba(57, 255, 20, 0.1);
+  color: var(--neon-green);
+}
+
+.badgePaused {
+  composes: badge;
+  background: rgba(255, 189, 46, 0.1);
+  color: #ffbd2e;
+}
+
+.badgeExhausted {
+  composes: badge;
+  background: rgba(255, 95, 86, 0.1);
+  color: #ff5f56;
+}
+
+.badgeDraft {
+  composes: badge;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+}
+
+.badgeCompleted {
+  composes: badge;
+  background: rgba(57, 255, 20, 0.1);
+  color: var(--neon-green);
+}
+
+.badgePending {
+  composes: badge;
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--electric-blue);
+}
+
+@media (max-width: 768px) {
+  .dashboardContainer {
+    flex-direction: column;
+  }
+
+  .dashboardMain {
+    padding: 1.5rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}
