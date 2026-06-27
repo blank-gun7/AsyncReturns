@@ -1,3 +1,4 @@
+import { createHash } from "crypto";
 import { IMPRESSION_MIN_DURATION_MS, IMPRESSION_RATE_LIMIT_MS } from "./constants";
 
 const recentImpressions = new Map<string, number>();
@@ -17,7 +18,7 @@ export interface FraudCheckResult {
 export function checkImpressionFraud(
   developerId: string,
   durationMs: number,
-  ipHash: string
+  _ipHash: string
 ): FraudCheckResult {
   if (durationMs < IMPRESSION_MIN_DURATION_MS) {
     return { valid: false, reason: "duration_too_short" };
@@ -33,6 +34,5 @@ export function checkImpressionFraud(
 }
 
 export function hashIp(ip: string): string {
-  const { createHash } = require("crypto");
   return createHash("sha256").update(ip).update(process.env.IP_HASH_SALT || "async-returns").digest("hex").slice(0, 16);
 }

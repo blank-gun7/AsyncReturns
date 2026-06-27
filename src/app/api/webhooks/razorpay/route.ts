@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const body = await request.text();
+  await request.text();
   const signature = request.headers.get("x-razorpay-signature");
 
   if (!signature) {

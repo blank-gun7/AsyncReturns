@@ -237,7 +237,7 @@ export default function Home() {
                       <span>PROBLEMS</span><span>OUTPUT</span><span>DEBUG CONSOLE</span><span className={styles.activeTab}>TERMINAL</span><span>PORTS</span>
                     </div>
                     <div className={styles.vscodeTerminalContent}>
-                      <div style={{ color: '#98C379', marginBottom: '8px' }}>➜ claude "how does model.py work?"</div>
+                      <div style={{ color: '#98C379', marginBottom: '8px' }}>➜ claude &quot;how does model.py work?&quot;</div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                         {adVisible ? (
                           <>
@@ -407,7 +407,7 @@ export default function Home() {
             
             <h2 className={styles.modalTitle}>Connect to Async Returns</h2>
             <p className={styles.modalSubtitle}>
-              Run this single command in your terminal. We'll authenticate your CLI and instantly link it to your wallet. No complex setup required.
+              Run this single command in your terminal. We&apos;ll authenticate your CLI and instantly link it to your wallet. No complex setup required.
             </p>
             
             <div className={styles.heroCodeBlock} style={{ margin: '0', maxWidth: '100%' }}>
