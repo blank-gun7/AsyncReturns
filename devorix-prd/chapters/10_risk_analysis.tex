@@ -1,0 +1,58 @@
+\chapter{Risk Analysis}
+\label{chap:risk-analysis}
+
+\section{Consolidated Risk Register}
+\label{sec:risk-register}
+
+The register below consolidates risks surfaced across the original MASTER-PLAN risk discussion (\S10/\S11), the GTM research cluster, and the user-research cluster. Severity is rated on a four-point scale -- \textbf{Critical / High / Medium / Low} -- and status is rated as \textbf{Monitored} (watched at a defined trigger, no action required now) or \textbf{Needs-action} (a concrete near-term to-do exists).
+
+\begin{longtable}{@{}p{0.6cm}p{3.6cm}p{4.6cm}p{1.5cm}p{1.7cm}p{3.6cm}@{}}
+\caption{Consolidated risk register (R1--R12)}
+\label{tab:risk-register} \\
+\toprule
+\textbf{\#} & \textbf{Risk} & \textbf{Detail \& source} & \textbf{Severity} & \textbf{Status} & \textbf{Trigger / action} \\
+\midrule
+\endfirsthead
+\multicolumn{6}{c}{\tablename\ \thetable{} -- continued from previous page} \\
+\toprule
+\textbf{\#} & \textbf{Risk} & \textbf{Detail \& source} & \textbf{Severity} & \textbf{Status} & \textbf{Trigger / action} \\
+\midrule
+\endhead
+R1 & Demand-side: zero verified paying advertisers exist anywhere in the category & Single biggest risk to the whole thesis; nobody has proven a brand will pay for a wait-state placement (MASTER-PLAN \S3, \S11). & Critical & Needs-action & The 14-day sprint exists to test this. Action: 1 verbal yes = go; 0 = stop. \\
+R2 & IdleAds rev-share undercut (70\%, 90\% stated goal vs.\ Devorix's locked 50/50) & Direct competitor offers materially better dev economics; threatens Tier-1 dev-supply quality (MASTER-PLAN \S10/\S11). \textbf{The locked 50/50 split is final -- this is a risk to monitor, not a reason to revisit it.} & High & Monitored & Trigger: if Month 9--12 dev signups stall specifically on rev-share comparison (not novelty fatigue), revisit pricing levers other than the split itself (trust, UPI reliability, UX). \\
+R3 & Anthropic anti-ads brand campaign -- ``Ads are coming to AI. But not to Claude'' (Super Bowl, Feb 2026) & Anthropic has publicly and prominently positioned Claude as the explicitly ad-free AI. Devorix puts a sponsor line on Claude Code's surface -- a direct narrative collision with the platform owner's public brand stance, sharpening the platform-sentiment/ToS-perception risk beyond the purely technical ToS line. & High & Needs-action & Action: tighten the ``we are a non-patching, opt-in developer revenue-share tool, not an ad injected into Claude's product'' framing; keep the compliance appendix (Section~\ref{sec:risk-compliance}) explicit; monitor Anthropic policy statements. Engineering discipline alone does not cover the brand-perception dimension. \\
+R4 & IdleAds positioning collision -- already claims the same trust positioning Devorix plans to use & The trust/``clean, honest'' angle Devorix intended as a differentiator is already asserted by a competitor, weakening the best near-term moat candidate (Chapter~\ref{chap:business-strategy}, Section~\ref{sec:moats}). & Medium-High & Needs-action & Action: make trust verifiable, not asserted -- open-source the client or publish a data-flow doc (Chapter~\ref{chap:business-strategy}, Section~\ref{sec:self-critique}). Verifiability is the part IdleAds has not done, and is harder to copy than a claim. \\
+R5 & Platform-policy / ToS (technical) & Anthropic's January 2026 enforcement blocked OAuth-token-reusing third-party clients; the CLI binary plus official API keys remain explicitly allowed. Devorix's non-patching, token-untouching client sits on the safe side of this line -- conditional on engineering discipline being maintained (MASTER-PLAN \S10/\S11). & Medium & Monitored & Trigger: any change in Anthropic's Consumer Terms; any drift toward patching. Maintain the ``we are not Kickbacks'' compliance appendix. \\
+R6 & Regulatory -- RBI PPI rules actively in flux & RBI issued draft Master Directions revisiting PPI rules in April 2026. The accrue-then-payout ledger likely sits outside PPI scope, but the area is actively moving (MASTER-PLAN \S7.1/\S11). & Medium & Needs-action & Action: obtain CA/fintech-lawyer sign-off on ledger design before scaling past MVP, not after. \\
+R7 & Trust environment -- category guilt-by-association & ``IDEsaster'' (30+ disclosed vulnerabilities across AI coding tools), plus a June 2026 Microsoft open-source supply-chain attack; developers are primed to distrust anything touching their dev environment. A scandal at Kickbacks or IdleAds could splash onto Devorix (MASTER-PLAN \S10/\S11). & Medium & Monitored & Trigger: any category-wide trust incident. Mitigation overlaps R4 (verifiable non-patching claim). \\
+R8 & Solo-founder bandwidth & Plan assumes the founder runs sales, support, and product simultaneously through Month 4+; advertiser-relationship quality (the real differentiator) degrades if support load dominates (Chapter~\ref{chap:business-strategy}, Section~\ref{sec:self-critique}). & Medium & Needs-action & Action: add the Month-3 time-budget self-check gate described in Chapter~\ref{chap:business-strategy}. \\
+R9 & Pricing power / panic-discount anchoring & At 1--3 advertisers, every deal is negotiated from need; the first deal can anchor all future deals low (Chapter~\ref{chap:business-strategy}, Section~\ref{sec:self-critique}). & Medium & Needs-action & Action: institute the ₹8,000/mo price floor rule before the first negotiation. \\
+R10 & Compliance/tax timing (TDS/GST) & Section 194H TDS is effectively nil pre-₹1cr deductor turnover; GST is not required below ₹20L/yr; both re-verified (MASTER-PLAN \S7.1). Low risk now, attaches with scale. & Low & Monitored & Trigger: first deal requiring a GST invoice; turnover crossing the relevant thresholds. Collect PAN from advertisers regardless. \\
+R11 & Rebrand (Async Returns $\rightarrow$ Devorix, 2026-06-28) untested & The name changed the day before this PRD work began; there has been no time to test resonance with developers or advertisers (Chapter~\ref{chap:business-strategy}, Section~\ref{sec:self-critique}). & Low & Monitored & Trigger: launch-cohort feedback. \\
+R12 & Hackathon channel unproven as primary acquisition & No case study of hackathon-as-primary-channel was found (Chapter~\ref{chap:gtm}, Section~\ref{sec:gtm-comps}). & Low & Monitored & Action: budget as brand/awareness only; do not set a CAC target against it. \\
+\bottomrule
+\end{longtable}
+
+\section{Narrative: The Top Risks}
+\label{sec:risk-narrative}
+
+\subsection{R1 --- Zero verified paying advertisers exist anywhere in the category (Critical, Needs-action)}
+
+This is the single largest risk to the entire thesis, and it is a category-wide problem, not a Devorix-specific weakness. As of this writing, nobody -- not Devorix, not Kickbacks, not IdleAds -- has proven that a brand will pay for a wait-state placement at any price. Both Kickbacks and IdleAds independently used Firecrawl as a house placeholder advertiser, not a paying customer, which is itself the strongest signal in the space: AI-infra and dev-tool sellers are believed by everyone in this category to be the natural first buyer, yet nobody has closed one. The entire 14-day sprint (MASTER-PLAN \S8.2) exists specifically to test this risk directly, with a binary, pre-committed exit rule: one verbal yes from a real advertiser means continue; zero means stop and rethink before building anything further. No amount of product polish substitutes for this test.
+
+\subsection{R2 --- IdleAds rev-share undercut: 70\%, 90\% stated goal, vs.\ Devorix's locked 50/50 (High, Monitored)}
+
+IdleAds offers developers materially better headline economics than Devorix. This is a real, durable competitive gap, not a misunderstanding to be argued away. It is explicitly \emph{not} a reason to revisit the locked 50/50 split (MASTER-PLAN decision \#11, DECIDED FINAL) -- the split is final business-model architecture, and the right response is to compete on dimensions other than the split itself: India-native automated UPI payout reliability, verifiable non-patching trust, and advertiser placement quality. The monitoring trigger is specific and falsifiable: if developer signups stall in Month 9--12 \emph{specifically} because of rev-share comparison shopping -- not generic novelty fatigue -- that is the signal to revisit non-split pricing levers, not the percentage itself.
+
+\subsection{R3 --- Anthropic's anti-ads brand campaign creates a narrative collision (High, Needs-action)}
+
+Anthropic ran a prominent public campaign -- ``Ads are coming to AI. But not to Claude,'' timed to the Super Bowl in February 2026 -- explicitly positioning Claude as the ad-free AI assistant. Devorix's entire mechanic places a sponsor line on Claude Code's own surface. This is a genuine collision between Devorix's business model and the platform owner's public brand stance, and it is a sharper, more public-facing risk than the underlying technical ToS question (R5). Engineering discipline on the non-patching architecture does not, by itself, address this -- the risk lives at the level of brand perception and narrative framing, not code. The mitigating action is to consistently and explicitly frame Devorix as an opt-in developer revenue-share tool that the developer chooses to run, not an ad injected into Anthropic's product by Anthropic or without consent, and to keep monitoring Anthropic's public policy statements for further hardening of this stance.
+
+\subsection{R4 --- IdleAds has already claimed the same trust positioning Devorix planned to use (Medium-High, Needs-action)}
+
+Devorix's intended differentiator -- the ``clean, honest, non-patching'' trust angle -- turns out to already be asserted by IdleAds. This materially weakens what Chapter~\ref{chap:business-strategy} identifies as the best near-term moat candidate, because a claim that a competitor already makes is not a differentiator by itself. The only credible response is to convert the claim into something verifiable rather than merely asserted: open-sourcing the client (while keeping the backend ledger private) or publishing a one-page data-flow document. Verifiability is specifically the part of the claim that IdleAds has not done, and it is structurally harder for a competitor to copy quickly than a marketing claim is.
+
+\section{Compliance Appendix Cross-Reference}
+\label{sec:risk-compliance}
+
+R3 and R5 together warrant an explicit ``we are not Kickbacks'' compliance posture in the PRD, stating: (a) the client is non-patching and never touches OAuth tokens or the rendering layer; (b) the model is an opt-in developer revenue-share arrangement, not an ad injected into Anthropic's product; (c) the architecture is verifiable via an open-source client or a published data-flow document, not merely asserted. This single posture addresses both the narrow technical ToS line (R5) and the broader brand-collision dimension introduced by Anthropic's anti-ads campaign (R3), and reinforces the verifiability fix required for R4.

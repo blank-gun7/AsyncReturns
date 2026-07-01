@@ -1,0 +1,118 @@
+% ==========================================================================
+% Devorix --- Investor PRD
+% Modular report-class document. Compile with: xelatex, bibtex, xelatex, xelatex
+% ==========================================================================
+\documentclass[11pt,a4paper,oneside]{report}
+
+% ---- Fonts (xelatex / unicode, needed for the rupee sign U+20B9) ----------
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+% ---- Page geometry & headers ----------------------------------------------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\textit{Devorix --- Investor PRD}}
+\fancyhead[R]{\small\textit{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+% ---- Core packages ---------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  citecolor=green!40!black,
+  urlcolor=blue!60!black,
+  bookmarksopen=true,
+  pdftitle={Devorix --- Investor PRD},
+  pdfauthor={Devorix}
+}
+\usepackage[round]{natbib}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+% ---- TikZ / pgfplots --------------------------------------------------------
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,calc,shadows,decorations.pathreplacing}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ---- Misc convenience -------------------------------------------------------
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.15}
+
+% ---- Rupee symbol (some chapters use \textrupee instead of the literal ₹ glyph) ----
+\providecommand{\textrupee}{₹}
+
+% ---- Confidence-label macros (Verified fact / Industry estimate / Internal assumption) ----
+\newcommand{\verifiedfact}{\textcolor{green!35!black}{\textbf{[Verified fact]}}}
+\newcommand{\industryestimate}{\textcolor{orange!70!black}{\textbf{[Industry estimate]}}}
+\newcommand{\internalassumption}{\textcolor{red!50!black}{\textbf{[Internal assumption]}}}
+
+\title{\Huge\textbf{Devorix}\\[0.3em]\Large Investor-Grade Product \& Strategy PRD}
+\author{Devorix}
+\date{June 2026}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+\begin{titlepage}
+  \centering
+  \vspace*{2cm}
+  {\Huge\bfseries Devorix\par}
+  \vspace{0.5cm}
+  {\Large Investor-Grade Product, Market \& Strategy PRD\par}
+  \vspace{1.5cm}
+  {\large\itshape Wait-state advertising for AI coding agents --- an India-native, developer-revenue-shared alternative to Kickbacks.ai\par}
+  \vspace{2cm}
+  {\large June 2026\par}
+  \vspace{1cm}
+  {\normalsize\itshape Pre-seed stage. Honest seed-stage framing throughout: every claim is labeled\\
+  \verifiedfact\ \industryestimate\ or \internalassumption.\par}
+  \vfill
+  {\small Prepared as an internal strategy document. Not a solicitation of investment.\par}
+\end{titlepage}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+% ---------------------------------------------------------------------------
+% Chapters
+% ---------------------------------------------------------------------------
+\input{chapters/01_executive_summary.tex}
+\input{chapters/02_problem.tex}
+\input{chapters/03_market_research.tex}
+\input{chapters/04_customer_research.tex}
+\input{chapters/05_business_strategy.tex}
+\input{chapters/06_product_requirements.tex}
+\input{chapters/07_system_architecture.tex}
+\input{chapters/08_go_to_market.tex}
+\input{chapters/09_financial_model.tex}
+\input{chapters/10_risk_analysis.tex}
+\input{chapters/11_product_roadmap.tex}
+\input{chapters/12_appendices.tex}
+
+% ---------------------------------------------------------------------------
+\clearpage
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

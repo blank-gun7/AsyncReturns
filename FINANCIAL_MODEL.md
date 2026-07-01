@@ -1,4 +1,6 @@
-# Async Returns — Financial Model v2 + Client Acquisition Playbook
+# Devorix — Financial Model v2 + Client Acquisition Playbook
+
+> **⚠️ RETIRED 2026-06-28 — superseded by `MASTER-PLAN.md` §5 and §6.** The $5→$7→$10-12 CPM ladder, 40/60 split, 10-second impression, and ₹83/$ FX rate below are all superseded (rev share is locked at 50/50; CPM levels are reconciled down in `MASTER-PLAN.md` §5.4). **The Tier 1/Tier 2 client target list and outreach playbook in §4–5 are still useful** — reuse the tactics, but swap in the Tier-0 flat-deal pricing (₹10,000–15,000/mo) from `MASTER-PLAN.md` §6.2, not the $5-CPM-derived ₹41,500/mo figure quoted in the DM scripts below.
 
 ---
 
@@ -14,7 +16,7 @@ So the market isn't saying your inventory is worth $2.1. It's saying Kickback's 
 
 ### Your Positioning vs Kickback
 
-| Factor | Kickback (Bidding) | Async Returns (Fixed CPM) |
+| Factor | Kickback (Bidding) | Devorix (Fixed CPM) |
 |---|---|---|
 | Price | $2.1 avg (variable) | $5 fixed (predictable) |
 | Inventory quality | Mixed — any dev | Curated — AI-native Indian devs |
@@ -170,7 +172,7 @@ Frame $5 as a **"Founding Partner Rate"** — limited to first 5 clients only, n
 
 **LinkedIn DM (under 5 lines — this is key):**
 ```
-Hey [Name] — I built Async Returns.
+Hey [Name] — I built Devorix.
 
 We put your brand in front of Indian developers inside
 their terminal while they wait for AI to respond. 200 active
@@ -178,7 +180,7 @@ devs, ~50 impressions each per day. ₹41,500 flat/month.
 
 Founding client rate — only 5 spots open.
 
-asyncreturns.com — worth 5 minutes?
+devorix.ai — worth 5 minutes?
 ```
 
 **Twitter DM (even shorter):**
@@ -186,7 +188,7 @@ asyncreturns.com — worth 5 minutes?
 Built something for you — ads inside AI loading states
 for Indian devs. Cheaper than a LinkedIn ad, higher intent.
 
-asyncreturns.com
+devorix.ai
 5 min call?
 ```
 

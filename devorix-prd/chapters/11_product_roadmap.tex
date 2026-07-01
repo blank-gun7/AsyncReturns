@@ -1,0 +1,155 @@
+\chapter{Product Roadmap}
+\label{chap:roadmap}
+
+\section{Framing: A Conditional Contingency Tree, Not a Forecast}
+\label{sec:roadmap-framing}
+
+Everything past Month 4 in this roadmap is gated on the go/no-go criteria in MASTER-PLAN \S8.3: at least two advertisers paid \emph{and} renewed, week-4 developer retention holds, and the founder still wants to run the business. Months 13--24 are speculative scaffolding shown to demonstrate that the team has thought through what ``working'' looks like -- they are not a budget. \textbf{The go/no-go gates between phases are the actual content of this roadmap; the tactics inside each phase are illustrative and replaceable.}
+
+Comparable-launch evidence (Chapter~\ref{chap:gtm}, Section~\ref{sec:gtm-comps}) supports that the early phases are at least executable: PostHog reached 1,000 users and \$1M ARR inbound-only on a near-zero budget, so Phase 0--1 below are \emph{possible}, not guaranteed.
+
+\section{Roadmap Table}
+\label{sec:roadmap-table}
+
+\begin{table}[htbp]
+\centering
+\caption{24-month roadmap: phases, milestones, and go/no-go gates}
+\label{tab:roadmap}
+\begin{tabular}{@{}p{1.8cm}p{1.6cm}p{2.0cm}p{2.0cm}p{3.6cm}@{}}
+\toprule
+\textbf{Phase} & \textbf{Timeframe} & \textbf{User milestone} & \textbf{Advertiser milestone} & \textbf{Go/no-go to proceed} \\
+\midrule
+0 -- Sprint & Days 1--14 & 50--100 installs & 1 verbal yes (flat) & 1 verbal yes $\rightarrow$ continue; 0 $\rightarrow$ stop (MASTER-PLAN \S8.2) \\
+1 -- Prove the loop & Month 1--4 & 100 $\rightarrow$ 500 & 1 $\rightarrow$ 3 (flat, Tier 0) & \S8.3 gate: $\geq$2 paid and renewed; week-4 retention holds; founder still wants in. Any axis false $\rightarrow$ stop here. \\
+2 -- Local traction & Month 5--8 & 500 $\rightarrow$ 2{,}500 & 3 $\rightarrow$ 6--8 (Tier-1 rate card published once 5--10 signed) & Tier-1 activates on its own 5--10-advertiser trigger. Re-check: has paid CAC crept in? Paid creep by 2{,}500 users = yellow flag. \\
+3 -- Campus + community scale & Month 9--12 & 2{,}500 $\rightarrow$ 10{,}000 & 8--15; first 3-month commit & 10{,}000-user gate = Tier-2 (auction) trigger. Do not build RTB before this. Re-check IdleAds rev-share pressure (Risk R2). \\
+4 -- Enterprise/partnership exploration & Month 10--15 (overlaps Phase 3) & (advertiser-side) & First outbound to cloud-provider India DevRel + 1--2 larger SaaS (Razorpay/Postman/Freshworks scale) & Do not lead with enterprise before Month 9. Gate: only if Tier-1 has $\geq$8 paying advertisers. \\
+5 -- Global Phase 2 gate-check & Month 12 (checkpoint, not launch) & India 10{,}000+ stable & India Tier-2 live, 15+ advertisers & Global unlocks only if (a) India Tier-2 live \& liquid, (b) $\geq$1 India advertiser cohort renewed 2+ times, (c) product has standalone differentiation beyond UPI access. If (c) false, Global is premature. \\
+6 -- Global Phase 2 build (conditional) & Month 13--18 & First non-India pilot (US/EU) & First 1--2 global advertisers at \$5--8 CPM-equivalent & Global pilot must hit India's Phase-1 bar (1+ paid-and-renewed advertiser + real retention) within 4 months or fold back. \\
+7 -- Steady-state / Series A readiness & Month 18--24 & India 25K--50K; Global (if triggered) 5K--10K & Tier-2 auction handles majority; enterprise/partnership a real line item & Real seed/Series A conversation becomes plausible: multi-quarter renewal data, a tested auction, 2+ geos, or a clear reason not. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Gantt Chart: 24-Month Roadmap}
+\label{sec:roadmap-gantt}
+
+Figure~\ref{fig:roadmap-gantt} renders the roadmap above as a horizontal Gantt chart against a single 24-month axis. Solid bars denote India-committed work; hatched bars denote Global Phase 2 work that is conditional on the Month-12 gate-check (Phase 5) clearing. Vertical dashed lines mark the go/no-go gates, annotated with the condition that must hold for the roadmap to proceed past that point.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  font=\scriptsize,
+  x=0.40cm, y=0.85cm
+]
+% ---- Layout note ----
+% Phase-name labels live in a fixed-width left margin (x = -8.6 to -0.2),
+% right-aligned against x=0, so the timeline itself runs cleanly from
+% month 0 to month 24 with no risk of labels overflowing the page on the right.
+% Row y-coordinates (top = highest y)
+\def\yZero{7.5}
+\def\yOne{6.5}
+\def\yTwo{5.5}
+\def\yThree{4.5}
+\def\yFour{3.5}
+\def\yFive{2.5}
+\def\ySix{1.5}
+\def\ySeven{0.5}
+
+% ---- Phase name labels (left margin, right-aligned) ----
+\node[anchor=east, font=\tiny, text width=8.2cm, align=right] at (-0.3,\yZero) {Phase 0 -- Sprint};
+\node[anchor=east, font=\tiny, text width=8.2cm, align=right] at (-0.3,\yOne) {Phase 1 -- Prove the loop};
+\node[anchor=east, font=\tiny, text width=8.2cm, align=right] at (-0.3,\yTwo) {Phase 2 -- Local traction};
+\node[anchor=east, font=\tiny, text width=8.2cm, align=right] at (-0.3,\yThree) {Phase 3 -- Campus + community};
+\node[anchor=east, font=\tiny, text width=8.2cm, align=right] at (-0.3,\yFour) {Phase 4 -- Enterprise exploration};
+\node[anchor=east, font=\tiny, text width=8.2cm, align=right] at (-0.3,\yFive) {Phase 5 -- Global gate-check};
+\node[anchor=east, font=\tiny, text width=8.2cm, align=right] at (-0.3,\ySix) {Phase 6 -- Global build (cond.)};
+\node[anchor=east, font=\tiny, text width=8.2cm, align=right] at (-0.3,\ySeven) {Phase 7 -- Steady-state / Series A};
+
+% ---- Month axis (0..24), ticks every 4 months to keep node count low ----
+\draw[-{Latex[length=2mm]}] (0,-0.6) -- (24.8,-0.6) node[right, font=\scriptsize] {Month};
+\foreach \m in {0,4,8,12,16,20,24} {
+  \draw (\m,-0.6) -- (\m,-0.75);
+  \node[font=\tiny] at (\m,-1.0) {\m};
+}
+
+% ---- Phase bars ----
+% Phase 0: Days 1-14 -- approximate as Month 0 to 0.5
+\draw[fill=blue!55] (0,\yZero-0.3) rectangle (0.5,\yZero+0.3);
+
+% Phase 1: Month 1-4
+\draw[fill=blue!55] (1,\yOne-0.3) rectangle (4,\yOne+0.3);
+
+% Phase 2: Month 5-8
+\draw[fill=blue!40] (5,\yTwo-0.3) rectangle (8,\yTwo+0.3);
+
+% Phase 3: Month 9-12
+\draw[fill=blue!40] (9,\yThree-0.3) rectangle (12,\yThree+0.3);
+
+% Phase 4: Month 10-15 (overlaps Phase 3)
+\draw[fill=blue!25] (10,\yFour-0.3) rectangle (15,\yFour+0.3);
+
+% Phase 5: Month 12 checkpoint (thin marker bar, not a duration)
+\draw[fill=orange!70] (11.8,\yFive-0.3) rectangle (12.2,\yFive+0.3);
+
+% Phase 6: Month 13-18, hatched (conditional Global) -- manual diagonal hatch, no extra TikZ library needed
+\draw[fill=gray!12] (13,\ySix-0.3) rectangle (18,\ySix+0.3);
+\begin{scope}
+  \clip (13,\ySix-0.3) rectangle (18,\ySix+0.3);
+  \foreach \k in {12.7,13.1,...,18.3} {
+    \draw[blue!55, line width=0.4pt] (\k,\ySix-0.3) -- (\k+0.6,\ySix+0.3);
+  }
+\end{scope}
+\draw (13,\ySix-0.3) rectangle (18,\ySix+0.3);
+
+% Phase 7: Month 18-24 -- solid India portion (Global continuation implied, not separately hatched to keep node count low)
+\draw[fill=blue!40] (18,\ySeven-0.3) rectangle (24,\ySeven+0.3);
+
+% ---- Go/no-go gate markers (vertical dashed lines + circular gate markers, labeled A-E) ----
+% Circles (a base TikZ shape) are used instead of the "diamond" shape so this figure
+% compiles without the shapes.geometric library. Letters keyed to the gate list below.
+\draw[dashed, red!70!black] (0.5,8.3) -- (0.5,-0.6);
+\node[circle, fill=red!70!black, inner sep=1.6pt, label={[font=\tiny]above:A}] at (0.5,8.3) {};
+
+\draw[dashed, red!70!black] (4,8.3) -- (4,-0.6);
+\node[circle, fill=red!70!black, inner sep=1.6pt, label={[font=\tiny]above:B}] at (4,8.3) {};
+
+\draw[dashed, orange!80!black] (6,8.3) -- (6,-0.6);
+\node[circle, fill=orange!80!black, inner sep=1.6pt, label={[font=\tiny]above:C}] at (6,8.3) {};
+
+\draw[dashed, red!70!black] (12,8.3) -- (12,-0.6);
+\node[circle, fill=red!70!black, inner sep=1.6pt, label={[font=\tiny]above:D}] at (12,8.3) {};
+
+\draw[dashed, orange!80!black] (17,8.3) -- (17,-0.6);
+\node[circle, fill=orange!80!black, inner sep=1.6pt, label={[font=\tiny]above:E}] at (17,8.3) {};
+
+% ---- Legend (compact, single row) ----
+\draw[fill=blue!55] (0,9.6) rectangle (0.6,9.9);
+\node[anchor=west, font=\tiny] at (0.7,9.75) {India-committed};
+\draw[fill=gray!12] (6.0,9.6) rectangle (6.6,9.9);
+\begin{scope}
+  \clip (6.0,9.6) rectangle (6.6,9.9);
+  \foreach \k in {5.7,6.1,...,6.9} {
+    \draw[blue!55, line width=0.4pt] (\k,9.6) -- (\k+0.6,9.9);
+  }
+\end{scope}
+\draw (6.0,9.6) rectangle (6.6,9.9);
+\node[anchor=west, font=\tiny] at (6.7,9.75) {Global-conditional};
+\node[circle, fill=red!70!black, inner sep=1.6pt] at (13.0,9.75) {};
+\node[anchor=west, font=\tiny] at (13.15,9.75) {Hard gate};
+\node[circle, fill=orange!80!black, inner sep=1.6pt] at (16.0,9.75) {};
+\node[anchor=west, font=\tiny] at (16.15,9.75) {Soft trigger};
+
+\end{tikzpicture}%
+}
+\caption{24-month Gantt-style roadmap with go/no-go gates. Bar shading: solid blue = India-committed work; hatched = Global Phase 2 work conditional on the Month-12 gate-check. Circular markers on the dashed vertical lines mark go/no-go gates -- red for hard stop/continue decisions, orange for softer triggers and checkpoints. Gate A: 1 verbal advertiser yes $\rightarrow$ go (Day 14). Gate B: MASTER-PLAN \S8.3 gate, Month 4 -- $\geq$2 advertisers paid and renewed, week-4 retention holds. Gate C: Tier-1 rate-card trigger, \textasciitilde Month 6 -- 5--10 advertisers signed. Gate D: Month 12 -- 10,000-user Tier-2 auction trigger and Global Phase 2 gate-check. Gate E: \textasciitilde Month 17 -- Global pilot fold-back check (must hit India's Phase-1 bar within 4 months or fold back). Full gate descriptions are given in Table~\ref{tab:roadmap} and Section~\ref{sec:roadmap-narrative}.}
+\label{fig:roadmap-gantt}
+\end{figure}
+
+\section{Phase Narrative}
+\label{sec:roadmap-narrative}
+
+\textbf{Phase 0 (Days 1--14)} is the entire thesis compressed into two weeks: prove that one advertiser will say yes before writing more product code. \textbf{Phase 1 (Month 1--4)} is where the real go/no-go gate lives -- not a vanity-metrics checkpoint but a hard stop if advertisers do not renew or if developers churn once novelty fades. \textbf{Phases 2--4} (Month 5--15) layer on local scale, campus distribution, and an enterprise-adjacent motion, but every one of them is explicitly subordinate to the Phase-1 gate clearing first. \textbf{Phase 5} (Month 12) is deliberately drawn as a checkpoint, not a launch: Global Phase 2 is real optionality, not a commitment, and unlocks only if all three conditions in Table~\ref{tab:roadmap} hold simultaneously. \textbf{Phases 6--7} are the most speculative parts of this document and are included to show the team has thought about what success looks like at scale, not because they are funded or staffed today.
+
+This roadmap should be read alongside the channel sequencing in Chapter~\ref{chap:gtm} (each phase activates new channels only as its predecessor's gate clears) and the risk register in Chapter~\ref{chap:risk-analysis} (notably R2's Tier-1 re-check on IdleAds rev-share pressure, which is explicitly re-triggered at the Phase 3 boundary above).

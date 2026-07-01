@@ -1,0 +1,107 @@
+\chapter{The Problem}
+\label{ch:problem}
+
+\section{Dead inventory in the thinking status line}
+
+Every time an AI coding agent pauses to ``think,'' it renders a status line ---
+a spinner, a shimmer, a few words of ephemeral text --- that conveys nothing of
+commercial value and earns nothing for anyone. With 85--92\% of developers now
+using AI coding tools and the most engaged among them spending 4--10 hours a
+day inside them, this adds up to an enormous, continuously refreshed pool of
+captive, full-attention wait-state moments \citep{masterplan_2026}. The
+moment is unusually valuable as an attention surface precisely because it is
+\emph{not} a sidebar a user scrolls past: the developer is waiting, watching,
+and briefly idle. Today that attention is simply discarded. It is dead
+inventory.
+
+The scale of the underlying surface is not speculative. Claude Code ---
+Devorix's first target tool --- grew from \$0 to a \$2.5B run-rate in nine
+months, and Cursor reached $\sim$\$2B annualized revenue with over a million
+paying customers \citep{masterplan_2026}. \emph{(Verified fact.)} Real,
+large, fast-growing engagement is flowing through the exact surface where this
+wait-state moment occurs.
+
+\section{Developers earn nothing from the time they spend}
+
+Developers spend that wait time --- and the broader hours they pour into AI
+coding tools --- without any financial participation in the value their
+attention represents. For the large under-monetized developer base this is a
+structural mismatch: GitHub Sponsors supported 49{,}148 developers as of March
+2026, yet 60\% of surveyed open-source maintainers describe themselves as
+unpaid hobbyists and only 13\% as professional or paid
+\citep{customerproduct_2026}. \emph{(Verified fact.)} A large population is
+structurally primed to want incremental income attached to tools they already
+use.
+
+We are deliberately honest about the shape of this problem, following the
+plan's own VC-lens validation \citep{masterplan_2026}. This is
+\textbf{a monetization opportunity layered onto an existing attention pool, not
+a pain point developers are actively trying to solve}. Developers are not
+asking for this. The closest behavioural precedent --- cashback browser
+extensions that retain users because the reward appears ambiently inside an
+existing workflow rather than requiring a separate action --- is encouraging
+for adoption but is consumer shopping, not developer tooling
+\citep{customerproduct_2026}. \emph{(Industry estimate.)} The pain that is
+genuinely severe sits on the \textbf{advertiser} side: developer-tool marketers
+have shockingly few high-trust placement options built for the agentic-coding
+moment, with Carbon Ads (audited at \$1.60 CPM, selling to Okta, GitLab and
+MongoDB) essentially the only mature one, and it was never built for this
+moment specifically \citep{masterplan_2026}.
+
+\section{A working competitor exists --- but structurally cannot pay India}
+
+The wait-state advertising mechanic is not hypothetical. Kickbacks.ai launched
+on 2026-06-11 and its launch tweet passed 5.5~million views in 24~hours; a
+direct clone, IdleAds.dev, appeared within 24~hours of it
+\citep{masterplan_2026}. \emph{(Verified fact.)} The category has real
+top-of-funnel virality. But it has a structural hole that defines Devorix's
+wedge:
+
+\textbf{Kickbacks --- and the Stripe-based model generally --- structurally
+cannot pay out to India.} As of June~2026, Kickbacks had not yet activated real
+payouts; its Stripe Connect integration was reported ``nearing completion''
+\citep{masterplan_2026}. The reason is independently re-verified beyond a
+single GitHub issue, against Stripe's own support documentation: Stripe has
+been invite-only for new India accounts since May~2024 due to RBI regulatory
+changes, and Connect Express onboarding for India-based recipients is
+restricted \citep{stripe_india_2026}. Confidence on this wedge is
+\textbf{High}. The same Stripe-India gap that is slowing the category leader is
+exactly what Devorix is built around: native, automated, GST-ready UPI payouts
+via RazorpayX, which supports automated UPI/IMPS/NEFT/RTGS with 24/7 instant
+settlement \citep{razorpayx_2026}.
+
+We are careful not to overclaim here. IdleAds.dev already does UPI
+\emph{manually}, so the payout-rail edge is \emph{contested, not exclusive} ---
+the real differentiator is native, automated, GST-ready UPI done properly,
+not merely ``we pay India'' \citep{masterplan_2026}.
+
+\section{Why this is a real, timely problem}
+
+The timing is right, narrowly, on three converging facts
+\citep{masterplan_2026}:
+
+\begin{enumerate}
+  \item \textbf{Adoption just crossed the majority case.} AI coding tools moved
+        from early-adopter to mainstream (85--92\% of developers), so the
+        attention pool the mechanic monetizes is now genuinely large.
+        \emph{(Verified fact.)}
+  \item \textbf{India is the fastest-growing developer base anywhere} --- 27M
+        on GitHub in 2026, projected 57.5M by 2030, with India among the
+        highest-adoption regions for AI coding tools --- yet it is the one
+        large market the dominant Stripe-based payout model cannot serve.
+        \emph{(Verified fact / India-specific adoption: Industry estimate.)}
+  \item \textbf{The bottleneck is wide open.} Zero verified paying advertisers
+        exist anywhere in this category; the real constraint is demand-side
+        sales, which every competitor is failing at while racing the same
+        shallow mechanic \citep{masterplan_2026}. \emph{(High confidence ---
+        absence of evidence corroborated across a 3-day pulse-check.)}
+\end{enumerate}
+
+The honest read from the plan's VC-lens validation is preserved here without
+softening: the window is short and the moat is shallow --- IdleAds cloned
+Kickbacks' mechanic within 24~hours --- so timing favours moving fast on the
+demand side, where the real, severe, currently-unmet need lives, rather than on
+product polish on the supply side, where developers are mildly interested at
+best \citep{masterplan_2026}. The problem Devorix addresses is therefore
+real and timely, but its sharpest edge is the advertiser's missing high-trust
+India-payable placement, not a developer crying out to be paid.

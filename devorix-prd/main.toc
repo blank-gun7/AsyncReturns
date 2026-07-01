@@ -1,0 +1,106 @@
+\contentsline {chapter}{\numberline {1}Executive Summary}{9}{chapter.1}%
+\contentsline {section}{\numberline {1.1}The idea, in one line}{9}{section.1.1}%
+\contentsline {section}{\numberline {1.2}The honest current stage}{9}{section.1.2}%
+\contentsline {section}{\numberline {1.3}The locked business model}{9}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Headline market and financial numbers}{10}{section.1.4}%
+\contentsline {section}{\numberline {1.5}The single biggest risk and the single biggest open question}{10}{section.1.5}%
+\contentsline {section}{\numberline {1.6}The ask}{11}{section.1.6}%
+\contentsline {section}{Vision, not the near-term ask}{11}{section.1.6}%
+\contentsline {chapter}{\numberline {2}The Problem}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Dead inventory in the thinking status line}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Developers earn nothing from the time they spend}{12}{section.2.2}%
+\contentsline {section}{\numberline {2.3}A working competitor exists --- but structurally cannot pay India}{13}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Why this is a real, timely problem}{13}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Market Research: TAM, SAM, and SOM}{15}{chapter.3}%
+\contentsline {section}{\numberline {3.1}A reconciliation note on adoption-share figures}{15}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Top-down: adjacent market anchors}{16}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Bottom-up: India developer base to realistic capture}{16}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Adoption split (cross-referenced)}{19}{section.3.4}%
+\contentsline {section}{\numberline {3.5}TAM / SAM / SOM, stated explicitly}{19}{section.3.5}%
+\contentsline {section}{\numberline {3.6}The honest seed-stage bottom line on market size}{19}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Open questions / research gaps}{21}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Customer Research}{22}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Who the customer actually is}{22}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Developer (Publisher) Personas}{22}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Advertiser Personas}{23}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Developer Journey Map}{29}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Cross-Cutting Trust Findings (Must Be Addressed Head-On)}{31}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Figures Needed (Chapter 4)}{32}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Business Strategy: Model, Positioning, and Moats}{33}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Investor-Thesis Anchors}{33}{section.5.1}%
+\contentsline {section}{\numberline {5.2}The Business Model}{34}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Revenue split and pricing ladder}{34}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Pricing rationale}{34}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.3}Competitive Positioning}{35}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Moats and Defensibility}{35}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Self-Critique}{37}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Business Model Canvas}{38}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Value Proposition Canvas}{39}{section.5.7}%
+\contentsline {chapter}{\numberline {6}Product Requirements}{41}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Functional Requirements --- v1}{41}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Client (VS Code + Claude Code, non-patching / status-bar)}{41}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Backend}{42}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Payouts}{42}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Non-Functional Requirements --- v1}{43}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Future-State Requirements (Explicitly ``Future, Not v1'')}{44}{section.6.3}%
+\contentsline {section}{\numberline {6.4}KPIs / OKRs}{45}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Acceptance Criteria (Highest-Risk / Highest-Leverage Requirements)}{45}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Figures Needed (Chapter 6)}{48}{section.6.6}%
+\contentsline {chapter}{\numberline {7}System Architecture}{49}{chapter.7}%
+\contentsline {section}{\numberline {7.1}How to read this chapter}{49}{section.7.1}%
+\contentsline {section}{\numberline {7.2}External validation: the architecture is not novel, and that is the point}{50}{section.7.2}%
+\contentsline {section}{\numberline {7.3}V1 system overview}{50}{section.7.3}%
+\contentsline {section}{\numberline {7.4}The client --- non-patching status-bar overlay}{50}{section.7.4}%
+\contentsline {section}{\numberline {7.5}The backend}{52}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Ad serving --- Tier 0 only}{52}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}Event ingest and fraud filter}{52}{subsection.7.5.2}%
+\contentsline {subsection}{\numberline {7.5.3}Ledger / balance tracking}{53}{subsection.7.5.3}%
+\contentsline {subsection}{\numberline {7.5.4}Publisher (developer) dashboard}{54}{subsection.7.5.4}%
+\contentsline {subsection}{\numberline {7.5.5}Advertiser side (Tier 0)}{54}{subsection.7.5.5}%
+\contentsline {section}{\numberline {7.6}The payout flow --- RazorpayX UPI}{54}{section.7.6}%
+\contentsline {section}{\numberline {7.7}V1 data flow and explicit non-scope}{55}{section.7.7}%
+\contentsline {subsection}{\numberline {7.7.1}Data flow}{55}{subsection.7.7.1}%
+\contentsline {subsection}{\numberline {7.7.2}Deliberately NOT built in v1}{56}{subsection.7.7.2}%
+\contentsline {section}{\numberline {7.8}Part 2 --- Future Tier 1 / Tier 2 architecture (future phase, not v1)}{56}{section.7.8}%
+\contentsline {subsection}{\numberline {7.8.1}Tier 1 --- fixed-price rate-card serving (trigger: 5--10 advertisers signed)}{57}{subsection.7.8.1}%
+\contentsline {subsection}{\numberline {7.8.2}Tier 2 --- real-time auction (trigger: 5,000+ DAU)}{57}{subsection.7.8.2}%
+\contentsline {section}{\numberline {7.9}Summary --- what is built at each tier}{58}{section.7.9}%
+\contentsline {section}{\numberline {7.10}Figures}{59}{section.7.10}%
+\contentsline {subsection}{\numberline {7.10.1}Figure 7.1 --- V1 system architecture diagram}{59}{subsection.7.10.1}%
+\contentsline {subsection}{\numberline {7.10.2}Figure 7.2 --- Impression-to-payout sequence diagram}{59}{subsection.7.10.2}%
+\contentsline {subsection}{\numberline {7.10.3}Figure 7.3 --- Tier 1 component diagram (rate-card serving)}{59}{subsection.7.10.3}%
+\contentsline {subsection}{\numberline {7.10.4}Figure 7.4 --- Tier 2 future-state data-flow diagram}{59}{subsection.7.10.4}%
+\contentsline {section}{\numberline {7.11}The honest read for the technical section}{59}{section.7.11}%
+\contentsline {chapter}{\numberline {8}Go-To-Market Strategy}{63}{chapter.8}%
+\contentsline {section}{\numberline {8.1}GTM Thesis}{63}{section.8.1}%
+\contentsline {section}{\numberline {8.2}What the Comparable Launches Actually Prove}{63}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Concrete Additions to the Launch Motion}{65}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Channel-by-Channel Honest Assessment}{65}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Target List and Outreach Motion}{65}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Roadmap Linkage}{67}{section.8.6}%
+\contentsline {chapter}{\numberline {9}Financial Model: 12--24 Month Extension}{68}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Source map: every number traceable}{68}{section.9.1}%
+\contentsline {section}{\numberline {9.2}The honest stage framing}{68}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Months 1--4: locked base case}{69}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Months 5--24: three scenarios}{70}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Unit economics}{72}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Sensitivity: which assumptions move the model most}{72}{section.9.6}%
+\contentsline {section}{\numberline {9.7}Open numeric gaps for further research (financial)}{75}{section.9.7}%
+\contentsline {chapter}{\numberline {10}Risk Analysis}{76}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Consolidated Risk Register}{76}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Narrative: The Top Risks}{79}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}R1 --- Zero verified paying advertisers exist anywhere in the category (Critical, Needs-action)}{79}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}R2 --- IdleAds rev-share undercut: 70\%, 90\% stated goal, vs.\ Devorix's locked 50/50 (High, Monitored)}{79}{subsection.10.2.2}%
+\contentsline {subsection}{\numberline {10.2.3}R3 --- Anthropic's anti-ads brand campaign creates a narrative collision (High, Needs-action)}{80}{subsection.10.2.3}%
+\contentsline {subsection}{\numberline {10.2.4}R4 --- IdleAds has already claimed the same trust positioning Devorix planned to use (Medium-High, Needs-action)}{80}{subsection.10.2.4}%
+\contentsline {section}{\numberline {10.3}Compliance Appendix Cross-Reference}{80}{section.10.3}%
+\contentsline {chapter}{\numberline {11}Product Roadmap}{81}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Framing: A Conditional Contingency Tree, Not a Forecast}{81}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Roadmap Table}{81}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Gantt Chart: 24-Month Roadmap}{81}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Phase Narrative}{81}{section.11.4}%
+\contentsline {chapter}{\numberline {12}Appendices}{84}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Appendix A --- Glossary of Terms}{84}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Appendix B --- Locked Decisions (verbatim)}{86}{section.12.2}%
+\contentsline {section}{\numberline {12.3}Appendix C --- Methodology Note on Evidence Labelling}{88}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Appendix D --- Note on the Multi-Agent Research Process}{88}{section.12.4}%

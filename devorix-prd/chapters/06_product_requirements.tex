@@ -1,0 +1,179 @@
+\chapter{Product Requirements}
+\label{chap:product-requirements}
+
+All requirements are grounded in \cite{mvpspec_2026}, \cite{prd_2026}, and the locked decisions in \cite{masterplan_2026}. None introduces a new locked decision; this chapter operationalizes existing ones.
+
+\textbf{Locked facts this chapter builds on:} developer revenue share 50/50; payout threshold \textrupee300; pricing ladder Tier 0 (flat \textrupee10--15k/mo) $\to$ Tier 1 (CPM rate card, \$2--3 India / \$5--8 Global) $\to$ Tier 2 (auction, 5{,}000+ DAU); 5-second billable impression for v1; India-first, Global explicit Phase 2; client non-patching/status-bar, never reads code, never patches the renderer (\cite{masterplan_2026}).
+
+\section{Functional Requirements --- v1}
+\label{sec:functional-requirements}
+
+\subsection{Client (VS Code + Claude Code, non-patching / status-bar)}
+
+\begin{description}
+\item[FR-1.] The client SHALL inject exactly one sponsored line into Claude Code's thinking status-line/spinner slot via the configurable \texttt{statusLine} mechanism in \texttt{\textasciitilde/.claude/settings.json} --- never by patching Claude Code's rendering layer \cite{mvpspec_2026,masterplan_2026}.
+\item[FR-2.] The client SHALL prefetch and locally cache a small batch of approved creatives (text-only at v1: one short line + optional click URL) so the slot can render when briefly offline \cite{mvpspec_2026}.
+\item[FR-3.] The client SHALL count a billable impression only when a creative has displayed continuously for $\geq$5 seconds \cite{masterplan_2026} with the tool in an active session state; it SHALL count a click when the optional click URL is opened.
+\item[FR-4.] The client SHALL batch-report impression/click events (\textasciitilde every 60 seconds or 50 events, whichever first) to the backend, signed with a per-device/session token and tagged with a per-event idempotency key \cite{mvpspec_2026}.
+\item[FR-5.] The client SHALL display a live status-bar balance (today / month / lifetime) sourced from the backend ledger, not computed client-side \cite{mvpspec_2026,prd_2026}.
+\item[FR-6.] The client SHALL provide a single, immediately discoverable one-click control to disable sponsorship and restore the original spinner/status line, fully reversible with no residual state \cite{mvpspec_2026,prd_2026}.
+\item[FR-7.] The client SHALL authenticate developers via Google or GitHub OAuth before activating any sponsor line or accruing balance \cite{mvpspec_2026}.
+\item[FR-8.] The client SHALL NOT read, transmit, log, or cache source code, prompts, completions, file paths, or transcripts under any circumstance --- a hard architectural guarantee, not a configurable setting \cite{mvpspec_2026,prd_2026}. \emph{This requirement is what directly answers Vikram's existential confidentiality concern and the category's documented top fear, data egress (Chapter~\ref{chap:customer-research}, Sections~\ref{sec:developer-personas} and \ref{sec:trust-findings}).}
+\end{description}
+
+\subsection{Backend}
+
+\begin{description}
+\item[FR-9.] The Event Ingest API SHALL deduplicate every incoming event by event UUID + device + timestamp window, and SHALL apply server-side validity rules (minimum display time, max events/hour/device, plausible cadence, active-session signal) before any event is eligible to affect billing or payable balance \cite{mvpspec_2026}.
+\item[FR-10.] The system SHALL maintain two separate stores: a high-write raw-event store and a Postgres double-entry ledger containing only fraud-filtered, billable/payable events. Advertisers are billed and developers are paid exclusively from the filtered ledger, never the raw store \cite{mvpspec_2026}.
+\item[FR-11.] Ad Serving SHALL support Tier-0 house-ad rotation at launch (manually curated, no advertiser required) and SHALL support Tier-1 fixed-price block serving (1 block = 1{,}000 impressions, round-robin/weighted) once advertisers onboard --- both servable from the same engine without re-architecture \cite{mvpspec_2026,masterplan_2026}.
+\item[FR-12.] Targeting at v1 SHALL be coarse only: geography (India) and optionally tool/editor --- no behavioral, code-content, or fine-grained demographic targeting \cite{mvpspec_2026}.
+\item[FR-13.] The Publisher Dashboard SHALL show balance (today/month/lifetime), PAN/KYC capture and status, and payout settings \cite{mvpspec_2026,prd_2026}.
+\item[FR-14.] The Advertiser onboarding flow MAY be manual/concierge at v1 (founder-operated) but SHALL still produce a GST-ready invoice artifact and a basic performance report (impressions, clicks, spend) per campaign \cite{mvpspec_2026,prd_2026}. \emph{The GST-ready INR invoice is Karthik's stated buying trigger and a core wedge vs.\ Stripe-based competitors (Chapter~\ref{chap:customer-research}, Section~\ref{sec:advertiser-personas}).}
+\end{description}
+
+\subsection{Payouts}
+
+\begin{description}
+\item[FR-15.] The system SHALL accrue earnings continuously but SHALL trigger a payout only when payable balance reaches or exceeds \textrupee300 \cite{masterplan_2026,mvpspec_2026}.
+\item[FR-16.] Payouts SHALL execute via RazorpayX Payouts API to a developer's UPI VPA (preferred) or bank account (IMPS fallback), using a mandatory idempotency key per attempt, with webhook-driven status reconciliation (queued $\to$ processing $\to$ processed/failed/reversed) back into the ledger \cite{masterplan_2026,mvpspec_2026}.
+\item[FR-17.] Payouts SHALL be gated on a valid PAN; the system SHALL collect PAN at or before first payout eligibility, regardless of current TDS applicability \cite{masterplan_2026,mvpspec_2026}.
+\item[FR-18.] The accrued balance SHALL be modeled and described strictly as a payable (a debt Devorix owes, settled to a bank/UPI account), never as stored value the developer can load, spend, or hold in-product --- a regulatory boundary (RBI PPI rules), not a UX preference \cite{masterplan_2026}.
+\end{description}
+
+\section{Non-Functional Requirements --- v1}
+\label{sec:nonfunctional-requirements}
+
+\begin{description}
+\item[NFR-1 (Fraud / trust integrity).] No event is eligible for billing or payout until it passes server-side fraud/validity filtering; the client is treated as untrusted/advisory at all times \cite{mvpspec_2026}. Existential, not optional --- ``if advertisers don't trust your impression counts, you have no business.'' This directly answers Priya's lead objection (Chapter~\ref{chap:customer-research}, Section~\ref{sec:advertiser-personas}).
+\item[NFR-2 (Privacy / auditability).] The ``never reads your code'' guarantee MUST be independently verifiable --- via a source-available client or a published data-flow disclosure of exactly what leaves the device, not a marketing assertion \cite{masterplan_2026}. \emph{This is also the answer to finding \#2 in Chapter~\ref{chap:customer-research}, Section~\ref{sec:trust-findings}: IdleAds claims the same posture, so Devorix must prove it.}
+\item[NFR-3 (Data residency).] Backend infrastructure SHALL be hosted in an India region (AWS/GCP Mumbai) for latency and DPDP Act 2023 data-residency alignment \cite{mvpspec_2026}.
+\item[NFR-4 (Platform-policy safety).] The client SHALL remain non-patching at all times --- no modification of Claude Code's rendering layer, no extraction or reuse of Claude's own OAuth tokens --- to stay on the safe side of Anthropic's enforced Consumer Terms (\cite{masterplan_2026}, citing the January 2026 enforcement action \cite{anthropic_enforcement_2026}). A continuous engineering-discipline requirement, not a one-time decision. \emph{Note for the risk chapter: this controls the ToS/technical risk but not the Anthropic anti-ads brand-perception tension (Chapter~\ref{chap:customer-research}, Section~\ref{sec:trust-findings}, finding \#1), which is a positioning/comms risk, not an engineering one.}
+\item[NFR-5 (Reliability of money movement).] Payout webhook reconciliation SHALL be idempotent and SHALL resolve all terminal states (processed/failed/reversed) back to ledger balance with no silent loss or double-payment \cite{mvpspec_2026}.
+\item[NFR-6 (Reversibility).] Disabling the sponsor line SHALL take effect immediately and fully restore original tool behavior with no residual modification \cite{mvpspec_2026}.
+\item[NFR-7 (Cost discipline).] Payout cost SHALL stay at \textasciitilde1\% or less of paid-out balance at the \textrupee300 threshold (RazorpayX UPI $\approx$ \textrupee2--5/payout) --- a designed property of the threshold choice, monitored as volume grows \cite{mvpspec_2026}.
+\item[NFR-8 (Honest marketing claims).] Any earnings figures in-product or in marketing SHALL be presented as ranges with clearly labeled conservative defaults, never a single inflated per-impression number --- remediating the AI Studio prototype's \textrupee0.42/impression figure (implies a 4--7x-too-high eCPM vs.\ observed real data) \cite{prd_2026}. \emph{This is load-bearing for every developer install trigger in Chapter~\ref{chap:customer-research}, Section~\ref{sec:developer-personas} (trust > earnings number) and for Priya's fraud objection.}
+\end{description}
+
+\section{Future-State Requirements (Explicitly ``Future, Not v1'')}
+\label{sec:future-requirements}
+
+\emph{Activates once 5--10 advertisers are signed --- realistically beyond month 4 \cite{masterplan_2026}:}
+\begin{description}
+\item[FUT-1.] Publish a self-serve fixed-price CPM rate card (\$2--3 India / \$5--8 Global) and allow block purchase without founder concierge.
+\item[FUT-2.] Self-serve advertiser portal: campaign creation, budget caps, creative upload, basic targeting, automated GST invoicing \cite{mvpspec_2026}.
+\item[FUT-3.] Instrument and analyze real Claude Code thinking-state durations to data-drive a possible revisit of the 5s-vs-10s impression-length decision \cite{masterplan_2026} --- not to be acted on without real telemetry.
+\end{description}
+
+\emph{Activates at 5{,}000+ DAU \cite{masterplan_2026}:}
+\begin{description}
+\item[FUT-4.] Real-time second-price auction ad serving, alongside (not necessarily instead of) flat enterprise sponsorship deals.
+\end{description}
+
+\emph{Global Phase 2, gated on the go/no-go criteria in \cite{masterplan_2026}:}
+\begin{description}
+\item[FUT-5.] International payout rails (PayPal/Wise) and non-India advertiser GTM. Explicitly out of scope until the India gate clears.
+\end{description}
+
+\emph{Adopted from the AI Studio prototype, P1/P2 \cite{masterplan_2026} --- must never be a dependency of core ad-serving/ledger:}
+\begin{description}
+\item[FUT-6.] Ad-Copy Generator (Gemini): advertiser input $\to$ 3 sponsorship-line variations, as a cold-start onboarding aid (P1).
+\item[FUT-7.] Wait-State Coach: lead-gen tool estimating idle time and earnings from usage inputs (P1).
+\item[FUT-8.] Workspace Analyzer: screenshot-based theme/placement suggestions (P2, nice-to-have).
+\end{description}
+
+\section{KPIs / OKRs}
+\label{sec:kpis-okrs}
+
+Framed around the founder's actual go/no-go gate \cite{masterplan_2026} --- (1) $\geq$2 advertisers paid \emph{and} renewed, (2) developers stick past novelty (week-4 retention), (3) founder still wants to run it --- not invented metrics.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}p{2.6cm}p{3.6cm}p{3.3cm}p{4cm}@{}}
+\toprule
+\textbf{Metric} & \textbf{Definition} & \textbf{v1 target / read} & \textbf{Why it matters} \\
+\midrule
+D7 retention & \% of installers still active (client enabled, $\geq$1 session) 7 days post-install & No committed target; first cohort data is the point of the 14-day sprint \cite{masterplan_2026} & Early signal on whether novelty alone sustains a week \\
+\addlinespace
+D30 / week-4 retention & \% still active 30 days post-install & Go/no-go criterion \#2 --- no fixed \%, but ``developers stick after novelty fades'' must be observably true & The single most important open question in the business \cite{masterplan_2026} \\
+\addlinespace
+Advertiser renewal rate & \% of Tier-0 advertisers who renew after the first 1-month pilot & Go/no-go criterion \#1: $\geq$2 advertisers paid \emph{and} renewed by month 4 & Proves the loop on the side that is the actual bottleneck \cite{masterplan_2026} \\
+\addlinespace
+Fill rate & \% of impression slots served a paid (non-house) ad & ``The most important [metric] early'' \cite{prd_2026} & Directly measures whether real advertiser demand exists --- the category's core unproven assumption \\
+\addlinespace
+Payout success rate & \% of payouts reaching \texttt{processed} on first attempt without manual intervention & Track from the first live payout onward; no fixed target in source & Payout reliability is a top-level success metric \cite{prd_2026} \\
+\addlinespace
+Fraud rate & \% of raw events rejected by server-side filtering before billing/payout eligibility & Track from day 1; no numeric target in source & Trust-integrity signal; existential per \cite{mvpspec_2026} \\
+\addlinespace
+Installs & Cumulative client installs & 100 $\to$ 250 $\to$ 400 $\to$ 500 (months 1--4) & Land-grab metric, explicitly secondary to advertiser proof \cite{masterplan_2026} \\
+\addlinespace
+Revenue / cumulative net & Gross advertiser revenue, and net of costs & \textrupee15k $\to$ \textrupee30k $\to$ \textrupee30k $\to$ \textrupee45k; cumulative net \textasciitilde\textrupee39{,}500 by month 4 & The explicit financial bar for continuing past month 4 \\
+\bottomrule
+\end{tabular}
+\caption{KPIs / OKRs framed around the founder's go/no-go gate.}
+\label{tab:kpis-okrs}
+\end{table}
+
+\section{Acceptance Criteria (Highest-Risk / Highest-Leverage Requirements)}
+\label{sec:acceptance-criteria}
+
+Selected because each gates trust, money-correctness, or the go/no-go decision itself.
+
+\subsection*{FR-3 / FR-9 --- 5-second billable impression + server-side validity}
+\begin{itemize}
+\item Given a creative renders, when it stays continuously visible $\geq$5 seconds with the editor in an active/focused session, then exactly one billable impression is recorded.
+\item Given a creative shows \textless5 seconds (a fast thinking cycle), when the session ends, then no billable impression is recorded (the raw display event may still be logged for telemetry).
+\item Given an event arrives with a UUID already seen for that device in the dedup window, when processed, then it is discarded and increments no ledger balance.
+\item Given a device exceeds max-events/hour, when further events arrive, then they are flagged, excluded from the billable ledger, and the fraud-rate counter increments.
+\end{itemize}
+
+\subsection*{FR-8 / NFR-2 --- never reads code; auditability}
+\begin{itemize}
+\item Given the client is running, when network traffic leaving the device is inspected, then no code, prompt, completion, file path, or transcript is present --- only impression/click telemetry (timestamps, device/session token, creative ID, display duration).
+\item Given a security-conscious developer wants to verify this, when they look, then a published human-readable disclosure (or open client source) of exactly what leaves the device is available --- not just a marketing assertion.
+\end{itemize}
+
+\subsection*{FR-6 / NFR-6 --- one-click disable, fully reversible}
+\begin{itemize}
+\item Given a developer clicks ``disable sponsorship,'' when it completes, then the original status line/spinner is restored within the same session, no restart required.
+\item Given sponsorship is disabled, when settings are reopened, then no residual sponsor config, cached creative, or partial state remains active.
+\end{itemize}
+
+\subsection*{FR-15 / FR-16 --- \textrupee300 payout threshold, RazorpayX UPI}
+\begin{itemize}
+\item Given filtered-ledger balance $\geq$ \textrupee300, when the next payout batch runs, then a payout is initiated via RazorpayX to the registered VPA/bank account with a unique idempotency key.
+\item Given a webhook reports \texttt{processed}, when the ledger updates, then payable balance is debited by exactly the paid amount and a payout record with reconciliation timestamp is created.
+\item Given a webhook reports \texttt{failed} or \texttt{reversed}, when the ledger updates, then payable balance is restored (not lost) and the developer is notified of retry.
+\item Given no valid PAN, when balance reaches \textrupee300, then the payout is held pending and the developer is prompted to complete PAN/KYC --- funds are not forfeited.
+\end{itemize}
+
+\subsection*{FR-10 --- two-ledger separation}
+\begin{itemize}
+\item Given an event is in the raw store, when it has not passed fraud/validity filtering, then it must not appear in the double-entry ledger or affect any bill or balance.
+\item Given an advertiser requests a report, when generated, then all impression/click counts are sourced exclusively from the filtered ledger, never the raw store.
+\end{itemize}
+
+\subsection*{FR-11 --- house ads $\to$ fixed-price, same engine}
+\begin{itemize}
+\item Given zero advertisers, when a billable slot is available, then a house-ad creative is served and the impression is recorded (at \textrupee0 advertiser cost) for telemetry/proof-of-loop.
+\item Given an active fixed-price block campaign, when a slot is available, then the creative is served per round-robin/weighted rotation and the block balance decrements by exactly 1.
+\item Given a block balance hits zero, when the next slot is available, then the creative stops serving and the slot falls back to house-ad rotation with no manual intervention.
+\end{itemize}
+
+\subsection*{NFR-8 --- honest, ranged earnings claims}
+\begin{itemize}
+\item Given any surface shows expected earnings, when displayed, then it is a range (not a point estimate) with an explicitly labeled conservative default, visually marked as an estimate.
+\item Given real observed CPM/earnings data becomes available, when marketing copy is next updated, then the range is reconciled against real data, not left at launch-time guesses.
+\end{itemize}
+
+\section{Figures Needed (Chapter 6)}
+\label{sec:ch6-figures}
+
+\begin{itemize}
+\item \textbf{System architecture / data flow} --- non-patching client $\to$ batched signed events $\to$ Event Ingest (dedup + validity) $\to$ split into raw-event store vs.\ filtered double-entry ledger $\to$ billing (advertisers) and payouts (RazorpayX UPI). Annotate the ``client is untrusted'' boundary and the ``never reads code'' data-flow (only telemetry leaves the device).
+\item \textbf{Pricing/tier ladder} --- Tier 0 (flat \textrupee10--15k/mo, house+flat) $\to$ Tier 1 (CPM rate card \$2--3 India / \$5--8 Global, 5--10 advertisers) $\to$ Tier 2 (auction, 5{,}000+ DAU), with activation triggers on the X-axis and ``same serving engine across Tier 0$\to$1'' called out.
+\item \textbf{Payout state machine} --- accrual $\to$ \textrupee300 threshold gate $\to$ PAN gate $\to$ RazorpayX payout $\to$ webhook states (queued $\to$ processing $\to$ processed/failed/reversed) with reconciliation arrows back to the ledger (failed/reversed restore balance).
+\item \textbf{KPI dashboard mock} --- the go/no-go gate as the headline (2 renewed advertisers, week-4 retention, founder intent), with fill rate and fraud rate as the two trust-integrity gauges and the months 1--4 installs/revenue trajectory as the secondary land-grab line.
+\item \textbf{Requirements-to-persona traceability matrix} --- rows = top FRs/NFRs, columns = the five personas (Chapter~\ref{chap:customer-research}), cells mark which persona concern each requirement answers (e.g., FR-8/NFR-2 $\to$ Vikram + Rohit; FR-14 $\to$ Karthik; NFR-1/NFR-8 $\to$ Priya).
+\end{itemize}

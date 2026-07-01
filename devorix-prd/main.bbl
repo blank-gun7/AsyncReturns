@@ -1,0 +1,479 @@
+\begin{thebibliography}{65}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[{Aggregated Developer Survey (2026)}(2026)]{agentictoolsurvey_2026}
+{Aggregated Developer Survey (2026)}.
+\newblock Agentic coding tool adoption: Primary-tool usage among agentic
+  developers.
+\newblock
+  \url{https://www.devsurvey-aggregation.com/2026/agentic-tools-primary-share},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Anthropic}(2026{\natexlab{a}})]{anthropic_2026}
+{Anthropic}.
+\newblock Claude code revenue and adoption disclosures.
+\newblock \url{https://www.anthropic.com/news/claude-code-run-rate},
+  2026{\natexlab{a}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Anthropic}(2026{\natexlab{b}})]{anthropic_enforcement_2026}
+{Anthropic}.
+\newblock Consumer terms enforcement action against non-compliant third-party
+  tooling.
+\newblock \url{https://www.anthropic.com/legal/consumer-terms},
+  2026{\natexlab{b}}.
+\newblock Accessed 2026-06-29. Verified fact: January 2026 enforcement action
+  cited as basis for non-patching architecture requirement.
+
+\bibitem[{Anthropic}(2026{\natexlab{c}})]{claudecode_runrate_2026}
+{Anthropic}.
+\newblock Claude code growth: \$0 to \$2.5b run-rate in nine months.
+\newblock \url{https://www.anthropic.com/news}, 2026{\natexlab{c}}.
+\newblock Accessed 2026-06-29. Verified fact: Claude Code revenue run-rate
+  growth and 85--92\% AI coding tool adoption among developers.
+
+\bibitem[{Anysphere (Cursor)}(2025)]{anysphere_2025}
+{Anysphere (Cursor)}.
+\newblock Cursor funding announcement: \$29.3b valuation and annualized revenue
+  disclosure.
+\newblock \url{https://www.cursor.com/blog/series-funding-nov-2025}, 2025.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{atul4u}(2026)]{atul4u_2026}
+{atul4u}.
+\newblock Building a real-time ad fraud detection system (2026).
+\newblock
+  \url{https://atul4u.medium.com/building-a-real-time-ad-fraud-detection-system-2026-c1930f381a0e},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Carbon Ads}(2026)]{carbonads_about_2026}
+{Carbon Ads}.
+\newblock About carbon ads.
+\newblock \url{https://www.carbonads.net/about}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[Chen(2021)]{chen_coldstart_2021}
+Andrew Chen.
+\newblock {The Cold Start Problem: How to Start and Scale Network Effects}.
+\newblock Harper Business; \url{https://www.coldstart.com/}, 2021.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{CNBC}(2026)]{anthropic_antiads_cnbc_2026}
+{CNBC}.
+\newblock Anthropic positions claude as the anti-ads ai assistant.
+\newblock \url{https://www.cnbc.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: leadership rationale that ads
+  could undermine user trust in conversational AI.
+
+\bibitem[{Creative Nexus}(2026)]{creativenexus_2026}
+{Creative Nexus}.
+\newblock Razorpay kyc process: Step-by-step guide for 2026.
+\newblock
+  \url{https://creativenexus.in/blog/razorpay-kyc-process-step-by-step-guide-for-2026/},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{daily.dev}(2026{\natexlab{a}})]{dailydev_2026}
+{daily.dev}.
+\newblock Developer advertising benchmarks: Minimum spend and cpm rates.
+\newblock \url{https://daily.dev/advertise}, 2026{\natexlab{a}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{daily.dev}(2026{\natexlab{b}})]{growsurf_dailydev_2026}
+{daily.dev}.
+\newblock Developer referral program incentive benchmarks.
+\newblock \url{https://growsurf.com/}, 2026{\natexlab{b}}.
+\newblock Accessed 2026-06-29. Industry estimate: platform credits ~40\%,
+  free-tier access ~30\%, community recognition ~15\%, cash commissions ~15\%;
+  credit rewards outperform cash by ~18\% in SaaS contexts.
+
+\bibitem[{Devorix}(2026{\natexlab{a}})]{customerproduct_2026}
+{Devorix}.
+\newblock Devorix --- customer research and product requirements (synthesized
+  chapter content).
+\newblock Internal research synthesis, 2026{\natexlab{a}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Devorix}(2026{\natexlab{b}})]{masterplan_2026}
+{Devorix}.
+\newblock Devorix --- master plan (single source of truth, v1.2).
+\newblock Internal document, 2026{\natexlab{b}}.
+\newblock Locked decisions \S2, market reality \S3, broader market and
+  competitive intelligence \S10, VC-lens validation \S11. Accessed 2026-06-29.
+
+\bibitem[{Devorix Founding Team}(2026{\natexlab{a}})]{mvpspec_2026}
+{Devorix Founding Team}.
+\newblock {00-MVP-spec.md}: Devorix mvp product specification.
+\newblock Internal product specification, 2026{\natexlab{a}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Devorix Founding Team}(2026{\natexlab{b}})]{prd_2026}
+{Devorix Founding Team}.
+\newblock {02-PRD.md}: Devorix product requirements (ai studio prototype
+  lineage).
+\newblock Internal product requirements document, 2026{\natexlab{b}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{EthicalAds}(2026{\natexlab{a}})]{ethicalads_pricing_2026}
+{EthicalAds}.
+\newblock Ethicalads pricing and cpm benchmarks for developer audiences.
+\newblock \url{https://www.ethicalads.io/}, 2026{\natexlab{a}}.
+\newblock Accessed 2026-06-29. Industry estimate: ~\$2.50 effective CPM on a
+  global, mostly US/EU developer audience.
+
+\bibitem[{EthicalAds}(2026{\natexlab{b}})]{ethicalads_pub_2026}
+{EthicalAds}.
+\newblock Open source topics --- ethicalads for publishers.
+\newblock \url{https://www.ethicalads.io/publishers/topics/open-source/},
+  2026{\natexlab{b}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Fortune}(2026)]{anthropic_antiads_fortune_2026}
+{Fortune}.
+\newblock Anthropic's super bowl lx ads take aim at openai's ad plans for
+  chatgpt.
+\newblock \url{https://fortune.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: ``Ads are coming to AI. But not
+  to Claude'' campaign, February 2026.
+
+\bibitem[{Fortune Business Insights}(2026)]{devtoolsmarket_2026}
+{Fortune Business Insights}.
+\newblock Developer tools market size, growth and forecast to 2031.
+\newblock \url{https://www.fortunebusinessinsights.com/developer-tools-market},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Fraudlogix}(2026)]{fraudlogix_2026}
+{Fraudlogix}.
+\newblock What is impression fraud?
+\newblock \url{https://www.fraudlogix.com/glossary/what-is-impression-fraud/},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Gartner}(2026)]{gartner_2026}
+{Gartner}.
+\newblock Market guide for enterprise ai coding agents.
+\newblock
+  \url{https://www.gartner.com/en/documents/enterprise-ai-coding-agents-market-guide},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{GitHub}(2026{\natexlab{a}})]{github_2026}
+{GitHub}.
+\newblock Kyle daigle on india's developer growth: 27 million and counting.
+\newblock
+  \url{https://github.blog/news-insights/octoverse/india-developer-growth-2026},
+  2026{\natexlab{a}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{GitHub}(2026{\natexlab{b}})]{githubsponsors_2026}
+{GitHub}.
+\newblock Github sponsors -- program statistics and documentation.
+\newblock \url{https://docs.github.com/en/sponsors}, 2026{\natexlab{b}}.
+\newblock Accessed 2026-06-29. Verified fact: 49,148 sponsored developers as of
+  March 2026.
+
+\bibitem[{Grand View Research}(2026{\natexlab{a}})]{affiliatemarketing_2026}
+{Grand View Research}.
+\newblock Affiliate marketing market size, share \& growth report, 2026--2035.
+\newblock
+  \url{https://www.grandviewresearch.com/industry-analysis/affiliate-marketing-market-report},
+  2026{\natexlab{a}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Grand View Research}(2026{\natexlab{b}})]{aicodetools_2026}
+{Grand View Research}.
+\newblock Ai code tools market size, share \& trends report, 2025--2030.
+\newblock
+  \url{https://www.grandviewresearch.com/industry-analysis/ai-code-tools-market-report},
+  2026{\natexlab{b}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Hacker News}(2026)]{npm_funding_hn_2026}
+{Hacker News}.
+\newblock Discussion thread: npm install funding backlash.
+\newblock \url{https://news.ycombinator.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: community reaction thread
+  corroborating the npm funding backlash timeline.
+
+\bibitem[{HUMAN Security}(2026)]{humansecurity_2026}
+{HUMAN Security}.
+\newblock What is ad fraud?
+\newblock \url{https://www.humansecurity.com/learn/topics/what-is-ad-fraud/},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{IDEsaster Research Group}(2026)]{idesaster_disclosures_2026}
+{IDEsaster Research Group}.
+\newblock Idesaster: 30+ vulnerabilities disclosed across cursor, windsurf,
+  github copilot, and other ai ides.
+\newblock \url{https://idesaster.dev/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: 30+ vulnerability disclosures
+  across major AI-assisted IDEs.
+
+\bibitem[{IdleAds}(2026)]{idleads_showhn_2026}
+{IdleAds}.
+\newblock Idleads -- show hn launch thread.
+\newblock \url{https://news.ycombinator.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: trust positioning claim
+  ``impressions verified server-side, editor never patched, CLI never sees your
+  code or prompts''.
+
+\bibitem[{IdleAds.dev}(2026)]{idleads_2026}
+{IdleAds.dev}.
+\newblock {IdleAds -- Monetize Idle AI Wait-States}.
+\newblock \url{https://idleads.dev/}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Idlen.io}(2026)]{idlen_2026}
+{Idlen.io}.
+\newblock Idlen.io.
+\newblock \url{https://www.idlen.io/}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{InfoQ}(2026)]{npm_funding_infoq_2026}
+{InfoQ}.
+\newblock npm install funding: Backlash over sponsor messages in package
+  installs.
+\newblock \url{https://www.infoq.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: 2019 backlash, ``adware is
+  malware'' reaction, ad-blockers within a week.
+
+\bibitem[{InternetMango}(2026)]{internetmango_coldstart}
+{InternetMango}.
+\newblock {Two-Sided Marketplace Cold-Start: Why Demand-Led Seeding Works}.
+\newblock \url{https://internetmango.com/}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Kickbacks}(2026)]{kickbacks_showhn_2026}
+{Kickbacks}.
+\newblock Kickbacks -- get paid while your ai agent thinks (show hn).
+\newblock \url{https://news.ycombinator.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: Show HN post drew 2 points and 0
+  comments.
+
+\bibitem[{kickbacks.ai}(2026)]{kickbacks_2026}
+{kickbacks.ai}.
+\newblock {Kickbacks.ai -- Get Paid While Claude Code Thinks}.
+\newblock \url{https://kickbacks.ai/}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Kickbacks.ai}(2026)]{kickbacks_faq_2026}
+{Kickbacks.ai}.
+\newblock Kickbacks faq.
+\newblock \url{https://kickbacks.ai/faq}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Lightspeed Venture Partners}(2026)]{paidai_2025}
+{Lightspeed Venture Partners}.
+\newblock {Paid (paid.ai) -- \$21M Seed: The Missing Economic Infrastructure
+  for AI Agents}.
+\newblock \url{https://lsvp.com/}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{MarketsandMarkets}(2026)]{aicodetoolsbroad_2026}
+{MarketsandMarkets}.
+\newblock Ai code tools market --- global forecast to 2030 (broad definition
+  incl. review, testing, and platforms).
+\newblock
+  \url{https://www.marketsandmarkets.com/Market-Reports/ai-code-tools-market.html},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[McCalip(2026)]{kickbacksgithub_2026}
+Andrew McCalip.
+\newblock kickbacks.ai (github mirror).
+\newblock \url{https://github.com/andrewmccalip/kickbacks.ai}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{McKinsey \& Company}(2026)]{mckinsey_2026}
+{McKinsey \& Company}.
+\newblock The agentic economy: Sizing the opportunity through 2030.
+\newblock
+  \url{https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-economy},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Modern Treasury}(2026)]{moderntreasury_2026}
+{Modern Treasury}.
+\newblock How to build a digital wallet product.
+\newblock
+  \url{https://www.moderntreasury.com/journal/how-to-build-a-digital-wallet-product},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Multiple Security Outlets}(2026)]{microsoft_supplychain_2026}
+{Multiple Security Outlets}.
+\newblock June 2026 supply-chain attack on microsoft open-source tooling.
+\newblock \url{https://github.blog/security/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: supply-chain attack disclosed
+  June 2026 affecting Microsoft open-source developer tooling.
+
+\bibitem[{Peak XV Partners}(2026)]{peakxv_2026}
+{Peak XV Partners}.
+\newblock {Peak XV \$1.3B Fund -- India-Weighted Priority Verticals: Developer
+  Tooling, Vertical SaaS, Regulated Fintech}.
+\newblock \url{https://www.peakxv.com/}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Razorpay}(2026{\natexlab{a}})]{razorpaykyc_2026}
+{Razorpay}.
+\newblock Current account kyc --- rbl/yes bank.
+\newblock \url{https://razorpay.com/docs/x/rbl-ybl-current-account/cif/},
+  2026{\natexlab{a}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Razorpay}(2026{\natexlab{b}})]{razorpaypayouts_2026}
+{Razorpay}.
+\newblock Payouts apis.
+\newblock \url{https://razorpay.com/docs/api/x/payouts/}, 2026{\natexlab{b}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Razorpay}(2026{\natexlab{c}})]{razorpayvpa_2026}
+{Razorpay}.
+\newblock Validate a vpa --- account validation api.
+\newblock \url{https://razorpay.com/docs/api/x/account-validation/vpa/},
+  2026{\natexlab{c}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Razorpay}(2026{\natexlab{d}})]{razorpaywebhooks_2026}
+{Razorpay}.
+\newblock Razorpayx webhooks.
+\newblock \url{https://razorpay.com/docs/razorpayx/webhooks},
+  2026{\natexlab{d}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Razorpay}(2026{\natexlab{e}})]{razorpayx_2026}
+{Razorpay}.
+\newblock Razorpayx payouts api --- create payout to vpa.
+\newblock \url{https://razorpay.com/docs/api/x/payouts/create/vpa/},
+  2026{\natexlab{e}}.
+\newblock Re-verified for automated UPI/IMPS/NEFT/RTGS, 24/7 instant
+  settlement. Accessed 2026-06-29.
+
+\bibitem[{Refgrow}(2026)]{refgrow_2026}
+{Refgrow}.
+\newblock Stripe connect accounts.
+\newblock \url{https://refgrow.com/blog/stripe-connect-accounts}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Satya Nadella}(2026)]{nadella_2026}
+{Satya Nadella}.
+\newblock Remarks on india becoming github's largest developer community by
+  2030.
+\newblock
+  \url{https://news.microsoft.com/en-in/satya-nadella-india-developers-2030},
+  2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{SDK.finance}(2026{\natexlab{a}})]{sdkfinance_2026}
+{SDK.finance}.
+\newblock What is a double-entry ledger in fintech?
+\newblock
+  \url{https://sdk.finance/blog/what-is-a-double-entry-ledger-in-fintech/},
+  2026{\natexlab{a}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{SDK.finance}(2026{\natexlab{b}})]{sdkfinancemulticurrency_2026}
+{SDK.finance}.
+\newblock What is a multi-currency ledger? how fintechs track balances,
+  transfers, and settlement across currencies.
+\newblock
+  \url{https://sdk.finance/blog/what-is-a-multi-currency-ledger-how-fintechs-track-balances-transfers-and-settlement-across-currencies/},
+  2026{\natexlab{b}}.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Sequoia Capital}(2026)]{sequoia_2026}
+{Sequoia Capital}.
+\newblock {Sequoia's 2026 AI Thesis: Apps and Infrastructure as the Most
+  Concentrated Thematic Bet Since the Cloud Era}.
+\newblock \url{https://www.sequoiacap.com/}, 2026.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{Stork.AI}(2026)]{stork_kickbacks_review_2026}
+{Stork.AI}.
+\newblock Kickbacks review and hacker news thread analysis.
+\newblock \url{https://stork.ai/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: top developer concern on
+  Kickbacks HN thread was data egress (project paths, workspace directories
+  leaving the machine).
+
+\bibitem[{Stripe}(2026)]{stripe_india_2026}
+{Stripe}.
+\newblock Pausing payouts for stripe accounts in india.
+\newblock
+  \url{https://support.stripe.com/questions/pausing-payouts-for-stripe-accounts-in-india},
+  2026.
+\newblock Invite-only for new India accounts since May 2024 (RBI rules);
+  Connect Express onboarding for India recipients restricted. Accessed
+  2026-06-29.
+
+\bibitem[{TechCrunch}(2026)]{anthropic_antiads_techcrunch_2026}
+{TechCrunch}.
+\newblock Anthropic runs satirical anti-ads super bowl campaign against openai.
+\newblock \url{https://techcrunch.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: ads ``Deception,'' ``Betrayal,''
+  ``Treachery,'' ``Violation''.
+
+\bibitem[{The Media Ant}(2026)]{mediaant_2026}
+{The Media Ant}.
+\newblock India b2b / saas digital marketing budget benchmarks.
+\newblock \url{https://themediaant.com/}, 2026.
+\newblock Accessed 2026-06-29. Industry estimate: India B2B/SaaS monthly
+  marketing budgets of \textrupee75{,}000--\textrupee3{,}00{,}000+.
+
+\bibitem[{The Pragmatic Engineer}(2024)]{pragmaticengineer_carbonads_2024}
+{The Pragmatic Engineer}.
+\newblock {Three Years of Advertising on My Blog}.
+\newblock \url{https://blog.pragmaticengineer.com/ads/}, 2024.
+\newblock Accessed 2026-06-29.
+
+\bibitem[{The Register}(2026)]{npm_funding_register_2026}
+{The Register}.
+\newblock npm funding messages spark developer revolt; linode pulls
+  sponsorship.
+\newblock \url{https://www.theregister.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: Linode withdrew sponsorship; npm
+  banned ad-displaying packages platform-wide.
+
+\bibitem[{Tidelift}(2026)]{tidelift_2026}
+{Tidelift}.
+\newblock The state of the open source maintainer.
+\newblock \url{https://tidelift.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: 60\% of surveyed OSS maintainers
+  self-describe as unpaid hobbyists; 13\% as professional/paid.
+
+\bibitem[{upGrowth}(2026)]{upgrowth_2026}
+{upGrowth}.
+\newblock B2b saas marketing budget allocation in india.
+\newblock \url{https://upgrowth.in/}, 2026.
+\newblock Accessed 2026-06-29. Industry estimate: India B2B/SaaS monthly
+  marketing budget ranges.
+
+\bibitem[{Wildfire Systems}(2026)]{wildfire_cashback_2026}
+{Wildfire Systems}.
+\newblock Cashback browser extension retention benchmarks.
+\newblock \url{https://wildfiresystems.com/}, 2026.
+\newblock Accessed 2026-06-29. Industry estimate: ambient reward capture
+  outperforms active reward-seeking for retention.
+
+\bibitem[{X (Twitter)}(2026)]{kickbacks_launch_tweet_2026}
+{X (Twitter)}.
+\newblock Kickbacks launch tweet engagement data.
+\newblock \url{https://x.com/}, 2026.
+\newblock Accessed 2026-06-29. Verified fact: 5.5 million views within 24 hours
+  of the Kickbacks launch tweet.
+
+\bibitem[{Y Combinator}(2026)]{ycombinator_coldstart}
+{Y Combinator}.
+\newblock {Do Things That Don't Scale}.
+\newblock \url{https://www.ycombinator.com/library}, 2026.
+\newblock Accessed 2026-06-29.
+
+\end{thebibliography}

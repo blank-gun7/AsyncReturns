@@ -1,0 +1,281 @@
+\chapter{Appendices}
+\label{ch:appendices}
+
+\section{Appendix A --- Glossary of Terms}
+\label{app:glossary}
+
+\begin{description}
+  \item[Wait-state advertising] The category Devorix operates in: placing a
+        sponsor message in the brief ``thinking'' / idle status moment of an AI
+        coding tool, when the developer is waiting for the agent to respond.
+        The defining feature is that the attention is captive and full ---
+        unlike a sidebar the user scrolls past.
+
+  \item[Status line / status-bar overlay] The thin text slot an AI coding tool
+        renders during a thinking state (and the secondary VS~Code status-bar
+        item). Devorix injects its sponsor line here via the configurable
+        \texttt{statusLine} mechanism, \emph{non-patching} (see below).
+
+  \item[Non-patching client] An integration that injects the sponsor line
+        through a supported configuration hook and \emph{never} modifies the
+        host tool's rendering layer, never reads code or prompts, and never
+        touches the host tool's OAuth tokens. This is the basis of Devorix's
+        platform-policy and ``we are not Kickbacks'' compliance posture.
+
+  \item[Impression] A single billable display of a sponsor creative. A display
+        counts as billable only when the creative has shown continuously for at
+        least the billable impression length (5~seconds for v1) during an
+        active session, and only after it passes server-side validity
+        filtering.
+
+  \item[Billable impression length] The minimum continuous display time before
+        a display counts as a billable impression. Locked at \textbf{5~seconds}
+        for the v1 build; 10~seconds retained as a documented, data-gated
+        option.
+
+  \item[Click] A counted event when a developer opens the optional click URL
+        attached to a creative.
+
+  \item[Fill rate] The percentage of available impression slots that are
+        served a \emph{paid} (non-house) advertiser creative rather than a
+        house ad. The single most sensitive variable in the financial model and
+        a direct proxy for whether real advertiser demand exists; today
+        $\sim$0\% (no advertisers).
+
+  \item[House ad] A Devorix-controlled promotional creative served when no paid
+        advertiser creative is available (e.g.\ at launch, before any
+        advertiser exists). Generates a billable-shaped event at ₹0
+        advertiser cost, used to validate the loop.
+
+  \item[Tier 0 / Tier 1 / Tier 2] The three rungs of the locked hybrid pricing
+        ladder. \textbf{Tier~0}: flat monthly sponsorships (₹10{,}000--
+        15{,}000/mo) plus house ads, until $\sim$5 advertisers.
+        \textbf{Tier~1}: a fixed-price CPM rate card (\$2--3 India / \$5--8
+        Global), once 5--10 advertisers are signed. \textbf{Tier~2}: a
+        real-time second-price auction, once 5{,}000+ DAU.
+
+  \item[CPM] Cost per mille --- price per 1{,}000 impressions. The pricing
+        basis for Tier~1 and above. The only independently audited real
+        developer-advertising comp is Carbon Ads at \$1.60 CPM.
+
+  \item[eCPM] Effective CPM --- revenue normalized to a per-1{,}000-impression
+        figure, used to compare flat-fee Tier~0 deals against a CPM basis.
+
+  \item[Block] A Tier~1 unit of inventory equal to 1{,}000 impressions; the
+        unit an advertiser buys against the rate card.
+
+  \item[DAU / WAU] Daily / Weekly Active Users --- developers with the client
+        enabled and at least one session in the period. The 5{,}000+ \textbf{DAU}
+        threshold triggers Tier~2.
+
+  \item[Payout threshold] The accrued payable balance (locked at
+        \textbf{₹300}) at which an automatic UPI payout is triggered.
+
+  \item[Payable, not stored value] The regulatory framing of the developer's
+        accrued balance: a debt Devorix owes, settled to a bank/UPI account on
+        the threshold, with no load/spend/hold capability --- deliberately
+        outside RBI's Prepaid Payment Instrument (PPI) definition.
+
+  \item[UPI / VPA] Unified Payments Interface, India's real-time payment rail;
+        a VPA (Virtual Payment Address, e.g.\ \texttt{name@bank}) is the
+        UPI handle a payout is sent to.
+
+  \item[RazorpayX] The payout provider; its Payouts API executes automated
+        UPI/IMPS/NEFT/RTGS transfers with 24/7 instant UPI settlement.
+
+  \item[Double-entry ledger] The money source of truth: every economic event
+        posts as a balanced pair of entries, and a developer's visible balance
+        is always a derived read (\,$\sum$ credits $-\,\sum$ debits\,), never a
+        separately stored mutable field.
+
+  \item[Raw / billable event separation] The architectural rule that raw
+        impression events are stored separately from the fraud-filtered
+        \texttt{billable\_events} that alone drive advertiser billing and
+        developer payouts.
+
+  \item[Atomic network] (Andrew Chen, \emph{The Cold Start Problem}) The
+        smallest dense network that can stand on its own; Devorix's
+        India-first, Ring-1-first plan is structurally an atomic-network
+        strategy.
+
+  \item[Three-ring niche] Devorix's advertiser targeting:
+        \textbf{Ring~1} (AI-infra/dev-tool sellers to AI-building developers),
+        \textbf{Ring~2} (India dev-economy sellers), \textbf{Ring~3} (global
+        dev-tool brands, Phase~2 only).
+
+  \item[Go/no-go gate] The locked month-4 test that governs continuation: at
+        least two advertisers paid \emph{and} renewed, week-4 retention holds,
+        and the founder still wants to run it.
+
+  \item[Sweat equity] The founder's labour, modelled at ₹0 salary, so all
+        margins are not fully loaded and exclude founder opportunity cost.
+\end{description}
+
+\section{Appendix B --- Locked Decisions (verbatim)}
+\label{app:locked-decisions}
+
+The table below reproduces \texttt{MASTER-PLAN.md} \S2 in full, with all
+numbers verbatim. No decision in this table may be altered or hedged anywhere
+in this document; they are stated as final facts.
+
+{\small
+\begin{longtable}{p{0.4cm} p{5.1cm} p{2.4cm} p{4.6cm}}
+\caption{Locked decisions (\texttt{MASTER-PLAN.md} \S2, verbatim).}
+\label{tab:locked-decisions} \\
+\toprule
+\textbf{\#} & \textbf{Decision} & \textbf{Status} & \textbf{Notes} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{\#} & \textbf{Decision} & \textbf{Status} & \textbf{Notes} \\
+\midrule
+\endhead
+1 & Model = ads-to-devs (Kickbacks-style) & Decided & --- \\
+\addlinespace
+2 & First tool = Claude Code; client = non-patching/status-bar & Decided &
+Enterprise-safe, avoids Kickbacks' ToS risk \\
+\addlinespace
+3 & Payout rail = RazorpayX UPI, accrue + batch & Decided & Re-verified
+2026-06-28: RazorpayX Payouts API confirmed to support automated
+UPI/IMPS/NEFT/RTGS, 24/7 instant settlement \\
+\addlinespace
+4 & Build = solo, founder-built MVP & Decided & --- \\
+\addlinespace
+5 & Public framing = ``sponsorship footer'' & Decided & From AI Studio
+prototype \\
+\addlinespace
+6 & Adopt 3 Gemini prototype tools & Decided & Ad-Copy Generator (P1),
+Wait-State Coach (P1), Workspace Analyzer (P2); core ad-serving/ledger must not
+depend on Gemini \\
+\addlinespace
+7 & Entity/brand = ``Devorix'' / ``DEVORIX.'' & \textbf{DECIDED FINAL} & Renamed
+from ``Async Returns'' / ``ASYNC.'' on 2026-06-28 per founder's explicit call.
+Domain placeholder used across docs/code: devorix.ai --- not yet verified as
+registered/available. \\
+\addlinespace
+8 & Budget/runway $\leq$ ₹1~lakh, low burn, solo & Founder constraint &
+--- \\
+\addlinespace
+9 & Do NOT incorporate yet --- sole proprietor & Decided & Re-verified
+2026-06-28, see \S7.1 \\
+\addlinespace
+10 & No GST registration yet (below ₹20L/yr threshold) & Decided &
+Re-verified 2026-06-28, see \S7.1 \\
+\addlinespace
+11 & \textbf{Dev rev share = 50 / 50} & \textbf{DECIDED FINAL} & Closes the
+50-vs-60-70\% open question. Overrides FINANCIAL\_MODEL's 40/60 and 01/03's
+``60-70\% as install-war lever'' idea. \\
+\addlinespace
+12 & \textbf{Geographic sequencing: India first, Global = explicit Phase 2} &
+\textbf{DECIDED FINAL} & Gated on the go/no-go criteria in \S8.3. PRD's
+``non-India = non-goal'' is correct for now, not permanent. \\
+\addlinespace
+13 & \textbf{Payout threshold = ₹300} & \textbf{DECIDED FINAL} & Overrides
+₹500 (05) and ₹250 (PRICING\_ARCHITECTURE) --- founder's call, splits
+the difference \\
+\addlinespace
+14 & \textbf{Pricing model = hybrid ladder} --- Tier~0 (house ads +
+opportunistic flat-fee deals, until $\sim$5 advertisers) $\rightarrow$ Tier~1
+(real fixed-price CPM rate card, once 5--10 advertisers) $\rightarrow$ Tier~2
+(real-time auction, once 5{,}000+ DAU) & \textbf{DECIDED FINAL} & Full detail
+in \S5 \\
+\addlinespace
+15 & \textbf{Billable impression length = 5 seconds for v1 build}; 10 seconds
+kept as a documented, data-gated option & \textbf{DECIDED FINAL for now} &
+Founder asked to compare, not force a permanent choice --- see \S5.3 \\
+\addlinespace
+16 & \textbf{USD$\rightarrow$INR = ₹94} & \textbf{RE-VERIFIED 2026-06-28} &
+Live mid-market $\sim$₹94.36--94.44. Replaces ₹86 (00), ₹83
+(PRICING\_ARCHITECTURE, FINANCIAL\_MODEL); confirms ₹94.5 (05) was
+right. \\
+\addlinespace
+17 & \textbf{Warm advertiser intros at sprint start = 0} (fully cold outreach) &
+Founder constraint, newly confirmed & Adjusts sprint math, see \S6.3 \\
+\addlinespace
+18 & \textbf{Tier-1 rate-card CPM (once activated) = $\sim$\$2--3 India /
+\$5--8 Global} & \textbf{DECIDED FINAL (planning number)} & Replaces \$8/\$15
+(PRICING\_ARCHITECTURE) and \$5$\rightarrow$\$10-12 (FINANCIAL\_MODEL) ---
+anchored to the one independently-audited real comp, not 4--10x it. Full
+reasoning in \S5.4. Tagged \emph{Assumption} --- revisit with real fill
+data. \\
+\bottomrule
+\end{longtable}
+}
+
+\section{Appendix C --- Methodology Note on Evidence Labelling}
+\label{app:methodology}
+
+Throughout this document, every non-trivial factual claim --- and especially
+every number --- carries one of three labels, used consistently and never
+blurred together through synthesis:
+
+\begin{description}
+  \item[Verified fact] Named, on-record, or independently multi-sourced. These
+        are claims traceable to a primary source (e.g.\ a company's own
+        disclosure, a regulator's documentation, or two or more independent
+        reports). Example: ``India has 27~million developers on GitHub (2026)''
+        --- attributed on record to GitHub's COO and corroborated across
+        multiple outlets.
+
+  \item[Industry estimate] Published by research firms or third parties,
+        directionally consistent but without a single authoritative number, or
+        self-reported. These are credible and useful as range/context but should
+        not be treated as precise. Example: the AI code tools market at
+        ``$\sim$\$9--9.5B (2026)'' across firms whose category boundaries
+        disagree.
+
+  \item[Internal assumption] Devorix's own model output, reasoning, or
+        extrapolation --- not an externally researched fact. All figures past
+        the locked, audited month-4 plan fall here. Example: the 12--24 month
+        revenue scenarios, which are planner extrapolation, not workbook
+        outputs.
+\end{description}
+
+Two conventions follow from this labelling. First, \textbf{the locked decisions
+(Appendix~\ref{app:locked-decisions}) and the audited months-1--4 plan are the
+only load-bearing inputs to the funding ask}; everything labelled Internal
+assumption (the TAM ceiling, the 12--24 month curves, the agentic-economy
+context) is optionality and direction, presented to explain \emph{why the bet
+is worth taking if the near-term loop works}, never as something derived from
+the financial workbooks. Second, where two source inputs disagreed, the
+contradiction is \emph{resolved explicitly in the text} (e.g.\ the 18\%
+workplace-usage vs.\ 28\%/24\% primary-tool-split adoption figures, reconciled
+as measuring different populations) rather than silently dropped --- with the
+more conservative, better-sourced figure adopted as the planning anchor and the
+favourable figure carried forward only as a directional signal.
+
+\section{Appendix D --- Note on the Multi-Agent Research Process}
+\label{app:research-process}
+
+In the interest of transparency about how this PRD was produced, this appendix
+documents the research pipeline behind it.
+
+The document was synthesized through a deliberate multi-agent workflow rather
+than written in a single pass. The pipeline had three roles:
+
+\begin{enumerate}
+  \item \textbf{Explorer agents} performed broad, read-only fan-out research ---
+        gathering named comparables, competitor launch mechanics, fund theses,
+        regulatory specifics, and market figures from primary sources --- and
+        returned findings with source attribution and confidence labels. Their
+        job was to locate and verify evidence, not to draw conclusions.
+
+  \item \textbf{Planner agents} structured that evidence into chapter-level
+        synthesis: building the 24-month roadmap contingency tree, the moats
+        verdict, the financial scenario extension, the persona set, and the
+        risk register, while keeping the explorer's confidence labels intact and
+        flagging open questions rather than papering over them.
+
+  \item \textbf{An orchestrating synthesis pass} reconciled the planner outputs
+        against the single source of truth (\texttt{MASTER-PLAN.md}), resolved
+        every cross-document contradiction explicitly, enforced the locked
+        decisions verbatim, and produced the final chapter text.
+\end{enumerate}
+
+The single source of truth throughout was \texttt{MASTER-PLAN.md}: where any
+specialist input disagreed with it, the master plan won, and no locked decision
+in Appendix~\ref{app:locked-decisions} was reopened at any stage. This process
+is disclosed here so a reader can weigh the document's claims knowing how they
+were assembled --- in particular, that the evidence labelling in
+Appendix~\ref{app:methodology} was applied at the point of research collection
+and preserved through synthesis, not retrofitted at the end.

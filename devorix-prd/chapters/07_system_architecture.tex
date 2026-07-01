@@ -1,0 +1,451 @@
+\chapter{System Architecture}
+\label{chap:system-architecture}
+
+\begin{quote}
+\textit{Source-of-truth note: every decision in this chapter is subordinate to \texttt{MASTER-PLAN.md} \S2 (locked decisions) and \texttt{00-MVP-spec.md} (the v1 technical spec). Nothing here re-opens a locked decision; it grounds the existing v1 design in real-world comparables and adds an explicitly-labelled future-state section. Each claim carries one of three labels --- \textbf{Verified fact} (independently confirmed against a primary source), \textbf{Industry estimate} (directionally supported but self-reported or synthesized), or \textbf{Internal assumption} (Devorix's own judgment call, not externally sourced).}
+\end{quote}
+
+\section{How to read this chapter}
+\label{sec:how-to-read}
+
+The architecture splits into two registers, and keeping them apart is deliberate. \textbf{Part 1 (\S\ref{sec:external-validation}--\S\ref{sec:v1-data-flow}) is what gets built} in the 14-day sprint and the 4-month plan: a solo founder, a ₹1 lakh budget, a weeks-not-months build with no on-call rotation and no advertiser self-serve (\texttt{MASTER-PLAN.md} \S2 rows 4/8, \S8.2). \textbf{Part 2 (\S\ref{sec:part2-future}) is future-state optionality} --- Tier 1 and Tier 2 --- gated on the triggers already locked in \texttt{MASTER-PLAN.md} \S5.1 and \S8.4, and written to be \textit{evaluated}, not funded, at this stage.
+
+This separation is not cosmetic. \texttt{MASTER-PLAN.md} \S11's own VC-lens validation names the single most common way pre-seed pitches lose credibility: mixing infrastructure-scale ambition with a ``fund a 14-day sprint'' ask. The defensible long-term claim is not that Devorix will build a sophisticated ad-tech stack --- auctions, fraud ML, and analytics warehouses are well-understood, copyable technology once there is a reason to build them. The defensible claim is that \textbf{the ledger and payout discipline built correctly at v1 --- double-entry, raw/billable event separation, payable-not-wallet design --- is what lets Tier 1 and Tier 2 bolt on later without a rewrite}, and that discipline costs almost nothing extra to build right now while being expensive and risky to retrofit onto a live money system later.
+
+\section{External validation: the architecture is not novel, and that is the point}
+\label{sec:external-validation}
+
+Before describing the build, it is worth establishing that Devorix's v1 design is not an invention --- it is convergence on the only proven pattern at this scale. This matters for an investor reading the technical risk: there is a working template.
+
+\begin{itemize}
+  \item \textbf{Verified fact} \citep{carbonads_about_2026} --- Carbon Ads, the most mature developer-focused ad network (900+ publisher sites since 2010), runs a centralized-sell / distributed-serve model: a thin client-side tag pulls one pre-approved creative from a central ad server; publishers do not run an auction or pick the ad. Ad unit is a fixed simple spec (130\texttimes{}100px image + \textless{}80 chars text), one creative per slot, no real-time bidding, no self-serve buying. Publisher payout is a 60\% revenue share, \textbf{accrued and batched monthly}.
+  \item \textbf{Verified fact} \citep{ethicalads_pub_2026} --- EthicalAds is the only fully open-source ad network in the comp set; its production serving stack (Python/Django) is public, proving that open-sourcing the serving/client stack at small scale is both viable and a trust/marketing asset, not just an engineering nicety. Its targeting is content/geography-based only --- no cookies, no individual tracking, server-log IPs deleted within 10 days.
+\end{itemize}
+
+Both comps map structurally onto Devorix's spec: centralized creative approval, simple weighted/round-robin serving, no client-side bidding, coarse geo-only targeting, and accrue-and-batch payout (\texttt{00-MVP-spec.md} \S3--\S6). The only material difference is payout cadence --- Carbon and EthicalAds batch monthly; Devorix batches on a \textbf{₹300 balance threshold} (locked, \texttt{MASTER-PLAN.md} \S2 row 13), better UX for small/sporadic earners at the cost of running a balance-check job frequently rather than monthly.
+
+This is a \textbf{confirmatory finding, not a course-correction}: Devorix follows the only proven small-scale dev-ad-network pattern rather than inventing one.
+
+\section{V1 system overview}
+\label{sec:v1-overview}
+
+The system has three planes, and the most important architectural rule is that the \textbf{money ledger is strictly separated from impression ingestion} (\texttt{00-MVP-spec.md} \S2):
+
+\begin{table}[htbp]
+\centering
+\caption{The three planes of the v1 system}
+\label{tab:three-planes}
+\begin{tabular}{p{0.16\textwidth} p{0.28\textwidth} p{0.46\textwidth}}
+\toprule
+\textbf{Plane} & \textbf{Runs where} & \textbf{Core responsibility} \\
+\midrule
+Client & Developer's machine & Inject the sponsor line, count impressions/clicks, batch-report signed events \\
+Backend & India-region cloud (AWS/GCP Mumbai, for DPDP residency) & Ad serving, event ingest + fraud filter, double-entry ledger, dashboards \\
+Payouts & Backend job + RazorpayX & Threshold-triggered UPI batch payout with webhook reconciliation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+See Figure~\ref{fig:v1-architecture} (v1 system architecture diagram).
+
+\section{The client --- non-patching status-bar overlay}
+\label{sec:client}
+
+\begin{itemize}
+  \item A small local agent plus a Claude Code status-line integration (\texttt{\textasciitilde{}/.claude/settings.json} \texttt{statusLine} hook), with a VS Code status-bar item as the secondary surface. v1 covers \textbf{Claude Code only}; a Cursor adapter is a Day 30--60 stretch goal (\texttt{00-MVP-spec.md} \S9), abstracted behind a per-tool \texttt{AdSlotProvider} interface so new tools are added without touching core.
+  \item Responsibilities (\texttt{00-MVP-spec.md} \S3): prefetch a small batch of approved text creatives (one line, optional click URL, cached for brief-offline serving); render into the wait-state slot; \textbf{count an impression at \textgreater{}=5 seconds dwell} (locked, \texttt{MASTER-PLAN.md} \S2 row 15); count a click on URL open; batch-report events (\textasciitilde{}60s or 50-event batches) signed with a device/session token and an idempotency key per event; and provide one toggle that fully restores the original spinner.
+  \item \textbf{Verified fact} \citep{kickbacks_faq_2026} --- Kickbacks' own published impression-validity gate uses the \textbf{same 5-second consecutive-display minimum} during an active, human-initiated AI wait-state. This is direct external confirmation that 5s is the category-standard billable threshold, not an arbitrary Devorix choice.
+  \item \textbf{Hard constraint, load-bearing for the entire compliance story:} the client \textbf{never reads code, prompts, or completions, and never touches Claude's OAuth tokens or rendering layer.} This is what keeps Devorix on the safe side of Anthropic's January 2026 enforcement line (\texttt{MASTER-PLAN.md} \S10) and is the basis of the ``we are not Kickbacks'' positioning. \textbf{Verified fact} \citep{kickbacksgithub_2026} --- Kickbacks patches Claude Code's rendering layer directly, which is precisely the posture Anthropic acted against. Devorix's non-patching overlay is the citable differentiator.
+  \item \textbf{Industry estimate} \citep{idlen_2026} --- A third competitor, Idlen.io, states it analyzes \texttt{package.json} \textbf{locally on-device} for ad relevance (nothing leaves the machine) and renders ads in \textbf{isolated webviews} to avoid editor-performance impact. These are more technically-specific privacy/architecture disclosures than either Kickbacks or IdleAds have published, and are a useful template: Devorix should phrase its ``never reads your code'' claim with comparable technical specificity (publish a source-available client, as EthicalAds does and Kickbacks did), not as a bare marketing assertion.
+  \item \textbf{Anti-tamper principle:} client events are advisory from an untrusted source. The \textbf{backend, not the client, decides what is billable/payable} (\texttt{00-MVP-spec.md} \S3/\S5).
+\end{itemize}
+
+\section{The backend}
+\label{sec:backend}
+
+\subsection{Ad serving --- Tier 0 only}
+\label{sec:ad-serving-tier0}
+
+At v1, ad serving is deliberately \textit{not} a serving engine in any real sense. It is a small rotation of (a) house promo lines (to validate the pipe before any advertiser exists) and (b) 1--3 manually-loaded flat-deal creatives per signed advertiser (\texttt{MASTER-PLAN.md} \S5.1). Concretely: a single small table --- \texttt{(advertiser\_id, creative\_text, click\_url, active, start\_date, end\_date)} --- read on each ad-request and round-robined or weighted by simple priority. No bidding, no CPM math, no targeting beyond a hardcoded \texttt{geo = India} default.
+
+This is \textbf{Internal assumption}-grade undersizing, and correct: \texttt{MASTER-PLAN.md} \S5.1 explicitly states Tier 0 has no rate card and no self-serve, and 1--3 advertisers do not justify more. A config table plus a human doing sales calls \textit{is} the Tier-0 ad-serving system.
+
+\subsection{Event ingest and fraud filter}
+\label{sec:event-ingest}
+
+A single ingest endpoint accepts batched events keyed by idempotency UUID + device/session token + timestamp window. Before anything touches the ledger, a small server-side validity filter runs (\texttt{00-MVP-spec.md} \S3/\S5):
+
+\begin{itemize}
+  \item Idempotency + dedup per event.
+  \item Minimum display time (5s); max-events-per-hour-per-device ceiling; plausible-cadence check.
+  \item \textbf{Named daily/periodic per-device caps} as an explicit control (not left implicit in ``plausible cadence''). \textbf{Verified fact} \citep{kickbacks_faq_2026} --- Kickbacks uses named daily/periodic caps as a stated control; Devorix should adopt the same explicitness.
+  \item \textbf{Salted one-way IP hashing for sybil/multi-account detection.} \textbf{Verified fact} \citep{kickbacks_faq_2026} --- Kickbacks stores only a salted, one-way hash of the IP (never the raw address) to compute accounts-per-network and networks-per-account ratios. This is a directly reusable pattern: it detects one person running many fake accounts while \textit{strengthening} the ``we don't store identifying data we don't need'' trust claim. Devorix should adopt it in v1.
+\end{itemize}
+
+\textbf{Verified fact} (synthesized from \citep{fraudlogix_2026, humansecurity_2026, atul4u_2026}) --- Industry best practice is \textbf{pre-credit filtering} (block suspicious impressions before they count toward billing) over post-hoc clawback, because clawing back money already paid to a developer or invoiced to an advertiser is reputationally costly in a trust-thin category. Devorix's single-slot, one-creative design also structurally eliminates the ad-stacking fraud vector entirely --- worth stating in the trust section.
+
+\textbf{Internal assumption} --- At Devorix's near-term scale (100--500 installs, 1--3 advertisers, \texttt{MASTER-PLAN.md} \S8.3), \textbf{single-device self-fraud} (a developer scripting fake ``thinking'' states to farm impressions) is a more relevant threat than distributed bot farms. The v1 filter should weight toward implausible 24/7 cadence and no-corresponding-editor-activity signals, not distributed-botnet detection, which is the higher-cost problem Devorix does not yet have. This is a build-specific judgment call, not an external claim.
+
+Raw events are written to a cheap append-only store --- at v1 simply a Postgres \texttt{raw\_events} table. \texttt{00-MVP-spec.md}'s ClickHouse/Redis-Streams suggestion is the \textit{target} shape once write volume justifies a second datastore, \textbf{not} a day-1 requirement for a pre-launch product with zero users.
+
+\subsection{Ledger / balance tracking}
+\label{sec:ledger}
+
+Postgres, double-entry, source of truth for money --- non-negotiable even at tiny scale, because it is the one component that must survive an audit later.
+
+\begin{itemize}
+  \item \textbf{Verified fact} \citep{moderntreasury_2026, sdkfinance_2026} --- Standard pattern for accrue-then-payout systems: a double-entry ledger where the user's visible balance is always a \textit{derived read} (\texttt{SUM(credits) - SUM(debits)}), never a separately-stored mutable field that can drift from transaction history. Every economic event (an impression becoming billable, an advertiser invoice, a payout) posts as a balanced entry pair. This is exactly \texttt{00-MVP-spec.md} \S2's ``Postgres, double-entry, dev balance.''
+  \item Two logical tables matter most: \texttt{billable\_events} (the subset of raw events that passed the fraud filter and are eligible to generate payable) and \texttt{dev\_balances} (accrued-but-unpaid amount per developer, at the locked 50/50 split). \textbf{Advertiser billing and developer payable both derive from the same filtered ledger, never from raw events} --- this is what makes the ``real, honest report'' promise to advertisers (\texttt{MASTER-PLAN.md} \S11) credible.
+  \item \textbf{Verified fact} \citep{kickbacks_faq_2026} --- Kickbacks' enforcement language explicitly describes \textbf{voiding ledger entries} tied to fraud. This confirms competitors also use a ledger-entry model (not a simple balance field) so fraudulent credits can be surgically reversed --- reinforcing the double-entry design and Devorix's clawback capability as designed-in, not an afterthought.
+  \item \textbf{Payable, not stored value.} No load/spend/hold capability is exposed to developers. This keeps the design outside RBI's PPI/wallet definition (\texttt{MASTER-PLAN.md} \S7.1) and must stay structurally true as the system grows. Note: RBI issued draft PPI Master Directions as recently as April 2026 --- confirm the ledger design with a fintech-savvy CA before scaling past MVP.
+  \item \textbf{Verified fact} \citep{refgrow_2026} --- The decisive principle from affiliate/creator-payout systems: \textbf{decouple the internal earnings ledger from the payment rail.} The ledger decides \textit{who earned what and when it is payable}; the rail (RazorpayX) only decides \textit{who can legally receive funds under what KYC}. If the internal ledger drifts from the rail's settled state (failed webhooks, reversals), \textbf{the platform bears the financial difference.} This elevates webhook verification and reconciliation (\S\ref{sec:payout-flow}) from hygiene to a money-correctness, liability-bearing requirement.
+  \item \textbf{Industry estimate} \citep{sdkfinancemulticurrency_2026} --- Multi-currency ledger support is standard fintech but \textbf{not needed for INR-only Phase 1}. Forward-compatible constraint: don't hardcode INR-only assumptions into the schema, even though Phase 1 is INR-only --- relevant only when Global Phase 2 activates (\texttt{MASTER-PLAN.md} \S8.1).
+\end{itemize}
+
+\subsection{Publisher (developer) dashboard}
+\label{sec:publisher-dashboard}
+
+Minimal: current balance (today/month/lifetime), payout settings (UPI VPA or bank), and PAN/KYC capture. No analytics, no creative preferences, no referral system at v1 --- those are retention features, not part of the money loop.
+
+\subsection{Advertiser side (Tier 0)}
+\label{sec:advertiser-tier0}
+
+No dashboard at v1. Onboarding is manual/concierge: a signed IO (simple, low-complexity contract per \texttt{MASTER-PLAN.md} \S11), a flat monthly invoice (₹10,000--15,000/mo), creative text collected by email/call and entered directly into the \S\ref{sec:ad-serving-tier0} table. GST invoicing is \textbf{not} built --- unneeded below the ₹20L/yr threshold, triggered only if a specific advertiser demands a GST invoice (\texttt{MASTER-PLAN.md} \S7.1).
+
+\section{The payout flow --- RazorpayX UPI}
+\label{sec:payout-flow}
+
+This flow is a product feature, not just plumbing: the first real UPI payout screenshot is called out in \texttt{MASTER-PLAN.md} \S8.2 as Devorix's single best marketing asset.
+
+\begin{itemize}
+  \item \textbf{Verified fact} \citep{razorpaypayouts_2026} --- The integration sequence is \textbf{Contact \textrightarrow{} Fund Account \textrightarrow{} Payout}, with a dedicated first-class endpoint for UPI/VPA payouts. Confirmed accurate against current docs; no correction to \texttt{00-MVP-spec.md} \S6 needed.
+  \item Threshold batch job: when a developer's accrued \texttt{dev\_balances} crosses \textbf{₹300} (locked), trigger a payout with a mandatory idempotency key \textrightarrow{} consume status webhooks (queued \textrightarrow{} processing \textrightarrow{} processed/failed/reversed) \textrightarrow{} reconcile against the ledger, decrementing the payable balance \textbf{only on \texttt{processed}}.
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!10,colframe=black!60,title=Must-build-v1 requirements (not future-phase),boxrule=0.8pt,arc=2pt]
+Two build-checklist items the explorer research surfaced --- \textbf{both are must-build for v1, not future-phase}:
+
+\begin{enumerate}
+  \item \textbf{HMAC-SHA256 webhook signature verification.} \textbf{Verified fact} \citep{razorpaywebhooks_2026} --- Payout webhooks are signed via HMAC-SHA256 with a webhook secret in the \texttt{X-Razorpay-Signature} header and \textbf{must be validated on receipt before trusting the payload.} \texttt{00-MVP-spec.md} \S6 mentions consuming webhooks but does not call out signature verification. Per \S\ref{sec:ledger}'s liability principle, an unverified or spoofed webhook that desyncs the ledger from RazorpayX's settled state is a money-correctness bug Devorix is financially liable for --- so this is a \textbf{money-correctness requirement, not optional hardening.}
+  \item \textbf{VPA Account Validation at onboarding time.} \textbf{Verified fact} \citep{razorpayvpa_2026} --- A dedicated Account Validation API confirms a VPA resolves to a real, named account; a composite API creates Contact + Fund Account + validates the VPA in one call. Razorpay's own best-practice docs recommend validating the Fund Account \textit{before} issuing a payout. Devorix must call validation when a developer first adds/changes their UPI VPA in the Publisher Dashboard --- \textbf{once at onboarding, not per-payout} (it is a billable call, so per-payout would waste cost), rather than relying on the payout silently failing for a bad VPA.
+\end{enumerate}
+\end{tcolorbox}
+
+Supporting verified facts: PAN is collected at signup regardless of whether TDS currently attaches (it does not yet --- \S194H attaches only past ₹1 crore turnover, \texttt{MASTER-PLAN.md} \S7.1) \citep{razorpaykyc_2026} --- RazorpayX's KYC-demand right is contractually open-ended, not threshold-gated, so PAN is a day-one non-negotiable for every payee. KYC turnaround is typically \textbf{1--2 working days} \citep{creativenexus_2026} --- the Publisher Dashboard should set this expectation, not imply instant payout eligibility. UPI settles 24/7 instantly; the ₹5 lakh per-transaction cap is irrelevant at \textasciitilde{}₹300--500 payouts. The full flow is tested end-to-end in the RazorpayX sandbox before any live payout.
+
+See Figure~\ref{fig:sequence-diagram} (impression-to-payout sequence diagram).
+
+\section{V1 data flow and explicit non-scope}
+\label{sec:v1-data-flow}
+
+\subsection{Data flow}
+\label{sec:data-flow}
+
+\begin{enumerate}
+  \item Developer installs the client \textrightarrow{} signs in (Google/GitHub OAuth) \textrightarrow{} client registers a device/session token.
+  \item Client prefetches the active Tier-0 creative on session start / polling interval.
+  \item Claude Code enters ``thinking'' \textrightarrow{} client renders the sponsor line.
+  \item Line displayed \textgreater{}=5s \textrightarrow{} client queues a local impression event (and a click event if the URL is opened).
+  \item Every \textasciitilde{}60s or 50 events \textrightarrow{} client POSTs a signed, idempotency-keyed batch to Event Ingest.
+  \item Backend validates (dedup, min-display-time, rate ceiling, caps, salted-IP sybil check) \textrightarrow{} writes raw events \textrightarrow{} promotes valid ones to \texttt{billable\_events}.
+  \item Balance-update job credits the developer's payable at 50\% of billable value and increments an advertiser delivered-impressions counter (informational at Tier 0 --- flat fee regardless of volume --- used to prove fill and justify renewal).
+  \item Periodic batch job scans \texttt{dev\_balances} for anyone \textgreater{}=₹300 \textrightarrow{} runs the RazorpayX flow (\S\ref{sec:payout-flow}) \textrightarrow{} verified webhook closes the loop.
+  \item Developer dashboard reads \texttt{dev\_balances} + payout history from Postgres; the advertiser report (manual monthly email/PDF) is generated from \texttt{billable\_events} aggregates.
+\end{enumerate}
+
+\subsection{Deliberately NOT built in v1}
+\label{sec:not-built-v1}
+
+What a solo-founder PRD leaves out is as important as what it includes:
+
+\begin{itemize}
+  \item \textbf{No real-time auction} --- Tier 2, gated on 5,000+ DAU. Solving a liquidity problem before there is liquidity.
+  \item \textbf{No self-serve advertiser portal or rate card} --- Tier 1, gated on 5--10 advertisers. At 1--3 advertisers, a config table plus human sales \textit{is} the system.
+  \item \textbf{No fraud ML / anomaly detection} --- only the \S\ref{sec:event-ingest} rule-based validity filter (plus salted-IP sybil detection). A real pipeline is premature with no real advertiser money flowing and event volume in the thousands.
+  \item \textbf{No separate analytics datastore} --- Postgres alone holds raw + billable events at MVP volumes.
+  \item \textbf{No multi-tool adapter beyond Claude Code} (+ Cursor as a stretch). Codex and others deferred (\texttt{00-MVP-spec.md} \S8).
+  \item \textbf{No GST registration, no Pvt Ltd} --- unnecessary below current thresholds; revisit past the 4-month go/no-go gate.
+  \item \textbf{No international payout rails} (PayPal/Wise), no Global-tier GTM --- explicitly Phase 2.
+  \item \textbf{No referral/streak/retention gamification} --- useful later for the thin-payout retention risk, not part of proving the core loop.
+\end{itemize}
+
+\section{Part 2 --- Future Tier 1 / Tier 2 architecture (future phase, not v1)}
+\label{sec:part2-future}
+
+Read this section as \textbf{optionality, not a roadmap commitment.} Several pieces are flagged as over-engineering if pulled forward.
+
+\subsection{Tier 1 --- fixed-price rate-card serving (trigger: 5--10 advertisers signed)}
+\label{sec:tier1}
+
+The \S\ref{sec:ad-serving-tier0} config table evolves into a real block-serving engine: advertisers buy ``blocks'' (1 block = 1,000 impressions) at the reconciled rate card (\$2--3 CPM India / \$5--8 Global once Phase 2 gates open, \texttt{MASTER-PLAN.md} \S5.4), served weighted by remaining budget rather than a flat per-slot rotation.
+
+New/expanded components:
+
+\begin{itemize}
+  \item \textbf{Rate-card / inventory manager} --- tracks purchased block count, remaining budget, pacing (so a campaign does not burn its buy in week 1), and delivery reporting against the \textit{billable} ledger. This is the same \texttt{billable\_events} table, queried with budget-aware logic.
+  \item \textbf{Self-serve advertiser dashboard} --- campaign creation, budget, creative upload, coarse targeting (geo + maybe editor/language), spend reporting. Genuinely new build.
+  \item \textbf{GST invoicing automation} --- generated from the same billing data once revenue or a specific advertiser requires it.
+  \item \textbf{Expanded fraud filtering} --- device/session attestation (signed, rotating tokens) and tighter cadence modeling, because real CPM money now attaches to volume, making manipulation financially motivated for the first time.
+\end{itemize}
+
+\textbf{Evolution path (no rewrite):} the Postgres ledger schema, the raw/billable split, and the RazorpayX payout flow are all built in v1 to already support this. Tier 1 adds inventory/budget logic \textit{on top of} the existing billable-events ledger and a dashboard \textit{on top of} existing tables --- it does not replace the ledger or the rail. This is the payoff of the clean primitives \texttt{MASTER-PLAN.md} \S11 calls the real long-term asset.
+
+See Figure~\ref{fig:tier1-component} (Tier 1 component diagram).
+
+\subsection{Tier 2 --- real-time auction (trigger: 5,000+ DAU)}
+\label{sec:tier2}
+
+Honestly stated, this would require: a real-time second-price auction service resolving a winning creative within a thinking-state render's latency budget (tens of milliseconds --- a genuinely hard real-time problem, not a config lookup); a relevance layer to make bids meaningful; a robust streaming fraud-detection pipeline (RTB economics specifically reward bot/click fraud in a way flat deals and rate cards do not); and a dedicated analytics warehouse (where \texttt{00-MVP-spec.md}'s ClickHouse suggestion finally becomes necessary).
+
+\begin{tcolorbox}[colback=red!5,colframe=red!60!black,title=[OVER-ENGINEERING RISK --- flagged explicitly],boxrule=0.8pt,arc=2pt]
+Building any of this before 5,000+ DAU is the textbook premature-optimization trap. \texttt{MASTER-PLAN.md} \S5.1 records that both prior pricing docs independently agreed RTB is premature pre-scale ``regardless of who was right about the CPM number.'' Concretely over-engineered if pulled forward: a bidding API (no advertisers would use it), a streaming fraud-ML pipeline (no fraud volume to detect), a dedicated warehouse (Postgres handles MVP and Tier 1 fine), and any ``recommendation engine'' work beyond keeping the ledger schema clean enough to support one later. The strongest temptation --- building the data pipeline for the long-range ``financial infrastructure for autonomous software'' vision before there is a Tier-1 business to fund it --- must be resisted.
+\end{tcolorbox}
+
+\textbf{Evolution path (no rewrite, in principle):} the auction service is a \textit{new peer} to the Tier 1 rate-card engine, not a replacement --- both can coexist (reserved rate-card inventory alongside auctioned remnant, as real ad networks evolve). The ledger, event ingest, and payout rail keep their shape; they handle higher volume and tighter latency, a scaling exercise rather than a rewrite --- \textit{provided} v1 was built with the raw/billable separation and double-entry discipline \texttt{00-MVP-spec.md} \S5 already specifies. That is the actual argument for why the early discipline matters: it makes ``no rewrite'' a credible claim instead of a hopeful one.
+
+See Figure~\ref{fig:tier2-dataflow} (Tier 2 future-state data-flow diagram).
+
+\section{Summary --- what is built at each tier}
+\label{sec:tier-summary}
+
+\begin{table}[htbp]
+\centering
+\caption{Capability comparison across tiers}
+\label{tab:tier-summary}
+\small
+\begin{tabular}{p{0.16\textwidth} p{0.24\textwidth} p{0.24\textwidth} p{0.24\textwidth}}
+\toprule
+\textbf{Capability} & \textbf{Tier 0 (v1, build now)} & \textbf{Tier 1 (future, 5--10 advertisers)} & \textbf{Tier 2 (future, 5,000+ DAU)} \\
+\midrule
+Ad serving & Static config/rotation, manual creative entry & Self-serve dashboard, budget/block serving & Real-time second-price auction \\
+Pricing & Flat monthly sponsorship (₹10--15k) & Fixed CPM rate card (\$2--3 India) & Bid-determined, dynamic \\
+Targeting & Geo (India) only & Geo + coarse (language/editor) & Real-time, context-aware \\
+Fraud control & Rule-based validity + salted-IP sybil check + named caps & Device/session attestation, tighter limits & Streaming anomaly detection \\
+Event store & Postgres (single store) & Postgres, possibly split raw/billable physically & Dedicated analytics warehouse \\
+Advertiser onboarding & Manual/concierge & Self-serve & Self-serve + programmatic \\
+Ledger/payout & Postgres double-entry + RazorpayX threshold batch & Same & Same (higher volume) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The row that does not change across all three tiers --- the ledger and payout rail --- is the architectural thesis of this chapter.
+
+\section{Figures}
+\label{sec:figures}
+
+\subsection{Figure 7.1 --- V1 system architecture diagram}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    font=\small,
+    plane/.style={draw, thick, rounded corners, inner sep=8pt},
+    block/.style={draw, fill=blue!8, rounded corners, align=center, inner sep=4pt, text width=4.1cm, minimum height=1cm},
+    ledgerblock/.style={draw, fill=orange!15, thick, rounded corners, align=center, inner sep=4pt, text width=4.1cm, minimum height=1cm},
+    note/.style={font=\scriptsize\itshape, align=center},
+    arrlabel/.style={font=\scriptsize, align=center, fill=white, inner sep=1pt}
+]
+
+% CLIENT plane
+\node[plane, label={[font=\small\bfseries]above:CLIENT (developer's machine)}] (clientplane) {
+  \begin{tikzpicture}
+    \node[block] (statusline) {Claude Code status-line hook\\(\texttt{\textasciitilde{}/.claude/settings.json})};
+    \node[block, right=0.4cm of statusline] (vscode) {VS Code status-bar item\\(secondary surface)};
+    \node[block, below=0.3cm of statusline, text width=8.7cm] (localagent) {Local agent: prefetch creatives, count impr/click \textgreater{}=5s, batch + sign events};
+    \node[note, below=0.15cm of localagent] {Never reads code / prompts / OAuth tokens};
+  \end{tikzpicture}
+};
+
+\node[below=1.7cm of clientplane] (backendanchor) {};
+
+% BACKEND plane
+\node[plane, below=2.3cm of clientplane, label={[font=\small\bfseries]above:BACKEND (AWS/GCP Mumbai)}] (backendplane) {
+  \begin{tikzpicture}
+    \node[block] (adserving) {Ad Serving\\(Tier 0 config/rotation table)};
+    \node[block, right=0.4cm of adserving] (ingest) {Event Ingest API +\\validity/fraud filter};
+    \node[ledgerblock, below=0.5cm of adserving, text width=4.1cm] (ledger) {\textbf{Ledger Service}\\Postgres, double-entry\\\textbf{(single source of truth)}};
+    \node[block, below=0.5cm of ingest] (dashboard) {Publisher Dashboard\\(balance, PAN/KYC,\\payout settings)};
+    \draw[-{Latex[length=2mm]}, thick] (ingest) -- (ledger) node[midway, arrlabel, below right] {promote billable\\events only};
+  \end{tikzpicture}
+};
+
+% PAYOUTS plane
+\node[plane, below=2.3cm of backendplane, label={[font=\small\bfseries]above:PAYOUTS}] (payoutplane) {
+  \begin{tikzpicture}
+    \node[block] (threshold) {Threshold batch job\\(balance \textgreater{}= ₹300)};
+    \node[block, right=0.4cm of threshold] (razorpay) {RazorpayX Payouts\\(UPI, IMPS fallback)};
+    \node[block, below=0.4cm of razorpay] (webhook) {Webhook reconciliation\\(HMAC-SHA256 verified)};
+    \draw[-{Latex[length=2mm]}, thick] (threshold) -- (razorpay);
+    \draw[-{Latex[length=2mm]}, thick] (razorpay) -- (webhook);
+  \end{tikzpicture}
+};
+
+% Inter-plane arrows
+\draw[-{Latex[length=3mm]}, very thick] (clientplane.south) -- (backendplane.north)
+  node[midway, arrlabel, right=0.1cm] {HTTPS (TLS 1.2+), batched\\signed events, idempotency key\\[2pt]\textit{(trust boundary)}};
+
+\draw[-{Latex[length=3mm]}, very thick] (backendplane.south) -- (payoutplane.north);
+
+% Derived-from-ledger arrows
+\node[block, left=2.0cm of payoutplane, yshift=2.3cm, text width=3.0cm] (advbilling) {Advertiser\\billing/report};
+\node[block, right=2.0cm of payoutplane, yshift=2.3cm, text width=3.0cm] (devpayable) {Developer\\payable};
+\draw[-{Latex[length=2mm]}, dashed] (backendplane.220) -- (advbilling) node[midway, arrlabel, below] {derived, never\\raw events};
+\draw[-{Latex[length=2mm]}, dashed] (backendplane.-40) -- (devpayable) node[midway, arrlabel, below] {derived, never\\raw events};
+
+% Return webhook arrow
+\draw[-{Latex[length=3mm]}, very thick, dashed, blue!50!black] (payoutplane.east) to[out=0, in=0, looseness=1.4] node[midway, arrlabel, right, text width=3.2cm] {verified webhook \textrightarrow{}\\decrement balance\\on \texttt{processed}} (backendplane.east);
+
+\end{tikzpicture}
+\caption{V1 system architecture: client, backend, and payout planes, with the Ledger Service as the single source of truth for money. The dashed return arrow shows webhook-verified reconciliation closing the loop back to the ledger.}
+\label{fig:v1-architecture}
+\end{figure}
+
+\subsection{Figure 7.2 --- Impression-to-payout sequence diagram}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    font=\scriptsize,
+    actor/.style={draw, thick, fill=blue!10, rounded corners, align=center, minimum width=2.4cm, minimum height=0.7cm},
+    lifeline/.style={draw, thick, dashed, gray},
+    msg/.style={-{Latex[length=2mm]}, thick},
+    selfmsg/.style={-{Latex[length=2mm]}, thick},
+    msglabel/.style={font=\scriptsize, align=center, fill=white, inner sep=1pt}
+]
+
+% Actors (lifelines top)
+\node[actor] (a1) at (0,0) {Claude Code\\session};
+\node[actor] (a2) at (3.2,0) {Client agent};
+\node[actor] (a3) at (6.6,0) {Event Ingest\\API};
+\node[actor] (a4) at (10.0,0) {Ledger\\Service};
+\node[actor] (a5) at (13.2,0) {RazorpayX};
+
+% Lifelines
+\draw[lifeline] (a1.south) -- ++(0,-13.0);
+\draw[lifeline] (a2.south) -- ++(0,-13.0);
+\draw[lifeline] (a3.south) -- ++(0,-13.0);
+\draw[lifeline] (a4.south) -- ++(0,-13.0);
+\draw[lifeline] (a5.south) -- ++(0,-13.0);
+
+% Step 1
+\draw[msg] ([yshift=-1.0cm]a1.south) -- ([yshift=-1.0cm]a2.south) node[midway, msglabel, above] {1: enters thinking state};
+
+% Step 2 self-loop on client
+\draw[selfmsg] ([yshift=-1.6cm]a2.south) -- ++(0.9,0) -- ++(0,-0.5) -- ([yshift=-2.1cm]a2.south) node[midway, msglabel, right, xshift=0.95cm, yshift=0.3cm] {2: render sponsor line};
+
+% Step 3 self-loop on client
+\draw[selfmsg] ([yshift=-2.7cm]a2.south) -- ++(0.9,0) -- ++(0,-0.5) -- ([yshift=-3.2cm]a2.south) node[midway, msglabel, right, xshift=1.55cm, yshift=0.3cm] {3: 5s dwell threshold\\met \textrightarrow{} queue local event};
+
+% Step 4
+\draw[msg] ([yshift=-3.9cm]a2.south) -- ([yshift=-3.9cm]a3.south) node[midway, msglabel, above] {4: batch POST\\(signed, idempotency key)};
+
+% Step 5 self-loop on ingest
+\draw[selfmsg] ([yshift=-4.6cm]a3.south) -- ++(0.9,0) -- ++(0,-0.6) -- ([yshift=-5.2cm]a3.south) node[midway, msglabel, right, xshift=1.6cm, yshift=0.3cm] {5: validity filter: dedup,\\\textgreater{}=5s, rate cap,\\salted-IP sybil check};
+
+% Step 6
+\draw[msg] ([yshift=-5.9cm]a3.south) -- ([yshift=-5.9cm]a4.south) node[midway, msglabel, above] {6: write billable\_events};
+
+% Step 7 self-loop on ledger
+\draw[selfmsg] ([yshift=-6.6cm]a4.south) -- ++(0.9,0) -- ++(0,-0.5) -- ([yshift=-7.1cm]a4.south) node[midway, msglabel, right, xshift=1.45cm, yshift=0.3cm] {7: increment\\dev\_balance (+50\%)};
+
+% Loop frame around steps 1-7
+\draw[dashed, thick] (-1.3,-0.8) rectangle (12.4,-7.4);
+\node[font=\scriptsize\itshape, anchor=north west] at (-1.25,-0.85) {loop / time passes --- many cycles};
+
+% Step 9 self-loop on ledger (balance threshold)
+\draw[selfmsg] ([yshift=-8.3cm]a4.south) -- ++(0.9,0) -- ++(0,-0.5) -- ([yshift=-8.8cm]a4.south) node[midway, msglabel, right, xshift=1.65cm, yshift=0.3cm] {9: balance crosses ₹300\\\textrightarrow{} trigger payout job};
+
+% Step 10
+\draw[msg] ([yshift=-9.5cm]a4.south) -- ([yshift=-9.5cm]a5.south) node[midway, msglabel, above, text width=3.2cm] {10: create Contact \textrightarrow{} Fund Account (VPA, pre-validated) \textrightarrow{} Payout (idempotency key)};
+
+% Step 11 (return)
+\draw[msg] ([yshift=-10.9cm]a5.south) -- ([yshift=-10.9cm]a4.south) node[midway, msglabel, below, text width=3.2cm] {11: webhook: processed\\(HMAC-SHA256 verified)};
+
+% Step 12 self-loop on ledger
+\draw[selfmsg] ([yshift=-11.6cm]a4.south) -- ++(0.9,0) -- ++(0,-0.5) -- ([yshift=-12.1cm]a4.south) node[midway, msglabel, right, xshift=1.8cm, yshift=0.3cm] {12: reconcile \textrightarrow{}\\decrement payable\\on \texttt{processed}};
+
+\end{tikzpicture}
+\caption{Impression-to-payout sequence diagram. Steps 1--7 repeat many times (dashed loop frame) before a developer's balance crosses the ₹300 threshold and triggers the RazorpayX payout (steps 9--12). This is the literal proof that the rupee-payout loop the MVP exists to validate closes end-to-end.}
+\label{fig:sequence-diagram}
+\end{figure}
+
+\subsection{Figure 7.3 --- Tier 1 component diagram (rate-card serving)}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    font=\small,
+    inherited/.style={draw, thick, fill=gray!15, draw=gray!60!black, rounded corners, align=center, inner sep=4pt, text width=3.6cm, minimum height=1cm},
+    newblock/.style={draw, thick, fill=green!12, draw=green!40!black, rounded corners, align=center, inner sep=4pt, text width=3.6cm, minimum height=1cm},
+    arrlabel/.style={font=\scriptsize, align=center, fill=white, inner sep=1pt}
+]
+
+\node[font=\small\bfseries] (title) at (6.5,5.3) {Tier 1 --- BACKEND (rate-card serving)};
+
+% Inherited boxes (greyed, from Figure 7.1)
+\node[inherited] (ingest) at (0,3.6) {Event Ingest API\\\scriptsize\textit{[INHERITED]}};
+\node[inherited] (ledger) at (0,1.6) {Ledger Service\\(double-entry)\\\scriptsize\textit{[INHERITED]}};
+
+% New boxes (highlighted)
+\node[newblock] (inventory) at (4.6,4.6) {Inventory / Budget\\Manager (block\\tracking, pacing)\\\scriptsize\textit{[NEW]}};
+\node[newblock] (advdash) at (8.8,4.6) {Self-Serve Advertiser\\Dashboard (campaign,\\budget, creative, reporting)\\\scriptsize\textit{[NEW]}};
+\node[newblock] (pricing) at (4.6,2.4) {Rate-Card Pricing\\Engine (\$2--3 CPM\\India)\\\scriptsize\textit{[NEW]}};
+\node[newblock] (gst) at (8.8,2.4) {GST Invoicing\\\scriptsize\textit{[NEW]}};
+\node[newblock] (fraud) at (4.6,0.2) {Expanded fraud filter\\(device/session\\attestation)\\\scriptsize\textit{[NEW]}};
+
+% Connections: new boxes attach to inherited Ledger + Ingest
+\draw[-{Latex[length=2mm]}, thick] (inventory) -- (ledger) node[midway, arrlabel, below, sloped] {budget-aware\\query};
+\draw[-{Latex[length=2mm]}, thick] (advdash) -- (inventory);
+\draw[-{Latex[length=2mm]}, thick] (pricing) -- (ledger);
+\draw[-{Latex[length=2mm]}, thick] (gst) -- (ledger);
+\draw[-{Latex[length=2mm]}, thick] (fraud) -- (ingest);
+\draw[-{Latex[length=2mm]}, thick] (inventory) -- (ingest);
+
+\node[font=\scriptsize\itshape, align=left, text width=11cm] at (4.6,-1.4) {Grey boxes = unchanged from Figure 7.1. Green boxes = net-new Tier 1 components. All new components attach to the same Ledger Service and Event Ingest API --- the change is additive, not a replacement.};
+
+\end{tikzpicture}
+\caption{Tier 1 component diagram: rate-card serving components (green, new) attach to the unchanged Ledger Service and Event Ingest API (grey, inherited from Figure~\ref{fig:v1-architecture}), demonstrating that Tier 1 bolts on without a rewrite.}
+\label{fig:tier1-component}
+\end{figure}
+
+\subsection{Figure 7.4 --- Tier 2 future-state data-flow diagram}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    font=\scriptsize,
+    inherited/.style={draw, thick, fill=gray!15, draw=gray!60!black, rounded corners, align=center, inner sep=3pt, text width=2.5cm, minimum height=1.3cm},
+    newblock/.style={draw, thick, dashed, fill=green!10, draw=green!40!black, rounded corners, align=center, inner sep=3pt, text width=2.5cm, minimum height=1.3cm},
+    arrlabel/.style={font=\scriptsize, align=center, fill=white, inner sep=1pt}
+]
+
+\node[font=\small\bfseries] (futuretag) at (6.0,4.0) {[FUTURE PHASE --- Tier 2, trigger: 5{,}000+ DAU]};
+
+\node[newblock] (clients) at (0,1.5) {Clients across multiple\\tool adapters (Claude\\Code, Cursor, Codex, \ldots)\\\scriptsize\textit{[NEW: extra adapters]}};
+\node[inherited] (ingest) at (3.1,1.5) {Event Ingest\\\scriptsize\textit{[INHERITED]}};
+\node[newblock] (auction) at (6.2,2.7) {Real-time Auction\\Service (bid eval,\\budget pacing,\\2nd-price)\\\scriptsize\textit{[NEW]}};
+\node[newblock] (bidapi) at (6.2,0.3) {Advertiser bidding /\\budget APIs\\\scriptsize\textit{[NEW]}};
+\node[newblock] (fraud) at (9.3,1.5) {Fraud / Anomaly\\Detection\\(streaming)\\\scriptsize\textit{[NEW]}};
+\node[newblock] (analytics) at (12.4,1.5) {Analytics /\\Warehouse (fill\\rate, yield, reporting)\\\scriptsize\textit{[NEW]}};
+\node[inherited] (ledger) at (12.4,-1.3) {Ledger Service\\\scriptsize\textit{[INHERITED ---}\\\scriptsize\textit{role unchanged]}};
+\node[inherited] (payout) at (9.3,-1.3) {Payout rail\\(RazorpayX)\\\scriptsize\textit{[INHERITED ---}\\\scriptsize\textit{role unchanged]}};
+
+\draw[-{Latex[length=2mm]}, thick] (clients) -- (ingest);
+\draw[-{Latex[length=2mm]}, thick] (ingest) -- (auction);
+\draw[{Latex[length=2mm]}-{Latex[length=2mm]}, thick] (auction) -- (bidapi) node[midway, arrlabel, left] {bidirectional};
+\draw[-{Latex[length=2mm]}, thick] (auction) -- (fraud) node[midway, arrlabel, above, text width=2.0cm] {sits between\\ingest and\\promotion};
+\draw[-{Latex[length=2mm]}, thick] (fraud) -- (analytics);
+\draw[-{Latex[length=2mm]}, thick] (analytics) -- (ledger);
+\draw[-{Latex[length=2mm]}, thick] (ledger) -- (payout);
+
+\node[font=\scriptsize\itshape, align=left, text width=12.5cm] at (6.2,-2.6) {Dashed green boxes = NEW Tier 2 components. Solid grey boxes = INHERITED, role unchanged. The NEW/INHERITED annotation makes the ``evolves without a rewrite'' claim visually verifiable rather than asserted.};
+
+\end{tikzpicture}
+\caption{Tier 2 future-state data-flow diagram [FUTURE PHASE]: real-time auction, streaming fraud detection, and an analytics warehouse are new peers sitting in front of the unchanged Ledger Service and payout rail.}
+\label{fig:tier2-dataflow}
+\end{figure}
+
+\section{The honest read for the technical section}
+\label{sec:honest-read}
+
+The v1 architecture in \texttt{00-MVP-spec.md} is already correctly scoped for a solo founder, and the two external comps closest to this space --- Carbon Ads and EthicalAds --- validate it rather than challenge it. The temptation to resist is not under-building Tier 0; it is over-building toward Tier 2 too early, in engineering effort or in how the vision is presented. Every Tier 2 component (auction, fraud ML, analytics warehouse) is copyable technology once there is a reason to build it. The genuinely defensible technical claim is narrower and stronger: the \textbf{ledger and payout discipline --- double-entry, raw/billable separation, payable-not-wallet design, verified-webhook reconciliation --- built correctly at v1 is what lets Tier 1 and Tier 2 bolt on without a rewrite.} That discipline costs almost nothing extra now, and retrofitting it onto a live money system with real advertisers and real developer balances would be far more expensive and risky. That is the architecture's real moat --- not the spinner overlay, which was cloned across the category in 24 hours.

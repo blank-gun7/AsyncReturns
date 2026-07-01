@@ -1,0 +1,238 @@
+\chapter{Customer Research}
+\label{chap:customer-research}
+
+\section{Who the customer actually is}
+\label{sec:who-customer-is}
+
+Devorix has two customers, and they sit on opposite sides of the same transaction. The \textbf{developer (publisher)} installs a status-bar client and gets paid in rupees for wait-state attention they were already spending. The \textbf{advertiser} buys that attention. The locked revenue model splits the proceeds 50/50 with the developer \cite{masterplan_2026}.
+
+The critical framing for investors, carried from the VC-lens validation in \cite{masterplan_2026}: this is \textbf{a monetization opportunity layered onto an existing attention pool, not a pain point developers are actively trying to solve.} Developers are not asking for this. Kickbacks' own Show HN post drew 2 points and 0 comments, and the loudest reaction across the entire approximately 2.5-week-old category has been privacy suspicion, not demand (\emph{Verified fact} \cite{masterplan_2026,kickbacks_showhn_2026}). The real, severe pain sits on the \textbf{advertiser} side: developer-tool marketers have shockingly few high-trust placement options built for the agentic-coding moment. Both personas below are written against that asymmetry.
+
+The personas are deliberately scoped to the install base Devorix can plausibly reach in months 1--4 --- 100 to 500 installs (\emph{Internal assumption}, \cite{masterplan_2026}) --- not a fictional millions-of-users market.
+
+\section{Developer (Publisher) Personas}
+\label{sec:developer-personas}
+
+Each persona carries explicit \textbf{install and uninstall triggers}, because churn risk is the dominant unknown in this product \cite{masterplan_2026}, and because the closest available behavioral precedents all point the same way: passive/ambient reward lowers the \emph{install} bar but does little for \emph{retention} once novelty fades.
+
+The structural precedent: cashback browser extensions retain users precisely because the reward appears automatically inside an existing workflow rather than requiring a separate action --- ``ambient'' capture beats ``active'' reward-seeking (\emph{Industry estimate} \cite{wildfire_cashback_2026}). Devorix's ``money just appears during a wait that was already happening'' mechanic is structurally analogous, which is encouraging for adoption. But the analogy is consumer shopping, not developer tooling, and \textbf{no source anywhere studies why an individual developer keeps an ad-supported personal dev tool installed} --- this is a genuine evidence gap (\emph{Internal assumption} / open question, consistent with \cite{masterplan_2026}).
+
+% ---------------------------------------------------------------
+% Persona 1 -- Rohit
+% ---------------------------------------------------------------
+\begin{table}[htbp]
+\centering
+\fbox{%
+\begin{tabular}{@{\hspace{6pt}}p{3.1cm}p{10.4cm}@{\hspace{6pt}}}
+\multicolumn{2}{l}{\rule{0pt}{2.4ex}\Large\textbf{Persona 1 --- ``Rohit''}} \\
+\multicolumn{2}{l}{\textit{The Solo OSS Maintainer / Indie Hacker}} \\[4pt]
+\toprule
+\textbf{Profile} & 24--32, maintains 1--2 open-source repos or side projects, in Claude Code 4--8 hours a day, plugged into dev Twitter/X and Indian tech Telegram/Discord. Very likely saw the Kickbacks launch tweet (5.5M views in 24 hours --- \emph{Verified fact} \cite{kickbacks_launch_tweet_2026}). \\
+\textbf{Goals} & Ship faster; build public reputation; capture any free upside that costs neither attention nor trust. \\
+\textbf{Pain points} & Reads the source before installing, especially after the ``IDEsaster'' disclosures (30+ vulnerabilities across Cursor, Windsurf, Copilot, and others) and the June 2026 supply-chain attack on Microsoft's open-source tooling (\emph{Verified fact} \cite{idesaster_disclosures_2026,microsoft_supplychain_2026}). Earns near-zero from OSS, so incremental money is interesting in principle --- but he has been burned by ``passive income'' hype before. \\
+\textbf{Key evidence} & GitHub Sponsors supported 49{,}148 developers as of March 2026, yet 60\% of surveyed open-source maintainers describe themselves as unpaid hobbyists and only 13\% as professional/paid (\emph{Verified fact} \cite{githubsponsors_2026,tidelift_2026}). A large under-monetized developer base is structurally primed to \emph{want} incremental income attached to tools they already use --- but Sponsors' own history shows ``I might earn something'' has not driven mass adoption, because the ask creates friction. Devorix's no-ask, ambient model is what could clear the bar Sponsors never did. \\
+\textbf{Install trigger} & A credible, source-available client surfaced on Show HN / X / Indian dev Twitter, with an honest earnings \emph{range} and a real screenshot of a UPI payout landing in someone's account. \textbf{Trust signal outranks the earnings number.} \\
+\textbf{Uninstall trigger} & Any suspicion the client reads code or prompts; a sponsor line that feels spammy, off-brand, or distasteful; or --- most likely --- plain novelty fade once he registers that the line yields \textrupee100--200/month and he's moved on. \\
+\textbf{JTBD} & ``When I'm running Claude Code all day anyway, I want to convert dead wait-time into a small but real rupee stream, so I get some return on time I'm already spending --- without giving up any trust in my dev environment.'' \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Persona 1 --- Rohit, the Solo OSS Maintainer / Indie Hacker}
+\label{tab:persona-rohit}
+\end{table}
+
+% ---------------------------------------------------------------
+% Persona 2 -- Ananya
+% ---------------------------------------------------------------
+\begin{table}[htbp]
+\centering
+\fbox{%
+\begin{tabular}{@{\hspace{6pt}}p{3.1cm}p{10.4cm}@{\hspace{6pt}}}
+\multicolumn{2}{l}{\rule{0pt}{2.4ex}\Large\textbf{Persona 2 --- ``Ananya''}} \\
+\multicolumn{2}{l}{\textit{The Student / Early-Career Developer}} \\[4pt]
+\toprule
+\textbf{Profile} & 19--24, in college or her first 1--2 years of work, learning to code with heavy AI assistance (part of the 85--92\% of developers now using AI coding tools --- \emph{Verified fact} \cite{claudecode_runrate_2026}), price-sensitive, UPI-native for everything, active in college coding communities and bootcamp Discords (Scaler / Coding Ninjas / Masai-adjacent, per the Ring-2 target list, \cite{masterplan_2026}). \\
+\textbf{Goals} & Learn faster and cheaper; extra money matters meaningfully more to her than to a working professional; loves anything that feels like a clever ``hack'' worth telling friends about. \\
+\textbf{Pain points} & Tight tool budget, so anything earning-positive is attractive. Lower trust threshold than Rohit (less jaded) but also lower technical scrutiny --- she won't read the source, she'll follow what a YouTuber or WhatsApp group says. \\
+\textbf{Key evidence} & Across developer referral programs, platform credits lead (\textasciitilde40\%), free-tier access \textasciitilde30\%, community recognition \textasciitilde15\%, and cash commissions only \textasciitilde15\% --- and credit rewards reportedly outperform cash by \textasciitilde18\% in SaaS contexts (\emph{Industry estimate} \cite{growsurf_dailydev_2026}). Devorix is a pure cash (UPI) payout because there is no Devorix ``product'' to grant credits toward. This is not a reason to change the model --- cash is the \emph{only} sensible reward when there's no underlying product --- but the PRD must be honest that \textbf{cash is the available motivator, not a proven-superior one for this audience.} For Ananya specifically, the qualitative appeal (``my AI tool literally pays me, that's cool'') may drive the install as much as the rupee sum, while the sum matters more for retention once novelty fades --- a testable distinction for week-4 data (\emph{Internal assumption}, consistent with \cite{masterplan_2026}). \\
+\textbf{Install trigger} & A friend, college WhatsApp group, or ``earn money coding'' YouTuber shares it; framed as free money for time already spent, made forwardable by a referral-code mechanic \cite{prd_2026}. \\
+\textbf{Uninstall trigger} & Payout never arrives, or arrives confusingly late (\textrupee300 takes a while at low usage); friends stop talking about it; sponsor content feels irrelevant (enterprise cloud ads to someone still in DSA-prep mode). \\
+\textbf{JTBD} & ``When I'm spending hours a day in an AI coding tool anyway as a student, I want a zero-effort way to earn real pocket money in UPI, so I get a tangible, shareable win without it costing me anything or feeling like a scam.'' \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Persona 2 --- Ananya, the Student / Early-Career Developer}
+\label{tab:persona-ananya}
+\end{table}
+
+% ---------------------------------------------------------------
+% Persona 3 -- Vikram
+% ---------------------------------------------------------------
+\begin{table}[htbp]
+\centering
+\fbox{%
+\begin{tabular}{@{\hspace{6pt}}p{3.1cm}p{10.4cm}@{\hspace{6pt}}}
+\multicolumn{2}{l}{\rule{0pt}{2.4ex}\Large\textbf{Persona 3 --- ``Vikram''}} \\
+\multicolumn{2}{l}{\textit{The Freelancer / Small Agency Developer}} \\[4pt]
+\toprule
+\textbf{Profile} & 27--38, runs a 1--5 person dev shop or freelances, bills by the hour or project, uses Claude Code across multiple client codebases daily, thinks in ROI and time-value terms. \\
+\textbf{Goals} & Maximize billable efficiency; protect client confidentiality fiercely; diversify lumpy freelance income with small streams. \\
+\textbf{Pain points} & Client confidentiality is existential --- any tool that even \emph{looks} like it could leak client code is an instant deal-breaker. Time is scarce, so setup friction or distracting visuals during focused work are net negatives even if they pay. \\
+\textbf{Key evidence} & On Kickbacks, developers' top worry was whether project paths and workspace directories leave the machine --- described as a blocking concern for anyone under NDA or on sensitive code (\emph{Verified fact} \cite{stork_kickbacks_review_2026}). This is exactly Vikram's world; data egress, not money, is the dominant developer concern surfaced across the category. \\
+\textbf{Install trigger} & An explicit, auditable ``never reads your code, prompts, or completions'' guarantee \cite{mvpspec_2026}, plus the practical fact that the line appears only during idle thinking time, not during active output --- zero cognitive load while working. He likely needs to see a peer use it first (more risk-averse than Rohit, less impulsive than Ananya). \\
+\textbf{Uninstall trigger} & Any client complaint or ``no third-party tools touching our codebase'' policy; perceived distraction during client demos/screen-shares; discovering a competitor's ad or off-brand creative showing while screen-sharing. \\
+\textbf{JTBD} & ``When I'm running client work through Claude Code across several projects, I want a verifiably safe way to earn a little during dead time, so I get incremental income without ever risking a client relationship or breaking focus.'' \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Persona 3 --- Vikram, the Freelancer / Small Agency Developer}
+\label{tab:persona-vikram}
+\end{table}
+
+\section{Advertiser Personas}
+\label{sec:advertiser-personas}
+
+Grounded in the three-ring niche defined in \cite{masterplan_2026}. Ring 1 (AI-infra/dev-tool sellers) is the realistic first buyer; Ring 2 (India dev-economy sellers) is the second wave. Both are written against the honest current state --- zero verified paying advertisers anywhere in the category, and a sales motion that is fully cold outreach to a 25--30 company list with a one-verbal-yes bar \cite{masterplan_2026}.
+
+The deal sizes Devorix chases are small enough to \textbf{bypass formal budget process.} A meaningful test budget for a new developer-advertising channel is commonly cited at \$5{,}000--15{,}000/month for 2--3 months (\emph{Industry estimate} --- multi-source synthesis); India B2B/SaaS marketers budget \textrupee75{,}000--\textrupee3{,}00{,}000+/month for a full program (\emph{Industry estimate} \cite{mediaant_2026,upgrowth_2026}). Devorix's Tier-0 ask (\textrupee10{,}000--15{,}000/mo $\approx$ \$110--170) is roughly 7--20\% of even the low end of a meaningful India B2B monthly budget --- i.e., an approval over Slack, not a budget review. The budget \emph{line} already exists: dev-tool buyers have an established ``developer attention'' category via newsletters and content sponsorships (\emph{Industry estimate} \cite{growsurf_dailydev_2026}). The strength is a low-friction yes; the ceiling is that this is ``testing budget,'' not a line competing with proven channels, until real fill/renewal data exists.
+
+% ---------------------------------------------------------------
+% Persona 4 -- Priya
+% ---------------------------------------------------------------
+\begin{table}[htbp]
+\centering
+\fbox{%
+\begin{tabular}{@{\hspace{6pt}}p{3.1cm}p{10.4cm}@{\hspace{6pt}}}
+\multicolumn{2}{l}{\rule{0pt}{2.4ex}\Large\textbf{Persona 4 --- ``Priya''}} \\
+\multicolumn{2}{l}{\textit{Developer-Tool / Cloud-Infra Growth Marketer (Ring 1)}} \\[4pt]
+\toprule
+\textbf{Profile} & Growth or DevRel lead at a funded dev-tool/infra startup (vector DB, observability, agent framework, scraping/data API --- the Razorpay DevTools / Sentry / PostHog / Hasura / Supabase-India tier, \cite{masterplan_2026}). Already buys Reddit dev-subreddit slots, dev newsletters, and Carbon/EthicalAds-style placements --- she has bought attention-style developer inventory before. \\
+\textbf{Why Ring 1 first} & Both Kickbacks and IdleAds independently picked Firecrawl as their house placeholder --- AI-infra sellers to AI-building devs are the natural first buyer because \emph{they already believe the audience exists} (\emph{Verified fact} \cite{masterplan_2026}). \\
+\textbf{Buying triggers} & A credible reach number tied to ``active AI-coding-tool developers'' --- a hot audience, given 85--92\% of devs use AI coding tools and Claude Code went \$0$\to$\$2.5B run-rate in 9 months (\emph{Verified fact} \cite{claudecode_runrate_2026}); a low-risk channel test (flat \textrupee10--15k/mo is a rounding error she can greenlight without procurement); evidence the placement is actually seen (the captive, full-attention spinner pitch, \cite{masterplan_2026}). \\
+\textbf{Objections} & ``How do I know these are real impressions, not inflated numbers?'' (fraud/trust, no track record yet); ``Why pay 1.3--2x Carbon Ads' audited CPM for an unproven, weeks-old surface?''; ``Is this just another Kickbacks clone that'll be dead in 3 months?''; ``What does the developer actually see --- will it feel spammy and hurt my brand with the audience I'm trying to win?'' \\
+\textbf{Key evidence} & EthicalAds --- a real, currently-billing developer ad network with a decade of trust --- realizes \textasciitilde\$2.50 effective CPM on a global, mostly US/EU audience (\emph{Industry estimate} \cite{ethicalads_pricing_2026}). Devorix pricing India at \$2--3 CPM is therefore at \textbf{parity with an established global incumbent, not at the discount} an unproven, India-skewed, three-week-old newcomer might be expected to offer. The honest framing is ``we're priced at parity with a trusted incumbent despite having none of its track record''; Tier-1 \$2--3 may even prove slightly aggressive until real fill data exists (\emph{Internal assumption}). \\
+\textbf{What overcomes it} & Honest, ranged reporting (never the inflated \textrupee0.42/impression figure flagged in \cite{prd_2026}); a real renewal story once one exists; Devorix's Days 10--14 motion --- run the sponsor live, capture a real UPI payout screenshot, send a real report, ask for renewal \cite{masterplan_2026} --- is purpose-built to manufacture exactly that proof. \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Persona 4 --- Priya, Developer-Tool / Cloud-Infra Growth Marketer (Ring 1)}
+\label{tab:persona-priya}
+\end{table}
+
+% ---------------------------------------------------------------
+% Persona 5 -- Karthik
+% ---------------------------------------------------------------
+\begin{table}[htbp]
+\centering
+\fbox{%
+\begin{tabular}{@{\hspace{6pt}}p{3.1cm}p{10.4cm}@{\hspace{6pt}}}
+\multicolumn{2}{l}{\rule{0pt}{2.4ex}\Large\textbf{Persona 5 --- ``Karthik''}} \\
+\multicolumn{2}{l}{\textit{India Dev-Economy Growth Marketer (Ring 2)}} \\[4pt]
+\toprule
+\textbf{Profile} & Growth marketer at an India-focused SaaS/API company, cloud/hosting reseller, EdTech/upskilling brand, or dev job board (bootcamps like Scaler / Coding Ninjas / Newton School / Masai, cloud-provider India DevRel, \cite{masterplan_2026}). Already buys India-specific channels --- Reddit India dev communities, dev newsletters, college ambassador programs --- and thinks in rupee CAC, not abstract reach. \\
+\textbf{Buying triggers} & A GST-compliant INR invoice with no FX friction (the core differentiator vs.\ anything Stripe-based, \cite{masterplan_2026}); a story that fits his existing ``reach Indian developers where they already are'' playbook rather than a novel channel he must explain internally; for bootcamps/EdTech specifically, ``reach students and early-career devs actively learning to code'' --- directly the Ananya persona. \\
+\textbf{Objections} & ``Is this audience big enough yet?'' (at 100--500 installs, the honest answer is \emph{no, not yet} --- do not argue this away); ``We already buy Reddit/newsletter slots with years of track record --- why divert budget to something 2.5 weeks old?''; ``What happens when this developer base churns once novelty fades?'' (a fair question --- see the journey map's churn branch, Section~\ref{sec:journey-map}). \\
+\textbf{What overcomes it} & Education on why the channel works (Ring 2 ``needs more education\ldots budget and precedent exist,'' \cite{masterplan_2026}); framing as a cheap pilot, not a CPM commitment; founder-led, high-touch concierge sales --- the only motion that exists at this stage \cite{mvpspec_2026}. \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Persona 5 --- Karthik, India Dev-Economy Growth Marketer (Ring 2)}
+\label{tab:persona-karthik}
+\end{table}
+
+\clearpage
+\section{Developer Journey Map}
+\label{sec:journey-map}
+
+This map is deliberately honest about where the emotional lows are. Devorix is a vitamin, not a painkiller \cite{masterplan_2026}, and the base case to plan for is novelty-driven installs with real attrition, not a durable habit.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance = 1.3cm,
+    stage/.style = {rectangle, rounded corners, draw=black, thick, fill=gray!10,
+                     minimum width=2.5cm, minimum height=1.1cm, align=center, font=\small},
+    emo/.style = {align=center, font=\scriptsize\itshape, text width=2.8cm},
+    >=Stealth
+]
+
+% --- Stage nodes (horizontal sequence) ---
+\node[stage] (disc) {1. Discovery};
+\node[stage, right=of disc] (inst) {2. Install};
+\node[stage, right=of inst] (first) {3. First\\impression};
+\node[stage, right=of first] (accrue) {4. Accrual\\(long middle)};
+\node[stage, right=of accrue] (payout) {5. First\\payout};
+\node[stage, above right=1.1cm and 0.9cm of payout] (retain) {6a. Retention\\/ referral};
+\node[stage, below right=1.1cm and 0.9cm of payout] (churn) {6b. Churn};
+
+% --- Arrows along the main sequence ---
+\draw[->] (disc) -- (inst);
+\draw[->] (inst) -- (first);
+\draw[->] (first) -- (accrue);
+\draw[->] (accrue) -- (payout);
+\draw[->] (payout) -- (retain);
+\draw[->] (payout) -- (churn);
+
+% --- Emotional annotations above/below each node ---
+\node[emo, above=0.3cm of disc] {Curious, skeptical: 2.5-week-old category, privacy suspicion leads};
+\node[emo, below=0.3cm of inst] {Cautious optimism: highest-scrutiny moment, post-IDEsaster};
+\node[emo, above=0.3cm of first] {Mild delight if tasteful; mild annoyance if spammy};
+\node[emo, below=0.3cm of accrue, text width=3.1cm] {\textbf{Flat trough}: most churn happens here, invisible until week-4 data};
+\node[emo, above=0.3cm of payout, text width=3cm] {\textbf{Emotional peak}: best marketing / share moment};
+\node[emo, right=0.2cm of retain, text width=2.6cm] {Quiet satisfaction: ``beer money that adds up''};
+\node[emo, right=0.2cm of churn, text width=2.6cm] {Indifference, not anger: the honest default};
+
+\end{tikzpicture}
+\caption{Developer journey map: six stages from discovery to the retention/churn fork, with emotional state and design implication annotated at each stage (Section~\ref{sec:journey-map}).}
+\label{fig:journey-map}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}p{2.1cm}p{4.6cm}p{2.6cm}p{4.6cm}@{}}
+\toprule
+\textbf{Stage} & \textbf{What happens} & \textbf{Emotional state} & \textbf{Risk / design implication} \\
+\midrule
+1. Discovery & Sees a launch post / tweet / friend share / referral code, likely framed as ``the one that actually pays Indian devs'' \cite{mvpspec_2026}. & Curious, slightly skeptical. Category is 2.5 weeks old; loudest prior reaction was privacy suspicion, not excitement \cite{masterplan_2026}. & Landing page must lead with trust signals (source-available client, ``never reads your code'') \emph{before} the earnings pitch, or skepticism wins before curiosity does. \\
+\addlinespace
+2. Install & Installs the client; OAuth sign-in via Google/GitHub \cite{mvpspec_2026}. & Cautiously optimistic --- the highest-scrutiny moment. Deciding whether to trust a tool that touches the editor, right after the ``IDEsaster'' wave and a real supply-chain attack on dev tooling \cite{masterplan_2026}. & One-click disable visible immediately; the ``never reads code'' guarantee must be checkable, not asserted (open client or published data-flow disclosure). \\
+\addlinespace
+3. First impression seen & Sponsor line appears in the thinking status line for the first time, $\geq$5 seconds \cite{masterplan_2026}; status bar ticks balance up live. & Mild delight if native and tasteful; mild annoyance if spammy, irrelevant, or jarring. & First creative shown should be a curated house ad (Tier 0), not a rough early-advertiser creative --- first impressions of ``first impression'' matter disproportionately. \\
+\addlinespace
+4. Accrual (long middle) & Days to weeks of small balance increases (\textasciitilde\textrupee3.5--17/day at realistic usage, \cite{mvpspec_2026}). No payout yet. & The most fragile stretch --- flat, easy to forget. Nothing dramatic happens; novelty wears off here for most users. & Balance visibility (today/month/lifetime) and possibly streak/bonus mechanics \cite{mvpspec_2026} must do real work --- most churn happens here, invisible until week-4 data lands. \\
+\addlinespace
+5. First payout & Balance crosses \textrupee300; RazorpayX UPI payout fires automatically; developer gets a UPI notification with real rupees from Devorix. & The single highest emotional peak. ``Real money landed from an AI coding tool'' is the believable, shareable moment. & Instrument this for shareability (prompt to screenshot / share / refer). The one moment that converts a quiet user into a public advocate. \\
+\addlinespace
+6a. Retention / referral & Keeps the client past novelty, maybe refers friends, checks balance periodically. & Quiet satisfaction --- ``beer money that adds up'' \cite{mvpspec_2026}. Not a daily-delight product. & Week-4 retention is \emph{the} most important open question \cite{masterplan_2026} --- instrument cohorts explicitly, not just gross install counts. \\
+\addlinespace
+6b. Churn (honest default) & Novelty fades before \textrupee300, or the developer forgets/uninstalls; content feels stale; no meaningful balance noticed. & Indifference, not anger --- the more likely failure mode \cite{masterplan_2026}. & Plan for this as the base case. Make the rare ``ah right, I have this'' re-engagement moment (a payout notification) count for as much as possible. \\
+\bottomrule
+\end{tabular}
+\caption{Developer journey map detail: stage, behavior, emotional state, and design implication.}
+\label{tab:journey-detail}
+\end{table}
+
+\clearpage
+\section{Cross-Cutting Trust Findings (Must Be Addressed Head-On)}
+\label{sec:trust-findings}
+
+Three findings cut across every persona and journey stage. The first two are \textbf{elevated, newly-surfaced risks} that this chapter flags clearly for the risk-analysis chapter (Devorix does not own that chapter but must not let these get lost).
+
+\begin{enumerate}
+\item \textbf{Anthropic has publicly branded itself the anti-ads AI.} Anthropic ran satirical Super Bowl LX ads (February 2026) --- titled ``Deception,'' ``Betrayal,'' ``Treachery,'' ``Violation'' --- jabbing at OpenAI's plan to put ads in ChatGPT, under the tagline \textbf{``Ads are coming to AI. But not to Claude.''} Its leadership's stated rationale: ads could undermine user trust in conversational AI (\emph{Verified fact} \cite{anthropic_antiads_fortune_2026,anthropic_antiads_techcrunch_2026,anthropic_antiads_cnbc_2026}). Kickbacks launched approximately four months later. \textbf{The platform owner of Devorix's first target tool has aggressively positioned itself against the exact thing Devorix monetizes.} Devorix's non-patching architecture mitigates the \emph{technical/ToS} risk \cite{masterplan_2026} but does \textbf{not} erase the \emph{brand-perception} tension. Casual observers will conflate ``a third-party status-bar tool sponsored alongside Claude Code'' with ``ads inside Claude.'' The PRD must make the distinction explicitly and repeatedly: \emph{Devorix never advertises inside Claude's responses; it sponsors a third-party status line that sits outside Anthropic's control.}
+
+\item \textbf{IdleAds already claims the identical trust positioning Devorix planned to own.} IdleAds' own launch framing is ``Impressions are verified server-side, the editor is never patched, and the CLI never sees your code or prompts'' (\emph{Verified fact} \cite{idleads_showhn_2026}). That is the same trust/architecture axis Devorix is betting on. \textbf{Devorix's trust positioning is therefore not novel --- a live competitor makes the identical claim with no more proof than Devorix currently has.} The differentiation must come from \emph{proven} trust (open client, real India UPI payout execution, real advertiser renewals), not from claiming a posture nobody else has claimed. This sharpens, rather than changes, the existing read that the moat is execution depth \cite{masterplan_2026}.
+
+\item \textbf{The ``ads in developer tooling'' backlash precedent is real but mechanically distinct.} In 2019, \texttt{npm install funding} printed a sponsor line on every npm install; backlash was immediate (``adware is malware''), ad-blockers appeared within a week, Linode pulled out, and npm banned ad-displaying packages platform-wide (\emph{Verified fact} \cite{npm_funding_infoq_2026,npm_funding_register_2026,npm_funding_hn_2026}). The precedent is citable, but the trigger was an \emph{unavoidable, repeated, non-opted-into} ad on a core automated command with no value to the installer. Devorix's developer is a \textbf{willing, compensated participant from install} --- a load-bearing difference the PRD should state, while still treating the backlash pattern as a live risk. Also relevant: a comment plugging IdleAds inside the Kickbacks HN thread was traced to IdleAds' own founder --- first-degree astroturfing in a category barely 24 hours old. Devorix marketing must avoid even the appearance of this; the audience is small and incestuous.
+\end{enumerate}
+
+\section{Figures Needed (Chapter 4)}
+\label{sec:ch4-figures}
+
+\begin{itemize}
+\item \textbf{Two-sided customer map} --- developer (publisher) side and advertiser side of the same transaction, with the 50/50 split in the middle and ``attention pool, not pain point'' annotation.
+\item \textbf{Persona one-pagers (\texttimes5)} --- realized above in Section~\ref{sec:developer-personas} and Section~\ref{sec:advertiser-personas} as bordered tables; each carries a single ``key evidence'' callout (GitHub Sponsors 60\%-unpaid stat for Rohit; credits-beat-cash \textasciitilde18\% for Ananya; data-egress-is-top-concern for Vikram; EthicalAds \$2.50 CPM parity for Priya; GST-INR-invoice wedge for Karthik).
+\item \textbf{Developer journey map} --- realized above as Figure~\ref{fig:journey-map} and Table~\ref{tab:journey-detail}: six stages plotted with emotional annotation, marking the accrual trough as ``where most churn actually happens'' and the first-payout peak as ``best marketing asset / share moment.''
+\item \textbf{Advertiser objection-to-resolution matrix} --- top objections (fraud/real impressions, price-vs-Carbon, clone longevity, brand safety, audience size) mapped to the proof artifact that resolves each (honest ranged report, captive-attention framing, renewal story, curated house creative, ``test budget not channel commitment''); see Persona~4--5 objection rows in Section~\ref{sec:advertiser-personas} for the underlying content, to be rendered as a matrix table in the design pass.
+\end{itemize}

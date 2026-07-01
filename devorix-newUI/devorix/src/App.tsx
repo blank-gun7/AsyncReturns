@@ -1,9 +1,20 @@
-"use client";
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import {
-  Cpu,
+import { 
+  Cpu, 
+  Sparkles, 
+  TrendingUp, 
+  Coins, 
+  HelpCircle, 
+  Users, 
+  ArrowUpRight, 
+  CornerDownRight, 
+  ArrowRight,
   Menu,
   X
 } from "lucide-react";
@@ -12,13 +23,12 @@ import ExpectedEarnings from "./components/ExpectedEarnings";
 import DeveloperDashboard from "./components/DeveloperDashboard";
 import ForAdvertisers from "./components/ForAdvertisers";
 
-type Tab = "how-it-works" | "expected-earnings" | "dashboard" | "advertisers";
-
-export default function Home() {
-  const [activeTab, setActiveTab] = useState<Tab>("how-it-works");
+export default function App() {
+  const [activeTab, setActiveTab] = useState<"how-it-works" | "expected-earnings" | "dashboard" | "advertisers">("how-it-works");
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
-  const navigateTo = (tab: Tab) => {
+  // Quick switch tab helper
+  const navigateTo = (tab: "how-it-works" | "expected-earnings" | "dashboard" | "advertisers") => {
     setActiveTab(tab);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -26,13 +36,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-bg-dark text-gray-100 flex flex-col justify-between selection:bg-brand-yellow selection:text-black">
-
-      {/* Sticky Header */}
+      
+      {/* Sticky Premium Header / Navigation Bar */}
       <header className="sticky top-0 z-50 bg-bg-dark/80 backdrop-blur-md border-b border-border-dark px-4 sm:px-8 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-
+          
           {/* Logo */}
-          <div
+          <div 
             onClick={() => navigateTo("how-it-works")}
             className="flex items-center gap-2.5 cursor-pointer group"
           >
@@ -47,15 +57,15 @@ export default function Home() {
           {/* Center Links (Desktop) */}
           <nav className="hidden md:flex items-center gap-1 bg-white/5 border border-white/10 p-1 rounded-xl">
             {[
-              { id: "how-it-works" as Tab, label: "How it works" },
-              { id: "expected-earnings" as Tab, label: "Expected Earnings" },
-              { id: "dashboard" as Tab, label: "Dashboard" },
-              { id: "advertisers" as Tab, label: "For Advertisers ↗" }
+              { id: "how-it-works", label: "How it works" },
+              { id: "expected-earnings", label: "Expected Earnings" },
+              { id: "dashboard", label: "Dashboard" },
+              { id: "advertisers", label: "For Advertisers ↗" }
             ].map((link) => (
               <button
                 key={link.id}
                 id={`nav-link-${link.id}`}
-                onClick={() => navigateTo(link.id)}
+                onClick={() => navigateTo(link.id as any)}
                 className={`px-4 py-1.5 rounded-lg text-xs font-mono transition-all font-medium cursor-pointer ${
                   activeTab === link.id
                     ? "bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-bold shadow-md shadow-indigo-500/10 border border-white/10"
@@ -109,15 +119,15 @@ export default function Home() {
               className="md:hidden border-t border-border-dark mt-3 pt-3 pb-2 space-y-2 max-w-7xl mx-auto"
             >
               {[
-                { id: "how-it-works" as Tab, label: "How it works" },
-                { id: "expected-earnings" as Tab, label: "Expected Earnings" },
-                { id: "dashboard" as Tab, label: "Dashboard" },
-                { id: "advertisers" as Tab, label: "For Advertisers ↗" }
+                { id: "how-it-works", label: "How it works" },
+                { id: "expected-earnings", label: "Expected Earnings" },
+                { id: "dashboard", label: "Dashboard" },
+                { id: "advertisers", label: "For Advertisers ↗" }
               ].map((link) => (
                 <button
                   key={link.id}
                   id={`mobile-nav-${link.id}`}
-                  onClick={() => navigateTo(link.id)}
+                  onClick={() => navigateTo(link.id as any)}
                   className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-mono transition-all ${
                     activeTab === link.id
                       ? "bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-bold"
@@ -148,8 +158,9 @@ export default function Home() {
         </AnimatePresence>
       </header>
 
-      {/* Main Content */}
+      {/* Main Dynamic View Content area */}
       <main className="flex-grow py-8 relative">
+        {/* Subtle decorative background circles */}
         <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-brand-yellow/2 rounded-full blur-[120px] pointer-events-none -z-20" />
         <div className="absolute bottom-[20%] right-[5%] w-[500px] h-[500px] bg-violet-600/2 rounded-full blur-[140px] pointer-events-none -z-20" />
 
@@ -169,7 +180,7 @@ export default function Home() {
         </AnimatePresence>
       </main>
 
-      {/* Footer */}
+      {/* Footer bar */}
       <footer className="bg-card-dark border-t border-border-dark py-8 px-4 sm:px-8 mt-16">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
@@ -180,7 +191,7 @@ export default function Home() {
               © 2026 DEVORIX PLATFORM
             </span>
           </div>
-
+          
           <div className="flex items-center gap-6 text-[11px] font-mono text-gray-500">
             <button onClick={() => navigateTo("how-it-works")} className="hover:text-white transition-colors">Documentation</button>
             <button onClick={() => navigateTo("advertisers")} className="hover:text-white transition-colors">API Specs</button>
@@ -190,7 +201,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
-
+      
     </div>
   );
 }

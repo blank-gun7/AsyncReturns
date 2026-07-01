@@ -1,0 +1,85 @@
+\chapter{Go-To-Market Strategy}
+\label{chap:gtm}
+
+\section{GTM Thesis}
+\label{sec:gtm-overview}
+
+The bottleneck for Devorix is demand, not supply (MASTER-PLAN \S4). Developers are not asking for this product; advertisers, meanwhile, have shockingly few high-trust placements for the agentic-coding moment. Devorix therefore seeds the \textbf{paying side first} -- cold advertiser outreach on Days 1--3 -- before building the developer-facing supply side on Days 3--10. This is a demand-led sequencing that matches documented best practice for B2B-leaning two-sided marketplaces, not a contrarian bet: demand-led seeding is the standard pattern where buyer economics justify joining a channel with thin existing supply \textbf{(Verified fact, marketplace cold-start literature)} \cite{internetmango_coldstart}.
+
+The India-first, Ring-1-first plan is structurally an \emph{atomic network} strategy -- one dense niche conquered before broad expansion -- a recognized pattern from Andrew Chen's \textit{The Cold Start Problem}, not merely a founder preference \textbf{(Medium confidence -- framework applied to Devorix, not a quote about Devorix)} \cite{chen_coldstart_2021}.
+
+\section{What the Comparable Launches Actually Prove}
+\label{sec:gtm-comps}
+
+These named comps are used here to temper and support specific claims, not to decorate the plan with borrowed credibility.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparable launch evidence and its limits}
+\label{tab:gtm-comps}
+\begin{tabular}{@{}p{2.0cm}p{4.6cm}p{4.6cm}p{1.6cm}@{}}
+\toprule
+\textbf{Comp} & \textbf{What it proves} & \textbf{What it does NOT prove for Devorix} & \textbf{Confidence} \\
+\midrule
+PostHog & A near-zero-budget HN+Twitter combo by a tiny team can reach real scale inbound-only: HN launch 4 weeks into building, \textasciitilde300 deployments in days, 1{,}000 users in \textasciitilde4 months, \$1M ARR by Oct 2020, \textasciitilde\$2{,}000 Twitter spend, no sales team. & That this works for an ad/rev-share product -- PostHog is a product developers actively wanted; Devorix monetizes a moment nobody asked to monetize. & Verified fact \\
+Supabase & Product framing/timing can matter more than launch-day orchestration: HN launch posted by a third-party user, among the most-upvoted dev-tool launches ever (2nd to Stripe), with YC used as a credibility lever. & That Devorix's category gets the same organic pull -- this category's HN reception has been weak (see Kickbacks below). & Verified fact \\
+T3 Chat / Theo Browne & Owned-audience-led growth converts faster than cold discovery: 60K+ users in months, 7-figure ARR on a pre-existing creator audience. & Not replicable -- the solo Devorix founder has no dev-influencer audience. & Verified fact \\
+Permit.io & A sub-\$1{,}000 multi-channel launch push is in-budget for a \textasciitilde₹1-lakh (\textasciitilde\$1{,}150) constraint: \#1 Product of the Day on an \$800 total budget (Twitter Spaces micro-influencer + Instagram + YouTube). & That a Product Hunt ranking converts to durable installs or advertisers. & Verified fact \\
+HN vs.\ PH head-to-head & HN converts visitors to installs far better than PH for dev tools, even when PH delivers more raw votes: same tool, HN \#2 front page (107 pts, 100+ installs) vs.\ PH \#14 (193 votes, \textasciitilde30 installs). & --- & Verified fact \\
+Kickbacks (in-category) & In this exact category, Twitter/X -- not HN -- is the proven viral channel: Show HN got 2 points/0 comments, but the launch tweet hit 5.5M views in 24h. Single most important GTM data point for Devorix. & That virality converts to revenue -- it has not, for anyone in this category yet. & Verified fact \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The hackathon-channel honesty flag (load-bearing).} No hard-numbers case study was found of any company whose \emph{primary} acquisition channel was hackathon sponsorship. Hackathon sponsorship is therefore labeled an \textbf{untested tactic} in this plan -- a plausible Month-2+ brand/awareness lever, not a proven Day 1--14 acquisition channel. The typical hackathon cold-sponsor conversion rate (\textasciitilde50 cold emails per sponsor closed -- \textbf{Industry estimate}) is structurally close to Devorix's own 12--15 pitches-per-yes assumption (Section~\ref{sec:gtm-launch-additions}), which suggests the advertiser-conversion assumption is realistic by category standards -- it says nothing, however, about hackathons as a \emph{user}-acquisition funnel.
+
+\section{Concrete Additions to the Launch Motion}
+\label{sec:gtm-launch-additions}
+
+Building on the 14-day sprint structure (MASTER-PLAN \S8.2), three concrete additions sharpen the Days 10--14 launch motion:
+
+\begin{enumerate}
+  \item \textbf{Weight the launch tweet at least as heavily as the HN/PH submission.} This diverges from the general dev-tool pattern, where HN usually wins, because this specific category has already proven that Twitter is where it goes viral (the Kickbacks precedent, Section~\ref{sec:gtm-comps}).
+  \item \textbf{Budget a tight \textasciitilde\$500--800 (\textasciitilde₹45,000--75,000) micro-influencer plus organic PH/HN push at launch}, mirroring Permit.io -- feasible only if scoped to one micro-influencer plus organic reach, not a paid campaign.
+  \item \textbf{Make the client repository public.} This is a prerequisite for the GitHub Trending compounding effect: Trending ranks by star \emph{velocity}, so a small HN/Twitter spike can land a young repository on Trending for \textasciitilde48 hours \textbf{(Verified fact on the mechanism)}. \textit{(Medium confidence -- no named company with hard ``Trending $\rightarrow$ N installs'' numbers was found, so this is treated as a free secondary effect, not a planned channel.)} This also doubles as the trust/verification move described in Section~\ref{sec:self-critique} of Chapter~\ref{chap:business-strategy}.
+\end{enumerate}
+
+\section{Channel-by-Channel Honest Assessment}
+\label{sec:gtm-channels}
+
+\begin{table}[htbp]
+\centering
+\caption{Channel-by-channel honest assessment}
+\label{tab:gtm-channel-assessment}
+\begin{tabular}{@{}p{3.4cm}p{5.6cm}p{5.0cm}@{}}
+\toprule
+\textbf{Channel} & \textbf{Honest read} & \textbf{Role in plan} \\
+\midrule
+Hacker News / Show HN & High variance, out of our control; category precedent weak (Kickbacks: 2 points). & One-shot card, played only with a real payout/renewal story -- not the launch mechanism. \\
+Product Hunt & Tool-collector audience, weak durable installs; good for backlinks/visibility. & Visibility, not retention. \\
+Launch tweet / X & The proven in-category viral channel. & Primary launch-day lever. \\
+GitHub (README / topic placement in Claude Code ecosystem repos) & Highest-leverage low-cost channel for this audience (27M India GitHub developers); earned, compounding, slow. & Core organic engine. \\
+Hackathons / SIH / college fests & Untested as primary acquisition; conversion to active weekly user unproven, likely low. & Brand/awareness + ambassador recruiting, Month 2+. \\
+Campus ambassadors & Cheapest real distribution (commission-only, paid via Devorix's own UPI rail -- eating its own dogfood). & Month 9--12 scale lever; hard ``don't oversell earnings'' rule required. \\
+Cloud-provider India DevRel (AWS/GCP/Azure) & Plausible co-marketing, but not for a 2-week-old, zero-case-study product. & Month 12+ conversation only. \\
+Enterprise (Infosys/TCS/Wipro) & Procurement cycles (3--6+ months) would burn the runway before revenue. & Deferred; cloud DevRel is the only ``enterprise-adjacent'' motion before Month 9. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Target List and Outreach Motion}
+\label{sec:gtm-target-list}
+
+The advertiser target list is organized into three concentric rings (MASTER-PLAN \S6.1), prioritized by how much persuasion each ring needs:
+
+\begin{itemize}
+  \item \textbf{Ring 1 -- AI-infra/dev-tool sellers to AI-building developers} (vector databases, observability, agent frameworks, scraping/data APIs such as Firecrawl, MCP tooling). Highest-probability first movers: both Kickbacks and IdleAds independently picked Firecrawl as their house placeholder, even as a fake placement -- they already believe this audience exists. Tactical targets: Razorpay DevTools, Sentry, PostHog, Hasura, DhiWise, Appsmith, Pabbly, 100ms, Supabase India, plus recently funded Indian startups filtered by India + SaaS + Seed/Series A + last 6 months.
+  \item \textbf{Ring 2 -- India dev-economy sellers}: cloud/hosting resellers, EdTech/upskilling bootcamps (Scaler, Coding Ninjas, iNeuron, Newton School, Masai School), dev job boards, API/SaaS vendors with Indian GTM budgets. Budget and precedent exist -- they already buy Reddit and newsletter slots -- but they need more education on why this specific channel works.
+  \item \textbf{Ring 3 -- Global dev-tool brands.} Explicit Phase 2 only, not a Month-1 target.
+\end{itemize}
+
+With zero warm advertiser intros confirmed at sprint start (MASTER-PLAN \S6.3), the sprint plan targets a list of 25--30 companies (not 20) and pitches 12--15 of them (not 5--10), to keep a realistic shot at the same close-rate bar used in earlier planning. The bar remains simple: \textbf{1 verbal yes = go; zero = stop and rethink.} Ring 1 is pitched first in every cohort, since it needs the least convincing.
+
+\section{Roadmap Linkage}
+
+The phase-by-phase channel sequencing summarized in Table~\ref{tab:gtm-channel-assessment} maps directly onto the 24-month roadmap phases described in Chapter~\ref{chap:roadmap}; channels are not deployed simultaneously but are unlocked as each phase's go/no-go gate clears.

@@ -1,4 +1,6 @@
-# Async Returns — Complete Pricing Architecture v2
+# Devorix — Complete Pricing Architecture v2
+
+> **⚠️ RETIRED 2026-06-28 — superseded by `MASTER-PLAN.md` §5.** The $8/$15 CPM, 10-second impression, and ₹83/$ FX rate below are all superseded — they were 3-10x the only independently-verified real comp (Carbon Ads' audited $1.60 CPM) and used a stale exchange rate. The tiered client/block structure idea is preserved conceptually in the master doc's hybrid ladder (Tier 0 → 1 → 2), but with reconciled numbers. Read `MASTER-PLAN.md` §5.1–5.4 before quoting any number from this file.
 
 ---
 
@@ -20,7 +22,7 @@
 
 ### The Core Unit: 1 Block
 
-| | Kickback | **Async Returns** |
+| | Kickback | **Devorix** |
 |---|---|---|
 | 1 block = | 1,000 × 5s impressions | **1,000 × 10s impressions** |
 | Price per block | $5.00 | **$8.00** |

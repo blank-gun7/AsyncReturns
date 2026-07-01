@@ -1,0 +1,8 @@
+{
+  "name": "Devorix",
+  "description": "Passive income from day one. Monetize your terminal and IDE wait states with subtle, high-quality developer sponsorship footers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

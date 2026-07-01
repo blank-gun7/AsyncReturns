@@ -1,0 +1,128 @@
+\chapter{Executive Summary}
+\label{ch:executive-summary}
+
+\section{The idea, in one line}
+
+When an AI coding tool is ``thinking,'' it shows a status line that earns
+nothing. Devorix puts a small, tasteful sponsor line there and shares the money
+with the developer --- paid in rupees over UPI. India first; global is an
+explicit Phase~2.
+
+\section{The honest current stage}
+
+This document is written from pre-seed reality, not seed-stage aspiration, and
+the framing here governs every chapter that follows. Devorix is
+\textbf{pre-launch and pre-revenue}: zero advertisers signed, zero installs, a
+\textbf{solo founder} building the MVP, and a total budget of approximately
+\textbf{₹1~lakh} on a deliberately low-burn, sweat-equity basis (founder
+salary modelled at ₹0). The category itself is roughly 2.5~weeks old (born
+2026-06-11), and \emph{nobody in it is making real money yet} --- not even the
+leaders Kickbacks and IdleAds, both of which used Firecrawl as an
+\emph{unpaid} house placeholder rather than a paying customer
+\citep{masterplan_2026}.
+
+This is therefore a pre-seed / accelerator-stage story. The honest ask is
+``give us a small check or an accelerator slot to prove the loop works,'' not
+``fund a billion-dollar vision.'' We keep those two registers strictly
+separate throughout, because mixing infrastructure-scale ambition with a
+fund-a-14-day-sprint ask is the single most common way pre-seed pitches lose
+credibility with experienced investors.
+
+\section{The locked business model}
+
+The following decisions are final and are not reopened anywhere in this
+document (the complete locked-decisions table appears in
+Appendix~\ref{app:locked-decisions}):
+
+\begin{itemize}
+  \item \textbf{Revenue share = 50/50} between Devorix and the developer.
+  \item \textbf{Hybrid pricing ladder.} Tier~0 (house ads + flat monthly
+        sponsorships of ₹10{,}000--15{,}000/mo, until $\sim$5
+        advertisers) $\rightarrow$ Tier~1 (fixed-price CPM rate card, once
+        5--10 advertisers signed) $\rightarrow$ Tier~2 (real-time auction,
+        once 5{,}000+ DAU).
+  \item \textbf{Payout threshold = ₹300}, settled automatically over UPI
+        via the RazorpayX Payouts API \citep{razorpayx_2026}.
+  \item \textbf{5-second billable impression} for the v1 build; 10~seconds
+        kept as a documented, data-gated option.
+  \item \textbf{USD$\rightarrow$INR = ₹94} used everywhere.
+  \item \textbf{Client = non-patching status-bar overlay} on Claude Code ---
+        never patches the renderer, never reads code or prompts, never touches
+        Claude's OAuth tokens.
+\end{itemize}
+
+\section{Headline market and financial numbers}
+
+The surrounding pools are large and favourable as \emph{context}, not as a
+funnel that can be divided down to a Devorix forecast:
+
+\begin{itemize}
+  \item \textbf{India developers on GitHub: 27~million (2026)}, up from 21.9M
+        in October 2025, projected to reach 57.5M by 2030 (Satya Nadella, on
+        record) \citep{masterplan_2026}. \emph{(Verified fact.)}
+  \item \textbf{Claude Code --- Devorix's first target tool --- went \$0 to a
+        \$2.5B run-rate in 9 months}; 85--92\% of developers now use AI coding
+        tools \citep{masterplan_2026}. \emph{(Verified fact.)}
+  \item Adjacent anchors: the developer-tools market is \$7.4--8.8B (2026), AI
+        code tools $\sim$\$9--9.5B; the closest business-model analogue,
+        affiliate marketing, is $\sim$\$20B (2026). \emph{(Industry
+        estimate.)}
+  \item \textbf{The locked 4-month plan (audited, not modelled):} 500 installs
+        and 3 advertisers by month~4, ₹45{,}000/mo revenue, and a
+        cumulative net of $\sim$\textbf{₹39{,}500}. Everything past
+        month~4 is gated planning scaffolding, not a funded forecast.
+        \emph{(Verified locked input.)}
+\end{itemize}
+
+The single most important structural insight: the funnel from market to
+captured revenue does \emph{not} narrow on the developer side --- 27M India
+developers is abundant and cheap to reach. The binding constraint is
+\textbf{advertiser demand}, which has no market-sizing number yet because
+nobody in this young category has found it.
+
+\section{The single biggest risk and the single biggest open question}
+
+\textbf{Biggest risk: zero verified paying advertisers exist anywhere in this
+category.} Nobody has yet proven that a developer-tool brand will pay for a
+\emph{wait-state} placement at any price. This is a larger risk than any
+product, platform, or compliance concern, and the 14-day sprint exists
+precisely to test it: one verbal yes from a cold advertiser pitch means go,
+zero means stop and rethink.
+
+\textbf{Biggest open question: will developers retain past the novelty?}
+Developers are skeptical rather than excited --- Kickbacks' own Show~HN drew
+2~points and 0~comments, and the loudest reaction across the category has been
+privacy suspicion, not demand. This is a monetization opportunity layered onto
+an existing attention pool, not a pain point developers are asking to solve.
+Only real installs plus week-4 retention data will answer whether a developer
+keeps the client once the rupee sum (₹100--200/month at realistic usage)
+is no longer novel.
+
+\section{The ask}
+
+The honest ask matches the stage: a small pre-seed check or an accelerator
+slot to fund the 14-day sprint and the 4-month loop-proving plan. The gate that
+should govern any decision to continue --- ours and an investor's --- is the
+locked go/no-go test: at least two advertisers paid \emph{and} renewed,
+week-4 developer retention holds, and the founder still wants to run it on tiny
+margins. If any axis fails, the right outcome is to stop having spent
+$\sim$₹20--30k and a few weekends to learn what most founders pay far more
+to discover. This is not a maximalist pitch; it is a request to fund the
+cheapest credible test of a real, timely, demand-side-constrained opportunity.
+
+\section*{Vision, not the near-term ask}
+\addcontentsline{toc}{section}{Vision, not the near-term ask}
+
+\emph{The following is long-term direction, explicitly not the thing being
+underwritten today.} If the near-term loop works, the same clean ledger and
+payout primitives built at v1 become the foundation for a broader bet:
+Devorix could grow from a wait-state sponsorship layer into India's
+trust-and-payout rail for developer-attention monetization, and eventually
+into financial infrastructure for the emerging agent economy --- a space where
+Visa, Mastercard, PayPal, Stripe, and Google all shipped agentic-payment
+infrastructure within a single six-month window. The defensible reason to
+build clean attribution and ledger discipline \emph{now} is that it makes that
+optionality real later at almost no extra cost today. But the vision is the
+reason the infrastructure bet is worth taking \emph{if} the loop proves out
+--- it is not the bet itself, and it is not what we are asking anyone to fund
+at this stage.

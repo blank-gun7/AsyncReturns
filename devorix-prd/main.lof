@@ -1,0 +1,29 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Adjacent-market scale comparison (top-down anchors). The agentic-commerce figure is drawn at a compressed, visually distinct scale and flagged as vision context, not a near-term TAM input.\relax }}{18}{figure.caption.5}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces India developer population on GitHub: growth trajectory. 2030 figure is a projection, not a measured value.\relax }}{19}{figure.caption.7}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Adoption split across measurement bases. Rows 4--5 (primary-tool split, 28\%/24\%) are flagged for re-verification against a second source; see the note below.\relax }}{19}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces TAM / SAM / SOM funnel. The gap between SAM and SOM is driven by unproven advertiser demand, not by a shortage of reachable developers.\relax }}{20}{figure.caption.10}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Developer journey map: six stages from discovery to the retention/churn fork, with emotional state and design implication annotated at each stage (Section\nobreakspace {}\ref {sec:journey-map}).\relax }}{29}{figure.caption.16}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Devorix Business Model Canvas\relax }}{39}{figure.caption.20}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Devorix Value Proposition Canvas (developer side)\relax }}{40}{figure.caption.21}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces V1 system architecture: client, backend, and payout planes, with the Ledger Service as the single source of truth for money. The dashed return arrow shows webhook-verified reconciliation closing the loop back to the ledger.\relax }}{60}{figure.caption.25}%
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Impression-to-payout sequence diagram. Steps 1--7 repeat many times (dashed loop frame) before a developer's balance crosses the ₹300 threshold and triggers the RazorpayX payout (steps 9--12). This is the literal proof that the rupee-payout loop the MVP exists to validate closes end-to-end.\relax }}{61}{figure.caption.26}%
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Tier 1 component diagram: rate-card serving components (green, new) attach to the unchanged Ledger Service and Event Ingest API (grey, inherited from Figure\nobreakspace {}\ref {fig:v1-architecture}), demonstrating that Tier 1 bolts on without a rewrite.\relax }}{62}{figure.caption.27}%
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Tier 2 future-state data-flow diagram [FUTURE PHASE]: real-time auction, streaming fraud detection, and an analytics warehouse are new peers sitting in front of the unchanged Ledger Service and payout rail.\relax }}{62}{figure.caption.28}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Tier-0 unit-economics waterfall, Month 4 (locked base case).\relax }}{69}{figure.caption.33}%
+\contentsline {figure}{\numberline {9.2}{\ignorespaces Implied-eCPM decay under Tier-0 flat-fee pricing as the active-developer base grows.\relax }}{69}{figure.caption.34}%
+\contentsline {figure}{\numberline {9.3}{\ignorespaces 24-month revenue scenarios. Tier 2 (real-time auction, 5,000+ DAU threshold) is not reached in any scenario through M12.\relax }}{71}{figure.caption.38}%
+\contentsline {figure}{\numberline {9.4}{\ignorespaces Cumulative net profit by scenario, M4--M24.\relax }}{71}{figure.caption.39}%
+\contentsline {figure}{\numberline {9.5}{\ignorespaces Sensitivity tornado: modeled swing in monthly platform margin by assumption.\relax }}{74}{figure.caption.42}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {11.1}{\ignorespaces 24-month Gantt-style roadmap with go/no-go gates. Bar shading: solid blue = India-committed work; hatched = Global Phase 2 work conditional on the Month-12 gate-check. Circular markers on the dashed vertical lines mark go/no-go gates -- red for hard stop/continue decisions, orange for softer triggers and checkpoints. Gate A: 1 verbal advertiser yes $\rightarrow $ go (Day 14). Gate B: MASTER-PLAN \S 8.3 gate, Month 4 -- $\geq $2 advertisers paid and renewed, week-4 retention holds. Gate C: Tier-1 rate-card trigger, \textasciitilde Month 6 -- 5--10 advertisers signed. Gate D: Month 12 -- 10,000-user Tier-2 auction trigger and Global Phase 2 gate-check. Gate E: \textasciitilde Month 17 -- Global pilot fold-back check (must hit India's Phase-1 bar within 4 months or fold back). Full gate descriptions are given in Table\nobreakspace {}\ref {tab:roadmap} and Section\nobreakspace {}\ref {sec:roadmap-narrative}.\relax }}{83}{figure.caption.44}%
+\addvspace {10\p@ }
